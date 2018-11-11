@@ -6,9 +6,78 @@
   <meta name="theme-color" content="#2196F3">
   <title>AMI</title>
 
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- CSS  -->
   <link href="styles/plugin-min.css" type="text/css" rel="stylesheet">
   <link href="styles/custom-min.css" type="text/css" rel="stylesheet" >
+  <style>
+    /* label focus color */
+    .input-field input:focus + label {
+      color: #2196f3 !important;
+    }
+    /* label underline focus color */
+    .row .input-field input:focus,.row .input-field input:valid {
+      border-bottom: 1px solid #2196f3 !important;
+      box-shadow: 0 1px 0 0 #2196f3  !important
+    }
+
+    h3 {
+      font-size: 1.9rem !important;
+      line-height: 110% !important;
+      margin: 0 0 0 0 !important;
+    }
+
+    h3 {
+      font-size: 1.9rem !important;
+      line-height: 110% !important;
+      margin: 0 0 0 0 !important;
+    }
+
+    h2{
+      font-size: 2.5rem;
+      margin: 0.1rem 0 1.424rem 0;
+
+    }
+
+    h1{
+      margin: 0.1rem 0 -4rem 0;
+    }
+
+    .text_h {
+      font-size: 4em !important;
+    }
+
+    .text_h2 {
+      line-height: 3.5rem !important;
+    }
+
+    i{
+      font-style: normal;
+    }
+
+    #index-banner {
+      min-height: 600px !important;
+    }
+
+    .cd-headline.type i {
+      position: inherit;
+      visibility: visible;
+    }
+
+    #intro {
+       padding-top: 0;
+    }
+
+    .span_h2 {
+      color: #2196F3 !important;
+    }
+
+    .card-avatar .card-content {
+      height: 200px;
+    }
+
+  </style>
 </head>
 
 <body id="top" class="scrollspy">
@@ -18,12 +87,12 @@
   <nav id="nav_f" class="default_color" role="navigation">
     <div class="container">
       <div class="nav-wrapper">
-        <a href="#" id="logo-container" class="brand-logo">Bienvenue sur le site de l'AMI</a>
+        <a href="#" id="logo-container" class="brand-logo">Association nantaise AMI</a>
         <ul class="right hide-on-med-and-down">
-          <li><a class="waves-effect waves-light btn modal-trigger" href="#modal1">Se connecter</a></li>
+          <li><a href="#modal1" onClick="openModal()">Se connecter</a></li>
         </ul>
         <ul id="nav-mobile" class="side-nav">
-          <li><a href="#">Se connecter</a></li>
+          <li><a href="#modal1" onClick="openModal()">Se connecter</a></li>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
       </div>
@@ -33,45 +102,141 @@
 
 <!--Hero-->
 <div class="section no-pad-bot" id="index-banner">
-  <div class="container">
+  <div class="row container">
+    <img src="images/logo.png" alt="logo AMI" class="col s6 offset-s3" style="margin-bottom: 25px;"/>
     <h1 class="text_h center header cd-headline letters type">
-      <span>Accompagnement Migrant Intégration</span>
+      <span><b>A</b>ccompagnement <b>M</b>igrant <b>I</b>ntégration</span>
     </h1>
   </div>
 </div>
 
-<!--Intro and service-->
+<!-- Intro -->
 <div id="intro" class="section scrollspy">
-  <div class="container">
+  <div class="container" style="width: 90%;">
     <div class="row">
       <div  class="col s12">
-        <h2 class="center header text_h2"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span class="span_h2"> Phasellus  </span>vestibulum lorem risus, nec suscipit lorem <span class="span_h2"> laoreet quis.</span> </h2>
-      </div>
-
-      <div  class="col s12 m4 l4">
-        <div class="center promo promo-example">
-          <i class="mdi-image-flash-on"></i>
-          <h5 class="promo-caption">Speeds up development</h5>
-          <p class="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
-        </div>
-      </div>
-      <div class="col s12 m4 l4">
-        <div class="center promo promo-example">
-          <i class="mdi-social-group"></i>
-          <h5 class="promo-caption">User Experience Focused</h5>
-          <p class="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-        </div>
-      </div>
-      <div class="col s12 m4 l4">
-        <div class="center promo promo-example">
-          <i class="mdi-hardware-desktop-windows"></i>
-          <h5 class="promo-caption">Fully responsive</h5>
-          <p class="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-        </div>
+        <h2 class="center header text_h2">
+          L'association <span class="span_h2">AMI</span> à <span class="span_h2">Nantes</span> a pour but l’<span class="span_h2">intégration</span> sur le territoire français des personnes étrangères.
+          <span class="span_h2">Demandeurs d’asiles</span> et <span class="span_h2">réfugiés politiques</span> font partie du public accueilli.<br>
+        </h2>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Objectifs -->
+<div class="section scrollspy" id="team">
+  <div class="container" style="width: 90%;">
+    <h2 class="header text_b"> Les objectifs de l'AMI </h2>
+    <div class="row">
+
+      <div class="col s12 m4">
+        <div class="card card-avatar">
+          <div class="card-content">
+            <span class="card-title activator span_h2">Rompre l’inactivité </span>
+            <p>Les demandeurs d'asile sont souvent inactifs et cela leurs nuit.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 m4">
+        <div class="card card-avatar">
+          <div class="card-content">
+            <span class="card-title activator span_h2">Accompagner individuellement </span>
+            <p>L'AMI accompagne individuellement chacun des membres avec un dossier de suivi. Ce suivi s'effectue toujours dans un langage de vérité.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 m4">
+        <div class="card card-avatar">
+          <div class="card-content">
+            <span class="card-title activator span_h2">Informer </span>
+            <p>L'AMI cherche à informer mais aussi rassurer et témoigner sur la problématique des migrants.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 m4">
+        <div class="card card-avatar">
+          <div class="card-content">
+            <span class="card-title activator span_h2">Lutter contre l’assistanat </span>
+            <p>L'association a pour priorité d'apprendre aux migrants à se débrouiller seul et de ne pas vivre de l'assistanat.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 m4">
+        <div class="card card-avatar">
+          <div class="card-content">
+            <span class="card-title activator span_h2">Favoriser le vivre ensemble </span>
+            <p>L'AMI lutte continuellement contre le communautarisme et favorise toujours l'acceptation des différence. Cela demande de l'éducation.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 m4">
+        <div class="card card-avatar">
+          <div class="card-content">
+            <span class="card-title activator span_h2">Intégrer par le travail </span>
+            <p>L'association pousse les migrants à trouver un travail et à suivre assidument les activité proposées. Ainsi l'itégration dans la société ce fait via le travail.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Actiivités obligatoires -->
+<div id="intro" class="section scrollspy">
+  <div class="container" style="padding-top:4rem;width: 90%;">
+    <h2 class="header text_b"> Les activitées obligatoires</h2>
+    <div class="row">
+
+      <div  class="col s13 m3 l3">
+        <div class="center promo promo-example">
+          <i class="material-icons">school</i>
+          <h5 class="promo-caption">Alphabétisation</h5>
+          <p class="light center">
+            « Il est indispensable de maîtriser la langue française pour s’intégrer au mieux dans la société. »
+            Trois niveaux de cours d’alphabétisation sont proposés du mardi au jeudi grâce à une salariée spécialisée.</p>
+        </div>
+      </div>
+
+      <div  class="col s12 m3 l3">
+        <div class="center promo promo-example">
+          <i class="material-icons">gavel</i>
+          <h5 class="promo-caption">Instruction civique</h5>
+          <p class="light center">
+            La Présidente, aidée de bénévoles, dispense des cours sur les droits et les devoirs des citoyens français ainsi que les valeurs fondamentales :
+            les institutions, les grandes dates de l’Histoire de France, l’organisation territoriale, ….</p>
+        </div>
+      </div>
+
+      <div class="col s12 m3 l3">
+        <div class="center promo promo-example">
+          <i class="material-icons">restaurant</i>
+          <h5 class="promo-caption">Cuisine</h5>
+          <p class="light center">
+            Chaque mercredi, un repas est préparé avec des denrées de la Banque Alimentaire 44 afin de mieux se familiariser aux produits français et apprendre à cuisiner simplement.</p>
+        </div>
+      </div>
+
+      <div class="col s12 m3 l3">
+        <div class="center promo promo-example">
+          <i class="material-icons">directions_run</i>
+          <h5 class="promo-caption">Sport</h5>
+          <p class="light center">
+            Afin de gérer le stress du quotidien et apprendre à mieux se connaitre, des activités sportives sont encadrées par des bénévoles :
+            football, natation, remise en forme, journée sportive, ….</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 <!--Footer-->
 <footer id="contact" class="page-footer default_color scrollspy">
@@ -84,38 +249,50 @@
 
 
 <!--  Scripts-->
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
 <script src="js/plugin-min.js"></script>
 <script src="js/custom-min.js"></script>
-
+<script>
+  function openModal(){
+    let elem = document.querySelector('#modal1');
+    let instance = M.Modal.init(elem);
+    instance.open();
+  }
+</script>
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
 
-  <form action="/login" method="POST" class="col s12" id="connectForm">
+  <form action="/login" method="POST" class="modal-content" id="connectForm">
 
-    <div class="modal-content">
-      <h4>Se Connecter</h4>
-      <p>Bonjour, veuillez vous enregistrer pour accéder à votre espace d'administration.</p>
+    <div>
+      <h4 style="text-align: center;">Se connecter</h4>
+      <blockquote>Veuillez vous enregistrer pour accéder à votre espace d'administration.</blockquote>
     </div>
 
     <div class="row">
-      <div class="input-field col s12">
-        <i class="material-icons prefix">mail</i>
-        <input id="mail" name="mail" type="email" class="validate">
-        <label for="mail">Identifiant</label>
+      <div class="input-field col s10 offset-s1">
+        <i class="material-icons prefix blue-text">mail</i>
+        <input id="mail" name="mail" type="email" class="validate blue-text">
+        <label for="mail" class="blue-text">Identifiant</label>
       </div>
     </div>
 
     <div class="row">
-      <div class="input-field col s12">
-        <i class="material-icons prefix">lock</i>
-        <input id="password" name="password" type="password" class="validate">
-        <label for="password">Mot de passe</label>
+      <div class="input-field col s10 offset-s1">
+        <i class="material-icons prefix blue-text">lock</i>
+        <input id="password" name="password" type="password" class="validate blue-text">
+        <label for="password" class="blue-text">Mot de passe</label>
       </div>
     </div>
 
     <div class="modal-footer">
-      <a class="modal-close waves-effect waves-green btn-flat" onclick="document.getElementById('connectForm').submit();">Se connecter</a>
+      <button class="btn waves-effect waves-light blue" type="submit" name="action">
+        Se connecter
+        <i class="material-icons right">send</i>
+      </button>
+      <a class="btn waves-light modal-close red accent-4" style="margin-right: 10px;">Annuler</a>
     </div>
 
   </form>
