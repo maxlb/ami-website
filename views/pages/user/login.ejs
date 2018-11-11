@@ -1,35 +1,127 @@
-s<div class="container">
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="theme-color" content="#2196F3">
+  <title>AMI</title>
 
-  <div class="row">
-    <div class="col s6 offset-s3">
-      <form action="/login" method="POST" class="col s12" id="connectForm">
+  <!-- CSS  -->
+  <link href="styles/plugin-min.css" type="text/css" rel="stylesheet">
+  <link href="styles/custom-min.css" type="text/css" rel="stylesheet" >
+</head>
 
-        <div>
-          <h1>Se Connecter</h1>
-          <p>Bonjour, veuillez vous enregistrer pour accéder à votre espace utilisateur</p>
+<body id="top" class="scrollspy">
+
+<!--Navigation-->
+<div class="navbar-fixed">
+  <nav id="nav_f" class="default_color" role="navigation">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="#" id="logo-container" class="brand-logo">Bienvenue sur le site de l'AMI</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a class="waves-effect waves-light btn modal-trigger" href="#modal1">Se connecter</a></li>
+        </ul>
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="#">Se connecter</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!--Hero-->
+<div class="section no-pad-bot" id="index-banner">
+  <div class="container">
+    <h1 class="text_h center header cd-headline letters type">
+      <span>Accompagnement Migrant Intégration</span>
+    </h1>
+  </div>
+</div>
+
+<!--Intro and service-->
+<div id="intro" class="section scrollspy">
+  <div class="container">
+    <div class="row">
+      <div  class="col s12">
+        <h2 class="center header text_h2"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span class="span_h2"> Phasellus  </span>vestibulum lorem risus, nec suscipit lorem <span class="span_h2"> laoreet quis.</span> </h2>
+      </div>
+
+      <div  class="col s12 m4 l4">
+        <div class="center promo promo-example">
+          <i class="mdi-image-flash-on"></i>
+          <h5 class="promo-caption">Speeds up development</h5>
+          <p class="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
         </div>
-
-        <div class="row">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">mail</i>
-            <input id="mail" name="mail" type="email" class="validate">
-            <label for="mail">Identifiant</label>
-          </div>
+      </div>
+      <div class="col s12 m4 l4">
+        <div class="center promo promo-example">
+          <i class="mdi-social-group"></i>
+          <h5 class="promo-caption">User Experience Focused</h5>
+          <p class="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
         </div>
-
-        <div class="row">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">lock</i>
-            <input id="password" name="password" type="password" class="validate">
-            <label for="password">Mot de passe</label>
-          </div>
+      </div>
+      <div class="col s12 m4 l4">
+        <div class="center promo promo-example">
+          <i class="mdi-hardware-desktop-windows"></i>
+          <h5 class="promo-caption">Fully responsive</h5>
+          <p class="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
         </div>
-
-        <div class="row">
-          <a class="waves-effect waves-light btn" onclick="document.getElementById('connectForm').submit();" >Se connecter</a>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
+</div>
+
+<!--Footer-->
+<footer id="contact" class="page-footer default_color scrollspy">
+  <div class="footer-copyright default_color">
+    <div class="container">
+      Made by Maxime LE BAIL
+    </div>
+  </div>
+</footer>
+
+
+<!--  Scripts-->
+<script src="js/plugin-min.js"></script>
+<script src="js/custom-min.js"></script>
+
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+
+  <form action="/login" method="POST" class="col s12" id="connectForm">
+
+    <div class="modal-content">
+      <h4>Se Connecter</h4>
+      <p>Bonjour, veuillez vous enregistrer pour accéder à votre espace d'administration.</p>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">mail</i>
+        <input id="mail" name="mail" type="email" class="validate">
+        <label for="mail">Identifiant</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">lock</i>
+        <input id="password" name="password" type="password" class="validate">
+        <label for="password">Mot de passe</label>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn-flat" onclick="document.getElementById('connectForm').submit();">Se connecter</a>
+    </div>
+
+  </form>
 
 </div>
+
+</body>
+</html>
+

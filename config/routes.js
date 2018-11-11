@@ -10,7 +10,7 @@
 
 module.exports.routes = {
 
-  '/': { view: 'pages/user/login' },
+  '/': { view: 'pages/user/login', locals: { layout: false } },
   'POST /login': { controller: 'User', action:'login' },
   'GET /logged': { controller: 'Logged', action:'welcome' }
 
