@@ -4,16 +4,56 @@
     <title>AMI</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="styles/materialize.min.css"  media="screen,projection"/>
+
+    <!--Import css-->
+    <link type="text/css" rel="stylesheet" href="styles/materialize.min.css" />
+    <link href="styles/homepage/plugin-min.css" type="text/css" rel="stylesheet" />
+    <link href="styles/homepage/custom-min.css" type="text/css" rel="stylesheet" />
+    <link href="styles/layout.css" type="text/css" rel="stylesheet" />
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
   </head>
 
-  <body>
+  <main>
+    <body class="scrollspy">
+
+    <!--Navigation-->
+    <div class="navbar-fixed">
+      <nav id="nav_f" class="default_color" role="navigation">
+        <div class="container">
+          <div class="nav-wrapper">
+            <img src="images/logo.png" alt="logo AMI" class="col s6 offset-s3 img-logo"/>
+            <a href="#" id="logo-container" class="brand-logo">Association nantaise AMI</a>
+            <ul class="right">
+              <li><a href="/logout">Se déconnecter</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
     <%- body %>
-    <!--JavaScript at end of body for optimized loading-->
-    <script src="/dependencies/sails.io.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-  </body>
+
+    </body>
+
+  </main>
+
+  <!--Footer-->
+  <footer class="page-footer scrollspy pt0">
+    <div class="footer-copyright blue darken-1">
+      <div class="container">
+        © 2018 Copyright Maxime LE BAIL
+        <a class="grey-text text-lighten-4 right" href="http://association-ami-nantes.blogspot.com/" target="_blank">Blog</a>
+      </div>
+    </div>
+  </footer>
+
+  <!--JavaScript at end of body for optimized loading-->
+  <script src="/dependencies/sails.io.js"></script>
+  <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+  <script src="js/plugin-min.js"></script>
+  <script src="js/custom-min.js"></script>
 </html>

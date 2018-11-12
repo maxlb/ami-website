@@ -9,7 +9,7 @@ module.exports = {
 
   welcome(req,res){
     let data = req.session.user;
-    return res.view('pages/homepage', { data });
+    return res.view('pages/dashboard', { data });
   }
 
 };
