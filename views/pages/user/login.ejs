@@ -50,6 +50,7 @@
 
     .text_h2 {
       line-height: 3.5rem !important;
+      margin-bottom: 0px !important;
     }
 
     i{
@@ -65,8 +66,13 @@
       visibility: visible;
     }
 
+    #team {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
     #intro {
-       padding-top: 0;
+      padding-top: 2rem;
     }
 
     .span_h2 {
@@ -92,6 +98,18 @@
 
     .row-contrat {
       display: flex;
+    }
+
+    .card-objectifs {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+
+    .li-footer {
+      vertical-align: super;
+      padding-left: 10px;
     }
 
   </style>
@@ -149,7 +167,7 @@
 
       <div class="col s12 m4">
         <div class="card card-avatar">
-          <div class="card-content">
+          <div class="card-content card-objectifs">
             <span class="card-title activator span_h2">Rompre l’inactivité </span>
             <p>Les demandeurs d'asile sont souvent inactifs et cela leurs nuit.</p>
           </div>
@@ -158,7 +176,7 @@
 
       <div class="col s12 m4">
         <div class="card card-avatar">
-          <div class="card-content">
+          <div class="card-content card-objectifs">
             <span class="card-title activator span_h2">Accompagner individuellement </span>
             <p>L'AMI accompagne individuellement chacun des membres avec un dossier de suivi. Ce suivi s'effectue toujours dans un langage de vérité.</p>
           </div>
@@ -167,7 +185,7 @@
 
       <div class="col s12 m4">
         <div class="card card-avatar">
-          <div class="card-content">
+          <div class="card-content card-objectifs">
             <span class="card-title activator span_h2">Informer </span>
             <p>L'AMI cherche à informer mais aussi rassurer et témoigner sur la problématique des migrants.</p>
           </div>
@@ -176,7 +194,7 @@
 
       <div class="col s12 m4">
         <div class="card card-avatar">
-          <div class="card-content">
+          <div class="card-content card-objectifs">
             <span class="card-title activator span_h2">Lutter contre l’assistanat </span>
             <p>L'association a pour priorité d'apprendre aux migrants à se débrouiller seul et de ne pas vivre de l'assistanat.</p>
           </div>
@@ -185,7 +203,7 @@
 
       <div class="col s12 m4">
         <div class="card card-avatar">
-          <div class="card-content">
+          <div class="card-content card-objectifs">
             <span class="card-title activator span_h2">Favoriser le vivre ensemble </span>
             <p>L'AMI lutte continuellement contre le communautarisme et favorise toujours l'acceptation des différence. Cela demande de l'éducation.</p>
           </div>
@@ -194,7 +212,7 @@
 
       <div class="col s12 m4">
         <div class="card card-avatar">
-          <div class="card-content">
+          <div class="card-content card-objectifs">
             <span class="card-title activator span_h2">Intégrer par le travail </span>
             <p>L'association pousse les migrants à trouver un travail et à suivre assidument les activité proposées. Ainsi l'itégration dans la société ce fait via le travail.</p>
           </div>
@@ -207,7 +225,7 @@
 
 <!-- Actiivités obligatoires -->
 <div id="intro" class="section scrollspy">
-  <div class="container" style="padding-top:4rem;width: 90%;">
+  <div class="container" style="width: 90%;">
     <h2 class="header text_b"> Les activitées obligatoires</h2>
     <div class="row">
 
@@ -254,7 +272,6 @@
   </div>
 </div>
 
-
 <!-- Contrat personnalisé -->
 <div class="section scrollspy" id="team">
   <div class="container" style="width: 90%;">
@@ -293,7 +310,7 @@
 
 <!-- Intégration par le travail -->
 <div id="intro" class="section scrollspy">
-  <div class="container" style="padding-top:4rem;width: 90%;">
+  <div class="container" style="width: 90%;">
     <h2 class="header text_b">Intégration par le travail</h2>
     <div class="row">
 
@@ -301,11 +318,11 @@
       <div class="col s12 m4">
         <div class="card medium">
           <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="images/muguet.jpg">
+            <img class="activator" src="images/muguet.jpg" style="top: -175px;">
           </div>
           <div class="card-content">
             <span class="card-title activator grey-text text-darken-4">Cueillette du muguet<i class="material-icons right">more_vert</i></span>
-            <p><a href="#">Chaque année en mars</a></p>
+            <p><span class="span_h2">Chaque année en mars</span></p>
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">Cueillette du muguet<i class="material-icons right">close</i></span>
@@ -326,11 +343,11 @@
       <div class="col s12 m4">
         <div class="card medium">
           <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="images/pommes.jpg">
+            <img class="activator" src="images/pommes.jpg" style="width: 136%;left: -39px;">
           </div>
           <div class="card-content">
             <span class="card-title activator grey-text text-darken-4">La cueillette des pommes<i class="material-icons right">more_vert</i></span>
-            <p><a href="#">This is a link</a></p>
+            <p><span class="span_h2">Chaque année en période de cueillette de pommes</span></p>
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">La cueillette des pommes<i class="material-icons right">close</i></span>
@@ -345,7 +362,7 @@
               situations, a atteint son objectif d’intégration par le
               travail et le logement.</p>
             <p>Hors dérogation, les réfugiés sont autorisés à
-              travailler et participent alors à l’éclaircissage des 
+              travailler et participent alors à l’éclaircissage des
               pommiers.</p>
           </div>
         </div>
@@ -354,11 +371,11 @@
       <div class="col s12 m4">
         <div class="card medium">
           <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="images/vendanges.png">
+            <img class="activator" src="images/vendanges.png" style="top: -14px;">
           </div>
           <div class="card-content">
             <span class="card-title activator grey-text text-darken-4">Les vendanges<i class="material-icons right">more_vert</i></span>
-            <p><a href="#">Chaque année en période de vendange</a></p>
+            <p><span class="span_h2">Chaque année en période de vendange</span></p>
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">Les vendanges<i class="material-icons right">close</i></span>
@@ -382,9 +399,37 @@
 
 <!--Footer-->
 <footer id="contact" class="page-footer default_color scrollspy">
-  <div class="footer-copyright default_color">
+  <div class="container" style="width: 80%;">
+    <div class="row">
+      <div class="col l8 m8 s12">
+        <h5 class="white-text">Bénévoles et stagiaires</h5>
+        <p class="grey-text text-lighten-4">
+          L’AMI accueille de futurs professionnels, dans le domaine du <b>social</b>, du <b>juridique</b>, <b>sciences politiques</b>, <b>administration</b> & <b>gestion</b>.
+        </p>
+        <p class="grey-text text-lighten-4">
+          L’association ne pourrait fonctionner sans la participation des bénévoles. La <b>permanence santé</b>, les cours d’<b>alphabétisation</b>,
+          le travail <b>adminisitratif</b>, la <b>communication</b> et la <b>trésorie</b> sont assurés par des bénévoles.
+        </p>
+        <p class="grey-text text-lighten-4">
+          Les bénévoles ponctuels interviennent dans l’<b>encadrement des contrats de travail</b>. Leur présence est précieuse auprès des groupes qui
+          partent travailler. Ils participent grandement à l’<b>encadrement</b> des bénéficiaires.
+        </p>
+      </div>
+      <div class="col l3 m3 offset-l1 s12">
+        <h5 class="white-text">Contacter l'AMI</h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3 li-footer" href="#!"><i class="material-icons">place</i><span class="li-footer">103, rue du corps de garde</span></a></li>
+          <li><a class="grey-text text-lighten-3 li-footer" href="#!"><i class="material-icons blue-text">place</i><span class="li-footer">44100 NANTES</span></a></li>
+          <li><a class="grey-text text-lighten-3 li-footer" href="#!"><i class="material-icons">phone</i><span class="li-footer">02 40 77 52 63</span></a></li>
+          <li><a class="grey-text text-lighten-3 li-footer" href="#!"><i class="material-icons">mail_outline</i><span class="li-footer">ami_asso@sfr.fr</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright blue darken-1">
     <div class="container">
-      Made by Maxime LE BAIL
+      © 2018 Copyright Maxime LE BAIL
+      <a class="grey-text text-lighten-4 right" href="http://association-ami-nantes.blogspot.com/" target="_blank">Blog</a>
     </div>
   </div>
 </footer>
