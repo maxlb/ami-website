@@ -1,0 +1,73 @@
+<% newBenefView = true %>
+<div class="row">
+  <div class="col l9 m9 s12 offset-l3 offset-m3">
+    <h2>Ajouter un bénéficiaire</h2>
+    <p>Veuillez renseigner le formulaire ci-dessous pour ajouter un nouveau bénéficiaire.</p>
+    <p>Cliquez suir "Suivant" ou sur les numéros pour naviguer entre les étapes.</p>
+
+    <div class="form">
+
+      <input id="one" type="radio" name="stage" checked="checked" />
+      <input id="two" type="radio" name="stage" />
+      <input id="three" type="radio" name="stage" />
+      <input id="four" type="radio" name="stage" />
+      <input id="five" type="radio" name="stage" />
+      <input id="six" type="radio" name="stage" />
+
+      <div class="stages">
+        <label for="one">1</label>
+        <label for="two">2</label>
+        <label for="three">3</label>
+        <label for="four">4</label>
+        <label for="five">5</label>
+        <label for="six">6</label>
+      </div>
+
+      <span class="progress"><span></span></span>
+
+      <div class="panels">
+        <!-- ETAPE 1 -->
+        <div data-panel="one">
+          <h4>Étape 1 : Identité, coordonnées et niveau d'études </h4>
+          <input type="text" placeholder="First Name" />
+        </div>
+
+        <!-- ETAPE 2 -->
+        <div data-panel="two">
+          <h4>Étape 2 : Situation familiale</h4>
+          <input type="text" placeholder="Last Name" />
+        </div>
+
+        <!-- ETAPE 3 -->
+        <div data-panel="three">
+          <h4>Étape 3 : Contact</h4>
+          <input type="text" placeholder="Address" />
+        </div>
+
+        <!-- ETAPE 4 -->
+        <div data-panel="four">
+          <h4>Étape 4 : Entrée en France</h4>
+          <input type="text" placeholder="Email" />
+        </div>
+
+        <!-- ETAPE 5 -->
+        <div data-panel="five">
+          <h4>Étape 5 :  Démarches administratives</h4>
+          <input type="text" placeholder="Phone Number" />
+        </div>
+
+        <!-- ETAPE 6 -->
+        <div data-panel="six">
+          <h4>Étape 6 : Cotisation annuelle</h4>
+          <input type="text" placeholder="Comment" />
+        </div>
+      </div>
+
+      <button class="btn-large default_color">Étape suivante</button>
+
+    </div>
+
+  </div>
+</div>
+
+
