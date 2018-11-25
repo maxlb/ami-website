@@ -11,6 +11,7 @@
 module.exports.routes = {
 
   '/': { view: 'pages/user/homepage', locals: { layout: false } },
+  '/newBeneficiaire': { view: 'pages/addBeneficiaire' },
   'POST /login': { controller: 'User', action:'login' },
   'GET /logout': { controller: 'User', action:'logout' },
   'GET /logged': { controller: 'Logged', action:'welcome' }
