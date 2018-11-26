@@ -1,3 +1,156 @@
+/******** Header ********/
+.header-container {
+  width: 95%;
+  max-width: unset;
+  margin: 0 auto;
+}
+
+#nav_f {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.img-logo {
+  height: 50px;
+  margin-top: 7px;
+  margin-right: 10px;
+}
+
+.txt-logo {
+  font-weight: 100;
+  letter-spacing: 7px;
+
+}
+
+nav ul a {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  font-weight: 300;
+}
+
+/******** Menu latéral ********/
+.sidebar {
+  height: 100%;
+  position: fixed;
+  max-width: 350px;
+  padding: 40px !important;
+}
+
+.collection a.collection-item {
+  color: white;
+  height: 100px;
+  text-align: center;
+  border: 1px solid #e0e0e0 !important;
+}
+
+.collection a.collection-item.vide {
+  border-color: #2196F3 !important;
+  height: 50px;
+}
+
+.sidemenus{
+  margin-top: 20%;
+  border: none;
+}
+
+/******** Footer ********/
+
+.page-footer {
+  margin-top: 20px !important;
+  z-index: 1;
+}
+
+.footer-copyright {
+  font-weight: 300;
+  height: 50px;
+}
+
+.footer-container{
+  width: 95%;
+  max-width: unset;
+  margin: 0 auto;
+}
+
+/******** General ********/
+
+@font-face{
+  font-family:"Roboto";
+  src:local(Roboto Thin),
+  url("../../Font/roboto/Roboto-Thin.woff2") format("woff2"),
+  url("../../Font/roboto/Roboto-Thin.woff") format("woff"),
+  url("../../Font/roboto/Roboto-Thin.ttf") format("truetype");
+  font-weight:200;
+}
+
+@font-face{
+  font-family:"Roboto";
+  src:local(Roboto Light),
+  url("../../Font/roboto/Roboto-Light.woff2") format("woff2"),
+  url("../../Font/roboto/Roboto-Light.woff") format("woff"),
+  url("../../Font/roboto/Roboto-Light.ttf") format("truetype");
+  font-weight:300;
+}
+
+@font-face{
+  font-family:"Roboto";
+  src:local(Roboto Regular),
+  url("../../Font/roboto/Roboto-Regular.woff2") format("woff2"),
+  url("../../Font/roboto/Roboto-Regular.woff") format("woff"),
+  url("../../Font/roboto/Roboto-Regular.ttf") format("truetype");
+  font-weight:400;
+}
+
+@font-face{
+  font-family:"Roboto";
+  src:url("../../Font/roboto/Roboto-Medium.woff2") format("woff2"),
+  url("../../Font/roboto/Roboto-Medium.woff") format("woff"),
+  url("../../Font/roboto/Roboto-Medium.ttf") format("truetype");
+  font-weight:500;
+}
+
+@font-face{
+  font-family:"Roboto";
+  src:url("../../Font/roboto/Roboto-Bold.woff2") format("woff2"),
+  url("../../Font/roboto/Roboto-Bold.woff") format("woff"),
+  url("../../Font/roboto/Roboto-Bold.ttf") format("truetype");
+  font-weight:700;
+}
+
+html {
+  font-family: "Roboto", sans-serif;
+}
+
+@media only screen and (min-width: 1200px){
+  html {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (min-width: 992px){
+  html {
+    font-size: 14.5px;
+  }
+}
+
+@media only screen and (min-width: 0){
+  html {
+    font-size: 14px;
+  }
+}
+
+h5 {
+  margin: 0.82rem 0 0.656rem 0;
+  font-weight: 300;
+}
+
+h2 {
+  margin: 1.78rem 0 1.424rem 0;
+}
+
+.default_color {
+  background-color: #2196F3 !important;
+}
+
 body {
   display: flex;
   min-height: 100vh;
@@ -12,8 +165,11 @@ main {
   padding-top: 0 !important;
 }
 
-.img-logo {
-  height: 50px;
-  margin-top: 7px;
-  margin-right: 10px;
+.page {
+  margin-bottom: 0 !important;
+  height: 100%;
 }
+
+
+
+
