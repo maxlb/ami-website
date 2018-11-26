@@ -4,16 +4,11 @@
     <title>AMI</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <!--Import css-->
     <link type="text/css" rel="stylesheet" href="styles/materialize.min.css" />
-    <link href="styles/homepage/plugin-min.css" type="text/css" rel="stylesheet" />
-    <link href="styles/homepage/custom-min.css" type="text/css" rel="stylesheet" />
     <link href="styles/layout.css" type="text/css" rel="stylesheet" />
-    <% if (newBenefView) { %>
-      <link href="styles/newBenef.css" type="text/css" rel="stylesheet" />
-    <% } %>
-    <!--Let browser know website is optimized for mobile-->
+    <link href="styles/<%= pageAffichee %>.css" type="text/css" rel="stylesheet" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   </head>
@@ -24,10 +19,9 @@
     <!--Navigation-->
     <div class="navbar-fixed">
       <nav id="nav_f" class="default_color" role="navigation">
-        <div class="container">
+        <div class="header-container">
           <div class="nav-wrapper">
-            <img src="images/logo.png" alt="logo AMI" class="col s6 offset-s3 img-logo"/>
-            <a href="#" id="logo-container" class="brand-logo">Association nantaise AMI</a>
+            <a href="/logged" id="logo-container" class="brand-logo txt-logo">Association nantaise AMI</a>
             <ul class="right">
               <li><a href="/logout">Se déconnecter</a></li>
             </ul>
@@ -36,7 +30,27 @@
       </nav>
     </div>
 
-    <%- body %>
+    <div class="row page">
+
+      <!-- Panneau de navigation latéral -->
+      <div class="col s3 m3 l3 default_color sidebar">
+        <img src="images/logo.png" alt="logo AMI" class="col s10 offset-s1"/>
+        <div class="collection sidemenus col s12">
+          <a href="/newBeneficiaire" class="collection-item default_color"><h5>Inscrire un nouveau bénéficiaire</h5></a>
+          <a class="collection-item default_color vide"></a>
+          <a href="#!" class="collection-item default_color"><h5>Conulter la liste des bénéficiares</h5></a>
+          <a class="collection-item default_color vide"></a>
+          <a href="#!" class="collection-item default_color"><h5>Les prochains rendez-vous</h5></a>
+          <a class="collection-item default_color vide"></a>
+          <a href="#!" class="collection-item default_color"><h5>Suivi des activités obligatoires</h5></a>
+        </div>
+      </div>
+
+      <div class="col s9 m9 l9 offset-l3 offset-m3 offset-s3 maPage">
+        <%- body %>
+      </div>
+
+    </div>
 
     </body>
 
@@ -45,7 +59,7 @@
   <!--Footer-->
   <footer class="page-footer scrollspy pt0">
     <div class="footer-copyright blue darken-1">
-      <div class="container">
+      <div class="footer-container">
         © 2018 Copyright Maxime LE BAIL
         <a class="grey-text text-lighten-4 right" href="http://association-ami-nantes.blogspot.com/" target="_blank">Blog</a>
       </div>
@@ -56,9 +70,5 @@
   <script src="/dependencies/sails.io.js"></script>
   <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="js/materialize.min.js"></script>
-  <script src="js/plugin-min.js"></script>
-  <script src="js/custom-min.js"></script>
-  <% if (newBenefView) { %>
-    <script src="js/newBenef.js"></script>
-  <% } %>
+  <script src="js/<%= pageAffichee %>.js"></script>
 </html>
