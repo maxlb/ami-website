@@ -120,7 +120,7 @@ input[type="radio"] {
   width: calc(100% / 5 * 5);
 }
 
-.panels div {
+.panels > div {
   display: none;
 }
 
@@ -133,3 +133,62 @@ input[type="radio"] {
   display: block;
 }
 
+
+/* label focus color */
+.input-field input:focus + label {
+  color: #2196F3 !important;
+}
+/* label underline focus color */
+.input-field input:focus {
+  border-bottom: 1px solid #2196F3 !important;
+  box-shadow: 0 1px 0 0 #2196F3 !important;
+}
+
+/* valid label underline focus color */
+input.valid, input.valid:focus {
+  border-bottom: 1px solid #9e9e9e !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* datepicker color */
+.datepicker-date-display {
+  background-color: #2196F3 !important;
+}
+
+/* datepicker selected date color */
+.datepicker-table td.is-selected {
+  background-color: #2196F3 !important;
+}
+
+/* datepicker days color */
+.datepicker-table abbr {
+  text-decoration: none;
+  color: #2196F3 !important;
+}
+
+/* largeur mois datepicker */
+.datepicker-controls .select-month input {
+  width: 85px !important;
+}
+
+/* checkbox color */
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
+  background-color: #2196F3;
+}
+
+/* checkbox color */
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after {
+  border: 2px solid #2196F3;
+}
+
+/* genre alignés verticalemet */
+.row .col.s2.genre {
+  margin-top: 2em;
+}
+
+/* marges extérieures */
+.row-etape{
+  margin-left: 3rem !important;
+  margin-right: 3rem !important;
+}
