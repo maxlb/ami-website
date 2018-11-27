@@ -1,74 +1,189 @@
 <% pageAffichee = "newBenef" %>
 
-    <h2>Ajouter un bénéficiaire</h2>
-    <p>Veuillez renseigner le formulaire ci-dessous pour ajouter un nouveau bénéficiaire.</p>
-    <p>Cliquez sur "Suivant" ou sur les numéros pour naviguer entre les étapes.</p>
+<h2>Ajouter un bénéficiaire</h2>
+<p>
+  Veuillez renseigner le formulaire ci-dessous pour ajouter un nouveau bénéficiaire.
+  <br />
+  Cliquez sur "Suivant" ou sur les numéros pour naviguer entre les étapes.
+</p>
 
-    <div class="form">
+<div class="form row">
 
-      <input id="one" type="radio" name="stage" checked="checked" />
-      <input id="two" type="radio" name="stage" />
-      <input id="three" type="radio" name="stage" />
-      <input id="four" type="radio" name="stage" />
-      <input id="five" type="radio" name="stage" />
-      <input id="six" type="radio" name="stage" />
-
-      <div class="stages">
-        <label for="one">1</label>
-        <label for="two">2</label>
-        <label for="three">3</label>
-        <label for="four">4</label>
-        <label for="five">5</label>
-        <label for="six">6</label>
+  <!-- Informations inscription -->
+  <div class="row">
+    <div class="col s6">
+      Inscription réalisée par : 
+      <div class="input-field inline">
+        <input id="inscritPar" type="text">
+        <label for="inscritPar">Nom et prénom</label>
       </div>
-
-      <span class="progress"><span></span></span>
-
-      <div class="panels">
-        <!-- ETAPE 1 -->
-        <div data-panel="one">
-          <h4>Étape 1 : Identité, coordonnées et niveau d'études </h4>
-          <input type="text" placeholder="First Name" />
-          <input type="text" placeholder="First Name" />
-          <input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" /><input type="text" placeholder="First Name" />
-
-
-
-        </div>
-
-        <!-- ETAPE 2 -->
-        <div data-panel="two">
-          <h4>Étape 2 : Situation familiale</h4>
-          <input type="text" placeholder="Last Name" />
-        </div>
-
-        <!-- ETAPE 3 -->
-        <div data-panel="three">
-          <h4>Étape 3 : Contact</h4>
-          <input type="text" placeholder="Address" />
-        </div>
-
-        <!-- ETAPE 4 -->
-        <div data-panel="four">
-          <h4>Étape 4 : Entrée en France</h4>
-          <input type="text" placeholder="Email" />
-        </div>
-
-        <!-- ETAPE 5 -->
-        <div data-panel="five">
-          <h4>Étape 5 :  Démarches administratives</h4>
-          <input type="text" placeholder="Phone Number" />
-        </div>
-
-        <!-- ETAPE 6 -->
-        <div data-panel="six">
-          <h4>Étape 6 : Cotisation annuelle</h4>
-          <input type="text" placeholder="Comment" />
-        </div>
+    </div>
+    <div class="col s6">
+      Le : 
+      <div class="input-field inline">
+        <input id="inscriLe" type="text" class="datepicker">
+        <label for="inscriLe">Date d'inscription</label>
       </div>
+    </div>
+  </div>
 
-      <button class="btn-large default_color btn-suivant">Étape suivante</button>
+  <!-- Bulles d'étapes -->
+  <input id="one" type="radio" name="stage" checked="checked" />
+  <input id="two" type="radio" name="stage" />
+  <input id="three" type="radio" name="stage" />
+  <input id="four" type="radio" name="stage" />
+  <input id="five" type="radio" name="stage" />
+  <input id="six" type="radio" name="stage" />
+
+  <div class="stages">
+    <label for="one">1</label>
+    <label for="two">2</label>
+    <label for="three">3</label>
+    <label for="four">4</label>
+    <label for="five">5</label>
+    <label for="six">6</label>
+  </div>
+
+  <span class="progress">
+    <span></span>
+  </span>
+
+  <!-- Pages du formulaire -->
+  <div class="panels">
+
+    <!-- ETAPE 1 -->
+    <div data-panel="one">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Étape 1 : Identité, coordonnées et niveau d'études</span>
+
+            <div class="row row-etape">
+
+              <!-- Nom, prénoms -->
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="prenom" type="text">
+                  <label for="prenom">Prénoms</label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="nom" type="text">
+                  <label for="nom">Nom</label>
+                </div>
+              </div>
+
+              <!-- Date de naissance, genre -->
+              <div class="row">
+                <div class="col s4">
+                  <div class="input-field inline">
+                    <input  id="dateNaissance" type="text" class="datepicker">
+                    <label for="dateNaissance">Date de naissance</label>
+                  </div>
+                </div>
+                <div class="col s2 genre">
+                    Genre : 
+                </div>
+                <div class="col s2 genre">
+                    <label>
+                      <input name="genre" type="radio" class="with-gap"/>
+                      <span>Femme</span>
+                    </label>
+                </div>
+                <div class="col s2 genre">
+                    <label>
+                      <input name="genre" type="radio" class="with-gap"/>
+                      <span>Homme</span>
+                    </label>
+                </div>
+                <div class="col s2 genre">
+                    <label>
+                      <input name="genre" type="radio" class="with-gap"/>
+                      <span>Autre</span>
+                    </label> 
+                </div>
+              </div>
+              
+              <!-- Nationalité, pays de naissance -->
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="nationalite" type="text" class="autocomplete nationalite">
+                  <label for="nationalite">Nationalité</label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="paysNaissance" type="text" class="autocomplete pays-naissance">
+                  <label for="paysNaissance">Pays de naissance</label>
+                </div>
+              </div>
+              
+              <!-- Adresse, code postal, ville -->
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="adresse" type="text">
+                  <label for="adresse">Adresse</label>
+                </div>
+                <div class="input-field col s2">
+                  <input id="codePostal" type="text">
+                  <label for="codePostal">Code postal</label>
+                </div>
+                <div class="input-field col s4">
+                    <input id="ville" type="text">
+                    <label for="ville">Ville</label>
+                  </div>
+              </div>
+
+              <!-- Mail, téléphone -->
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="mail" type="email" class="validate">
+                  <label for="mail">Adresse mail</label>
+                  <span class="helper-text" data-error="Adresse mail invalide"></span>
+                </div>
+                <div class="input-field col s6">
+                  <input id="numTel" type="text">
+                  <label for="numTel">Numéro de téléphone</label>
+                </div>
+              </div>
+              
+              
+            </div>
+
+          </div>
+        </div>
 
     </div>
+
+    <!-- ETAPE 2 -->
+    <div data-panel="two">
+      <h4>Étape 2 : Situation familiale</h4>
+      <input type="text" placeholder="Last Name" />
+    </div>
+
+    <!-- ETAPE 3 -->
+    <div data-panel="three">
+      <h4>Étape 3 : Contact</h4>
+      <input type="text" placeholder="Address" />
+    </div>
+
+    <!-- ETAPE 4 -->
+    <div data-panel="four">
+      <h4>Étape 4 : Entrée en France</h4>
+      <input type="text" placeholder="Email" />
+    </div>
+
+    <!-- ETAPE 5 -->
+    <div data-panel="five">
+      <h4>Étape 5 :  Démarches administratives</h4>
+      <input type="text" placeholder="Phone Number" />
+    </div>
+
+    <!-- ETAPE 6 -->
+    <div data-panel="six">
+      <h4>Étape 6 : Cotisation annuelle</h4>
+      <input type="text" placeholder="Comment" />
+    </div>
+  </div>
+
+  <button class="btn-large default_color btn-suivant">Étape suivante</button>
+
+</div>
 
 
