@@ -1,24 +1,77 @@
 $('.form .stages label').click(function() {
-  var radioButtons = $('.form input:radio');
-  var selectedIndex = radioButtons.index(radioButtons.filter(':checked'));
-  selectedIndex = selectedIndex + 1;
+  // on doit attendre la fin de la transition (3s)
+  setTimeout(function(){
+    var radioButtons = $('.form > input:radio');
+    var checkedButton = radioButtons.delay(20000).filter(':checked');
+    var selectedIndex = radioButtons.index(checkedButton);
+
+    selectedIndex = selectedIndex + 1;
+
+    if (selectedIndex == 6) {
+      $('button.btn-suivant').html('Valider');
+    } else {
+      $('button.btn-suivant').html('étape suivante');
+    }
+    if (selectedIndex == 1) {
+      $('button.btn-precedent').hide();
+    } else {
+      $('button.btn-precedent').show();
+    }
+  }, 305);
+
 });
 
-$('.form button').click(function() {
-  var radioButtons = $('.form input:radio');
+$('.form button.btn-suivant').click(function() {
+  var radioButtons = $('.form > input:radio');
   var selectedIndex = radioButtons.index(radioButtons.filter(':checked'));
 
   selectedIndex = selectedIndex + 2;
 
-  $('.form input[type="radio"]:nth-of-type(' + selectedIndex + ')').prop('checked', true);
+  $('.form > input[type="radio"]:nth-of-type(' + selectedIndex + ')').prop('checked', true);
+
+  $('button.btn-precedent').show();
 
   if (selectedIndex == 6) {
-    $('button').html('Valider');
+    $('button.btn-suivant').html('Valider');
+  } else {
+    $('button.btn-suivant').html('étape suivante');
+  }
+});
+
+$('.form button.btn-precedent').click(function() {
+  var radioButtons = $('.form > input:radio');
+  var selectedIndex = radioButtons.index(radioButtons.filter(':checked'));
+
+  selectedIndex = selectedIndex;
+
+  $('.form > input[type="radio"]:nth-of-type(' + selectedIndex + ')').prop('checked', true);
+
+  $('button.btn-suivant').show();
+  $('button.btn-suivant').html('étape suivante');
+
+  if (selectedIndex == 1) {
+    $('button.btn-precedent').hide();
+  } else {
+    $('button.btn-precedent').show();
   }
 });
 
 
+// Fonction qui se déclanche au clic sur l'un des radio bouton du genre
+$('input[name=genre]').click(function() {
+
+  if($('input[name=genre]:checked').attr('id') == "isFemme") {
+    $("#nomJF").removeAttr('disabled');
+  } else {
+    $("#nomJF").attr('disabled',"disabled");
+  }
+
+})
+
+
 $(document).ready(function(){
+
+  $('button.btn-precedent').hide();
 
   /* Initialisation du datepicker */
   $('.datepicker').datepicker({ 
