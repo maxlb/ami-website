@@ -53,102 +53,121 @@
 
     <!-- ETAPE 1 -->
     <div data-panel="one">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">Étape 1 : Identité, coordonnées et niveau d'études</span>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Informations personnelles du bénéficiaire</span>
 
-            <div class="row row-etape">
+          <div class="row row-etape">
 
-              <!-- Nom, prénoms -->
-              <div class="row">
-                <div class="input-field col s6">
-                  <input id="prenom" type="text">
-                  <label for="prenom">Prénoms</label>
-                </div>
-                <div class="input-field col s6">
-                  <input id="nom" type="text">
-                  <label for="nom">Nom</label>
-                </div>
+            <span class="card-title subtitle">Identité</span>
+            <!-- Nom, prénoms -->
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="prenom" type="text">
+                <label for="prenom">Prénoms</label>
               </div>
-
-              <!-- Date de naissance, genre -->
-              <div class="row">
-                <div class="col s4">
-                  <div class="input-field inline">
-                    <input  id="dateNaissance" type="text" class="datepicker">
-                    <label for="dateNaissance">Date de naissance</label>
-                  </div>
-                </div>
-                <div class="col s2 genre">
-                    Genre : 
-                </div>
-                <div class="col s2 genre">
-                    <label>
-                      <input name="genre" type="radio" class="with-gap"/>
-                      <span>Femme</span>
-                    </label>
-                </div>
-                <div class="col s2 genre">
-                    <label>
-                      <input name="genre" type="radio" class="with-gap"/>
-                      <span>Homme</span>
-                    </label>
-                </div>
-                <div class="col s2 genre">
-                    <label>
-                      <input name="genre" type="radio" class="with-gap"/>
-                      <span>Autre</span>
-                    </label> 
-                </div>
+              <div class="input-field col s6">
+                <input id="nom" type="text">
+                <label for="nom">Nom</label>
               </div>
-              
-              <!-- Nationalité, pays de naissance -->
-              <div class="row">
-                <div class="input-field col s6">
-                  <input id="nationalite" type="text" class="autocomplete nationalite">
-                  <label for="nationalite">Nationalité</label>
-                </div>
-                <div class="input-field col s6">
-                  <input id="paysNaissance" type="text" class="autocomplete pays-naissance">
-                  <label for="paysNaissance">Pays de naissance</label>
-                </div>
-              </div>
-              
-              <!-- Adresse, code postal, ville -->
-              <div class="row">
-                <div class="input-field col s6">
-                  <input id="adresse" type="text">
-                  <label for="adresse">Adresse</label>
-                </div>
-                <div class="input-field col s2">
-                  <input id="codePostal" type="text">
-                  <label for="codePostal">Code postal</label>
-                </div>
-                <div class="input-field col s4">
-                    <input id="ville" type="text">
-                    <label for="ville">Ville</label>
-                  </div>
-              </div>
-
-              <!-- Mail, téléphone -->
-              <div class="row">
-                <div class="input-field col s6">
-                  <input id="mail" type="email" class="validate">
-                  <label for="mail">Adresse mail</label>
-                  <span class="helper-text" data-error="Adresse mail invalide"></span>
-                </div>
-                <div class="input-field col s6">
-                  <input id="numTel" type="text">
-                  <label for="numTel">Numéro de téléphone</label>
-                </div>
-              </div>
-              
-              
             </div>
 
-          </div>
-        </div>
+            <!-- Date de naissance, genre et nom de jeune fille -->
+            <div class="row">
+              
+              <div class="col s1 genre">
+                  Genre : 
+              </div>
+              <div class="col s2 genre">
+                  <label>
+                    <input id="isFemme" name="genre" type="radio" class="with-gap"/>
+                    <span>Femme</span>
+                  </label>
+                  <label>
+                    <input id="isHomme" name="genre" type="radio" class="with-gap"/>
+                    <span>Homme</span>
+                  </label>
+              </div>
+              <div class="input-field col s6">
+                <input id="nomJF" type="text" disabled>
+                <label for="nomJF">Nom de jeune fille</label>
+              </div>
+              <div class="col s3">
+                <div class="input-field inline">
+                  <input  id="dateNaissance" type="text" class="datepicker">
+                  <label for="dateNaissance">Date de naissance</label>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Nationalité, pays de naissance -->
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="nationalite" type="text" class="autocomplete nationalite">
+                <label for="nationalite">Nationalité</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="paysNaissance" type="text" class="autocomplete pays-naissance">
+                <label for="paysNaissance">Pays de naissance</label>
+              </div>
+            </div>
+            
+            <span class="card-title subtitle">Coordonnées</span>
+            <!-- Adresse, code postal, ville -->
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="adresse" type="text">
+                <label for="adresse">Adresse</label>
+              </div>
+              <div class="input-field col s2">
+                <input id="codePostal" type="text">
+                <label for="codePostal">Code postal</label>
+              </div>
+              <div class="input-field col s4">
+                <input id="ville" type="text">
+                <label for="ville">Ville</label>
+              </div>
+            </div>
 
+            <!-- Mail, téléphone -->
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="mail" type="email" class="validate">
+                <label for="mail">Adresse mail</label>
+                <span class="helper-text" data-error="Adresse mail invalide"></span>
+              </div>
+              <div class="input-field col s6">
+                <input id="numTel" type="text">
+                <label for="numTel">Numéro de téléphone</label>
+              </div>
+            </div>
+
+
+            <span class="card-title subtitle">Niveau d'études</span>
+            <!-- Niveau d'études -->
+            <div class="switch col s3 etudes">
+              Comprend le français
+              <label>
+                <input type="checkbox">
+                <span class="lever"></span>
+              </label>
+            </div>
+            <div class="switch col s3 etudes">
+              A obtenu le bac
+              <label>
+                <input type="checkbox">
+                <span class="lever"></span>
+              </label>
+            </div>
+            <div class="input-field col s6">
+              <input id="etudesSup" type="text">
+              <label for="etudesSup">Études supérieures</label>
+            </div>
+            
+          </div>
+
+        </div>
+      </div>
     </div>
 
     <!-- ETAPE 2 -->
@@ -182,6 +201,7 @@
     </div>
   </div>
 
+  <button class="btn-large default_color btn-precedent">Étape précédente</button>
   <button class="btn-large default_color btn-suivant">Étape suivante</button>
 
 </div>

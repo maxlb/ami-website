@@ -1,6 +1,9 @@
 .stages {
   font-size: 0;
   text-align: justify;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 label{
@@ -98,26 +101,27 @@ input[type="radio"] {
   transform: translateY(-2.9em);
   transition: 0.3s;
   width: 0;
+  margin-left: 10%;
 }
 
 #two:checked ~ .progress span {
-  width: calc(100% / 5 * 1);
+  width: calc(80% / 5 * 1);
 }
 
 #three:checked ~ .progress span {
-  width: calc(100% / 5 * 2);
+  width: calc(80% / 5 * 2);
 }
 
 #four:checked ~ .progress span {
-  width: calc(100% / 5 * 3);
+  width: calc(80% / 5 * 3);
 }
 
 #five:checked ~ .progress span {
-  width: calc(100% / 5 * 4);
+  width: calc(80% / 5 * 4);
 }
 
 #six:checked ~ .progress span {
-  width: calc(100% / 5 * 5);
+  width: calc(80% / 5 * 5);
 }
 
 .panels > div {
@@ -133,6 +137,10 @@ input[type="radio"] {
   display: block;
 }
 
+/* input désactivées grisées */
+input:disabled + label {
+  color: rgba(0,0,0,0.42) !important;
+}
 
 /* label focus color */
 .input-field input:focus + label {
@@ -183,7 +191,14 @@ input.valid, input.valid:focus {
 }
 
 /* genre alignés verticalemet */
+.row .col.s1.genre {
+  margin-top: 2em;
+}
 .row .col.s2.genre {
+  margin-top: 1em;
+}
+
+.row .col.s3.etudes {
   margin-top: 2em;
 }
 
@@ -191,4 +206,32 @@ input.valid, input.valid:focus {
 .row-etape{
   margin-left: 3rem !important;
   margin-right: 3rem !important;
+}
+
+.card-title.subtitle{
+  font-size: 20px;
+  color: #2196F3;
+  text-align: left;
+  font-weight: 300 !important;
+}
+
+.card-title {
+  text-align: center;
+  font-weight: 500 !important;
+}
+
+.btn-suivant{
+  float: right;
+}
+
+.btn-precedent{
+  float: left;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after{
+  background-color: #2196F3 !important;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+  background-color: #72c1ff !important;
 }
