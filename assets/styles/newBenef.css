@@ -202,6 +202,14 @@ input.valid, input.valid:focus {
   margin-top: 2em;
 }
 
+.row .col.s4.resideFranceEnfant {
+  margin-top: 2em;
+}
+
+.row .col.s4.resideFranceConjoint {
+  margin-top: 2em;
+}
+
 /* marges extérieures */
 .row-etape{
   margin-left: 3rem !important;
@@ -232,6 +240,37 @@ input.valid, input.valid:focus {
   background-color: #2196F3 !important;
 }
 
+.btn-floating{
+  background-color: #2196F3 !important;
+  width: 30px !important;
+  height: 30px !important;
+}
+
+
 .switch label input[type=checkbox]:checked+.lever {
   background-color: #72c1ff !important;
+}
+
+.dropdown-content li>span {
+  color: #2196F3 !important;
+}
+
+.resideFranceEnfant, .resideFranceConjoint {
+  padding-left: 7% !important;
+}
+
+
+.sub-enfant{
+  display: inline-block !important;
+}
+
+.btn-floating i {
+  font-size: 1.3em !important;
+  line-height: 30px !important;
+}
+
+.enfant{
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-top: 1em;
 }
