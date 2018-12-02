@@ -280,3 +280,27 @@ input.valid, input.valid:focus {
   border: 2px solid #2196F3 !important;
   background-color: #2196F3 !important;
 }
+
+#inscripteur{
+  display: block !important;
+}
+
+.inscripteurLabel{
+  margin-top: 2em;
+}
+
+.ami{
+  background-color: #2196F3 !important;
+}
+
+.info{
+  margin-bottom: 0px !important;
+}
+
+.infoIcon{
+  padding-left: 5%;
+}
+
+.infoInsciption{
+  padding-left: 2% !important;
+}

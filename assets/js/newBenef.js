@@ -525,6 +525,32 @@ $('#passeport').click(function() {
   
 })
 
+$('#payee').click(function() {
+  var selectMontant = $("#montanCotisation").prevAll()[2];
+
+  if ($(this).prop('checked')) {
+    selectMontant.removeAttribute('disabled');
+    $("#raisonPasCotise").attr('disabled',"disabled");
+  } else {
+    selectMontant.setAttribute('disabled','disabled');
+    $('#raisonPasCotise').removeAttr('disabled');
+  }
+
+})
+
+$('#pasPayee').click(function() {
+  var selectMontant = $("#montanCotisation").prevAll()[2];
+
+  if ($(this).prop('checked')) {
+    $('#raisonPasCotise').removeAttr('disabled');
+    selectMontant.setAttribute('disabled','disabled');
+  } else {
+    $("#raisonPasCotise").attr('disabled',"disabled");
+    selectMontant.removeAttribute('disabled');
+  }
+
+})
+
 // Fonction qui se déclanche au clic sur la résidence de l'enfant en France
 $('.resideFranceEnfant input').change(function() {
 
@@ -554,6 +580,8 @@ $('.resideFranceConjoint input').change(function() {
 
 $(document).ready(function(){
 
+  $('#today').html((new Date()).getFullYear());
+  
   $('select').formSelect();
 
   $('button.btn-precedent').hide();
