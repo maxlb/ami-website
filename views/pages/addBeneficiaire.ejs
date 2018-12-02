@@ -172,8 +172,121 @@
 
     <!-- ETAPE 2 -->
     <div data-panel="two">
-      <h4>Étape 2 : Situation familiale</h4>
-      <input type="text" placeholder="Last Name" />
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Situation familiale du bénéficiaire</span>
+
+          <div class="row row-etape">
+
+            <span class="card-title subtitle">Situation personnelle</span>
+            <!-- Situation de couple, date -->
+            <div class="row">
+              <div class="input-field col s6">
+                <select id="situation">
+                  <option value="0" selected>Célibataire</option>
+                  <option value="1">Marié.e</option>
+                  <option value="2">Pacsé.e</option>
+                  <option value="3">Concubin.e</option>
+                  <option value="4">Veuf.ve</option>
+                </select>
+                <label>Situation</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="dateSituation" type="text" class="datepicker" disabled>
+                <label for="dateSituation">Depuis le</label>
+              </div>
+            </div>
+            <!-- Nom, prénopm -->
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="prenomConjoint" type="text" disabled>
+                <label for="prenomConjoint">Prénoms du/de la conjoint.e</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="nomConjoint" type="text" disabled>
+                <label for="nomConjoint">Nom du/de la conjoint.e</label>
+              </div>
+            </div>
+
+            <!-- Date de naissance, vit en France, date d'entrée -->
+            <div class="row">
+              <div class="input-field inline col s4">
+                <input  id="dateNaissanceConjoint" type="text" class="datepicker" disabled>
+                <label for="dateNaissanceConjoint">Date de naissance du/de la conjoint.e</label>
+              </div>
+              <div class="switch col s4 resideFranceConjoint">
+                Réside en France
+                <label>
+                  <input id="checkResideFranceConjoint" type="checkbox" disabled>
+                  <span class="lever"></span>
+                </label>
+              </div>
+              <div class="input-field col s4">
+                <input id="dateEntreeFranceConjoint" type="text" class="datepicker" disabled>
+                <label for="dateEntreeFranceConjoint">Depuis le</label>
+              </div>
+            </div>
+
+            <!-- Nom, prénopm -->
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="situationConjoint" type="text" disabled>
+                <label for="situationConjoint">Situation administrative du/de la conjoint.e</label>
+              </div>
+            </div>
+
+            <span class="card-title subtitle sub-enfant">Enfants</span>
+            <a class="btn-floating" id="duplicateEnfant"><i class="material-icons">add</i></a>
+            <div id="enfant0" class="enfant"> 
+              <!-- Nom, prénopm -->
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="prenomEnfant" type="text">
+                  <label for="prenomEnfant">Prénoms</label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="nomEnfant" type="text">
+                  <label for="nomEnfant">Nom</label>
+                </div>
+              </div>
+  
+              <!-- Date de naissance, vit en France, date d'entrée -->
+              <div class="row">
+                <div class="input-field inline col s4">
+                  <input  id="dateNaissanceEnfant" type="text" class="datepicker">
+                  <label for="dateNaissanceEnfant">Date de naissance</label>
+                </div>
+                <div class="switch col s4 resideFranceEnfant">
+                  Réside en France
+                  <label>
+                    <input type="checkbox">
+                    <span class="lever"></span>
+                  </label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="dateEntreeFranceEnfant" type="text" class="datepicker" disabled>
+                  <label for="dateEntreeFranceEnfant">Depuis le</label>
+                </div>
+              </div>
+  
+              <!-- Nationalité, pays de naissance -->
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="nationaliteEnfant" type="text" class="autocomplete nationalite">
+                  <label for="nationaliteEnfant">Nationalité</label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="paysNaissanceEnfant" type="text" class="autocomplete pays-naissance">
+                  <label for="paysNaissanceEnfant">Pays de naissance</label>
+                </div>
+              </div>
+            </div>
+            
+
+          </div>
+
+        </div>
+      </div>
     </div>
 
     <!-- ETAPE 3 -->
