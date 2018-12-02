@@ -1,30 +1,47 @@
 <% pageAffichee = "newBenef" %>
 
 <h2>Ajouter un bénéficiaire</h2>
-<p>
-  Veuillez renseigner le formulaire ci-dessous pour ajouter un nouveau bénéficiaire.
-  <br />
-  Cliquez sur "Suivant" ou sur les numéros pour naviguer entre les étapes.
-</p>
+
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel ami">
+        <div class="row info">
+            <div class="col s2 infoIcon">
+                <i class="material-icons white-text medium">info_outline</i>
+            </div>
+            <div class="col s10">
+              <span class="white-text card-title subtitle">
+                  Veuillez renseigner le formulaire ci-dessous pour ajouter un nouveau bénéficiaire.
+                  <br />
+                  Cliquez sur "ÉTAPE SUIVANTE" ou sur les numéros pour naviguer entre les étapes.
+              </span>
+            </div>
+    </div>
+  </div>
+</div>
 
 <div class="form row">
 
   <!-- Informations inscription -->
-  <div class="row">
-    <div class="col s6">
-      Inscription réalisée par : 
-      <div class="input-field inline">
+  <div class="row infoInsciption">
+    <div class="col s3 inscripteurLabel">
+      <span class="card-title subtitle">Inscription réalisée par : </span>
+    </div>
+    <div class="col s4">
+      <div class="input-field inline" id="inscripteur">
         <input id="inscritPar" type="text">
         <label for="inscritPar">Nom et prénom</label>
       </div>
     </div>
-    <div class="col s6">
-      Le : 
-      <div class="input-field inline">
-        <input id="inscriLe" type="text" class="datepicker">
-        <label for="inscriLe">Date d'inscription</label>
-      </div>
+    <div class="col s1 inscripteurLabel">
+      <span class="card-title subtitle">Le : </span>
     </div>
+    <div class="col s4">
+        <div class="input-field inline">
+          <input id="inscriLe" type="text" class="datepicker">
+          <label for="inscriLe">Date d'inscription</label>
+        </div>
+      </div>
   </div>
 
   <!-- Bulles d'étapes -->
@@ -415,15 +432,101 @@
 
     <!-- ETAPE 5 -->
     <div data-panel="five">
-      <h4>Étape 5 :  Démarches administratives</h4>
-      <input type="text" placeholder="Phone Number" />
+      <div class="card">
+          <div class="card-content">
+            <span class="card-title">Démarches administratives du bénéficiaire</span>
+  
+            <div class="row row-etape">
+  
+              <span class="card-title subtitle">Demande d’asile</span>
+              <div class="row">
+                <div class="input-field col s12">
+                  . . .
+                </div>
+              </div>
+
+              <span class="card-title subtitle">OFPRA</span>
+              <div class="row">
+                <div class="input-field col s12">
+                  . . .
+                </div>
+              </div>
+
+              <span class="card-title subtitle">CNDA</span>
+              <div class="row">
+                <div class="input-field col s12">
+                  . . .
+                </div>
+              </div>
+
+              <span class="card-title subtitle">OQTF</span>
+              <div class="row">
+                <div class="input-field col s12">
+                  . . .
+                </div>
+              </div>
+
+              <span class="card-title subtitle">Titre de séjour</span>
+              <div class="row">
+                <div class="input-field col s12">
+                  . . .
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
     </div>
 
     <!-- ETAPE 6 -->
     <div data-panel="six">
-      <h4>Étape 6 : Cotisation annuelle</h4>
-      <input type="text" placeholder="Comment" />
+      <div class="card">
+          <div class="card-content">
+            <span class="card-title">Cotisation annuelle du bénéficiaire</span>
+  
+            <div class="row row-etape">
+  
+              <span class="card-title subtitle">Cotisation <span id="today"></span></span>
+
+              <!-- Montant -->
+              <div class="row">
+                <div class="input-field col s3">
+                    <label>
+                      <input id="payee" name="choixCotisation" type="radio" class="with-gap" />
+                      <span>Cotisation payée</span>
+                    </label>
+                </div>
+                <div class="input-field col s4">
+                    <select id="montanCotisation" disabled>
+                      <option value="" disabled selected>Choisir un montant</option>
+                      <option value="1">5 €</option>
+                      <option value="2">10 €</option>
+                      <option value="3">20 €</option>
+                    </select>
+                    <label>Montant</label>
+                </div>
+              </div>
+
+              <!-- Montant -->
+              <div class="row">
+                  <div class="input-field col s3">
+                      <label>
+                        <input id="pasPayee" name="choixCotisation" type="radio" class="with-gap" />
+                        <span>Cotisation non payée</span>
+                      </label>
+                  </div>
+                  <div class="input-field col s4">
+                      <input id="raisonPasCotise" type="text" disabled>
+                      <label for="raisonPasCotise">Motif</label>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
     </div>
+
+
   </div>
 
   <button class="btn-large default_color btn-precedent">Étape précédente</button>
