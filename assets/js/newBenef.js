@@ -505,6 +505,26 @@ $('#situation').change(function() {
 
 })
 
+$('#visa').click(function() {
+
+  if ($(this).prop('checked')) {
+    $('#dateValiditeVisa').removeAttr('disabled');
+  } else {
+    $("#dateValiditeVisa").attr('disabled',"disabled");
+  }
+
+})
+
+$('#passeport').click(function() {
+
+  if ($(this).prop('checked')) {
+    $('#dateValiditePasseport').removeAttr('disabled');
+  } else {
+    $("#dateValiditePasseport").attr('disabled',"disabled");
+  }
+  
+})
+
 // Fonction qui se déclanche au clic sur la résidence de l'enfant en France
 $('.resideFranceEnfant input').change(function() {
 

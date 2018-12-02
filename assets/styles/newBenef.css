@@ -274,3 +274,9 @@ input.valid, input.valid:focus {
   padding-right: 2em;
   padding-top: 1em;
 }
+
+
+[type="checkbox"].filled-in:checked+span:not(.lever):after{
+  border: 2px solid #2196F3 !important;
+  background-color: #2196F3 !important;
+}
