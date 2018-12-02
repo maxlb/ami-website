@@ -291,14 +291,126 @@
 
     <!-- ETAPE 3 -->
     <div data-panel="three">
-      <h4>Étape 3 : Contact</h4>
-      <input type="text" placeholder="Address" />
+
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Contacts du bénéficiaire</span>
+
+          <div class="row row-etape">
+
+            <span class="card-title subtitle">Contacts</span>
+
+            <!-- Avocat -->
+            <div class="row">
+              <div class="input-field col s3">
+                Avocat
+              </div>
+              <div class="input-field col s9">
+                <input id="telAvocat" type="text">
+                <label for="telAvocat">Numéro de téléphone</label>
+              </div>
+            </div>
+
+            <!-- Assistante sociale -->
+            <div class="row">
+              <div class="input-field col s3">
+                Assistante sociale
+              </div>
+              <div class="input-field col s9">
+                <input id="telAssistanteSociale" type="text">
+                <label for="telAssistanteSociale">Numéro de téléphone</label>
+              </div>
+            </div>
+
+            <!-- Association -->
+            <div class="row">
+              <div class="input-field col s3">
+                Association
+              </div>
+              <div class="input-field col s9">
+                <input id="telAssociation" type="text">
+                <label for="telAssociation">Numéro de téléphone</label>
+              </div>
+            </div>
+
+            <span class="card-title subtitle sub-enfant">Découverte de l'AMI</span>
+            <!-- Orienté par -->
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="orientePar" type="text">
+                <label for="orientePar">Qui à orienté le bénéficiaire vers l'AMI ?</label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- ETAPE 4 -->
     <div data-panel="four">
-      <h4>Étape 4 : Entrée en France</h4>
-      <input type="text" placeholder="Email" />
+      <div class="card">
+          <div class="card-content">
+            <span class="card-title">Entrée en France du bénéficiaire</span>
+  
+            <div class="row row-etape">
+  
+              <span class="card-title subtitle">Date</span>
+  
+              <!-- Date d'entrée en France -->
+              <div class="row">
+                <div class="input-field col s3">
+                  Date d'entrée en France
+                </div>
+                <div class="input-field col s4">
+                  <input id="dateEntreeFrance" type="text" class="datepicker">
+                  <label for="dateEntreeFrance">Date</label>
+                </div>
+              </div>
+              
+              <!-- Date d'entrée en France -->
+              <div class="row">
+                <div class="input-field col s3">
+                  Date de validité du titre
+                </div>
+                <div class="input-field col s4">
+                  <input id="dateValiditeTitre" type="text" class="datepicker">
+                  <label for="dateValiditeTitre">Date</label>
+                </div>
+              </div>
+  
+              <span class="card-title subtitle sub-enfant">Moyen d'entrée</span>
+              <!-- Passeport -->
+              <div class="row">
+                <div class="input-field col s3">
+                    <label>
+                      <input  id="passeport" type="checkbox" class="filled-in" />
+                      <span>Passeport</span>
+                    </label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="dateValiditePasseport" type="text" class="datepicker" disabled>
+                  <label for="dateValiditePasseport">Date de validité</label>
+                </div>
+              </div>
+
+              <!-- Visa -->
+              <div class="row">
+                <div class="input-field col s3">
+                    <label>
+                      <input id="visa" type="checkbox" class="filled-in" />
+                      <span>Visa</span>
+                    </label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="dateValiditeVisa" type="text" class="datepicker" disabled> 
+                  <label for="dateValiditeVisa">Date de validité</label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
     </div>
 
     <!-- ETAPE 5 -->
