@@ -14,6 +14,7 @@ module.exports.routes = {
   '/newBeneficiaire': { view: 'pages/addBeneficiaire' },
   'POST /login': { controller: 'User', action:'login' },
   'GET /logout': { controller: 'User', action:'logout' },
-  'GET /logged': { controller: 'Logged', action:'welcome' }
+  'GET /logged': { controller: 'Logged', action:'welcome' },
+  'POST /inscireBeneficiaire': { controller: 'Beneficiaire', action:'inscrire' }
 
 };

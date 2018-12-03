@@ -202,6 +202,10 @@ input.valid, input.valid:focus {
   margin-top: 2em;
 }
 
+.row .col.s4.etudes {
+  margin-top: 2em;
+}
+
 .row .col.s4.resideFranceEnfant {
   margin-top: 2em;
 }
@@ -291,6 +295,7 @@ input.valid, input.valid:focus {
 
 .ami{
   background-color: #2196F3 !important;
+  padding: 10px;
 }
 
 .info{
@@ -298,9 +303,40 @@ input.valid, input.valid:focus {
 }
 
 .infoIcon{
-  padding-left: 5%;
+  padding-left: 5% !important;
 }
 
 .infoInsciption{
   padding-left: 2% !important;
+}
+
+.infoText{
+  font-weight: 300 !important;
+  font-size: 15px;
+  vertical-align: -webkit-baseline-middle;
+}
+
+
+li.collection-item {
+  width: 90% !important;
+  float: right !important;
+  border-left: 1px solid #e0e0e0 !important;
+}
+
+li.collection-header {
+  width: 100% !important;
+  display: flex !important;
+  border-top: 1px solid #e0e0e0 !important;
+}
+
+li.noBBord {
+  border-bottom: 0px !important;
+}
+
+li.noTBord {
+  border-top: 0px !important;
+}
+
+.secondary-content {
+  color: #2196F3 !important;
 }

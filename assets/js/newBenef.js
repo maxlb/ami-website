@@ -389,10 +389,12 @@ var listeNationalites = {
   "Zimbabwéenne": null
 }
 
-var datepickerConfig = { 
-  format: 'dd mmm yyyy',
+var datepickerConfigWithMaxDate = { 
+  format: 'dd/mm/yyyy',
   firstDay: 1, 
   showClearBtn: true,
+  yearRange: 20,
+  maxDate: new Date(),
   i18n: {
     cancel: 'Annuler',
     clear: 'Effacer',
@@ -403,6 +405,287 @@ var datepickerConfig = {
     weekdaysAbbrev: ['D','L', 'M', 'M', 'J', 'V', 'S']
   }
 }
+
+var datepickerConfigWithMinDate = { 
+  format: 'dd/mm/yyyy',
+  firstDay: 1, 
+  showClearBtn: true,
+  yearRange: 20,
+  minDate: new Date(),
+  i18n: {
+    cancel: 'Annuler',
+    clear: 'Effacer',
+    months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+    monthsShort: ['Janv', 'Févr', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'],
+    weekdays: ['Dimanche','Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+    weekdaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+    weekdaysAbbrev: ['D','L', 'M', 'M', 'J', 'V', 'S']
+  }
+}
+
+var nbEnfants = 0;
+
+var newBeneficiaire = {}
+
+function setNewBeneficiaire() {
+
+  /* Inscription */
+  var inscriptionObj = {
+    inscripteur: $('#inscritPar')[0].value,
+    dateInscription: $('#inscriLe')[0].value
+  };
+  
+  /* Infos personnelles */
+  var infosPersosObj = {
+    identite: {
+      prenom: $('#prenom')[0].value,
+      nom: $('#nom')[0].value,
+      genre: getGenre(),
+      dateNaissance: $('#dateNaissance')[0].value,
+      nomJeuneFille: $('#nomJF')[0].value,
+      nationalite: $('#nationalite')[0].value,
+      paysNaissance: $('#paysNaissance')[0].value
+    },
+    coordonnees: {
+      adresse: $('#adresse')[0].value,
+      codePostal: $('#codePostal')[0].value,
+      ville: $('#ville')[0].value,
+      mail: $('#mail')[0].value,
+      numTel: $('#numTel')[0].value
+    },
+    etudes: {
+      comprendFR: $('#comprendFR').is(':checked'),
+      aLeBac: $('#aLeBac').is(':checked'),
+      etudesSup: $('#etudesSup')[0].value
+    }
+  };
+
+  /* Situation familiale */
+  var situationFamilialeObj = {
+    situation: getSituation(),
+    dateSituation: $('#dateSituation')[0].value,
+    conjoint: {
+      prenom: $('#prenomConjoint')[0].value,
+      nom: $('#nomConjoint')[0].value,
+      dateNaissance: $('#dateNaissanceConjoint')[0].value,
+      resideFrance: $('#checkResideFranceConjoint').is(':checked'),
+      dateEntreeFrance: $('#dateEntreeFranceConjoint')[0].value,
+      situation: $('#situationConjoint')[0].value
+    },
+    enfants: getEnfants()
+  };
+
+  /* Contacts */
+  var contactsObj = {
+    avocat: $('#telAvocat')[0].value,
+    assistanteSociale: $('#telAssistanteSociale')[0].value,
+    association: $('#telAssociation')[0].value,
+    orientePar: $('#orientePar')[0].value
+  };
+
+  /* Entrée en France */
+  var entreeFranceObj = {
+    dates: {
+      dateEntreeFrance: $('#dateEntreeFrance')[0].value,
+      dateValiditeTitre: $('#dateValiditeTitre')[0].value
+    },
+    moyens: {
+      visa:{
+        avecVisa: $('#visa').is(':checked'),
+        dateValiditeVisa: $('#dateValiditeVisa')[0].value
+      },
+      passeport: {
+        avecPasseport: $('#passeport').is(':checked'),
+        dateValiditePasseport: $('#dateValiditePasseport')[0].value
+      }
+    }
+  };
+
+  /* Cotisation */
+  var cotisationObj = {
+    payee: getCotisationStatus(),
+    montant: getMontant(),
+    motif: $('#raisonPasCotise')[0].value
+  };
+
+  newBeneficiaire = {
+    inscription: inscriptionObj,
+    infosPersos: infosPersosObj,
+    situationFamiliale: situationFamilialeObj,
+    contacts: contactsObj,
+    entreeFrance: entreeFranceObj,
+    cotisation: cotisationObj
+  }
+
+  setRecapitulatif();
+}
+
+
+function setRecapitulatif(){
+  /* Inscription */
+  $('#recInscritPar').html(newBeneficiaire.inscription.inscripteur);
+  $('#recInscriLe').html(newBeneficiaire.inscription.dateInscription);
+
+  /* Informations personnelles */
+  $('#recPrenom').html(newBeneficiaire.infosPersos.identite.prenom);
+  $('#recNom').html(newBeneficiaire.infosPersos.identite.nom);
+  $('#recNomJF').html(newBeneficiaire.infosPersos.identite.nomJeuneFille);
+  $('#recGenre').html(newBeneficiaire.infosPersos.identite.genre);
+  $('#recDateNaissance').html(newBeneficiaire.infosPersos.identite.dateNaissance);
+  $('#recNationalite').html(newBeneficiaire.infosPersos.identite.nationalite);
+  $('#recPaysNaissance').html(newBeneficiaire.infosPersos.identite.paysNaissance);
+  $('#recAdresse').html(newBeneficiaire.infosPersos.coordonnees.adresse);
+  $('#recCodePostal').html(newBeneficiaire.infosPersos.coordonnees.codePostal);
+  $('#recVille').html(newBeneficiaire.infosPersos.coordonnees.ville);
+  $('#recMail').html(newBeneficiaire.infosPersos.coordonnees.mail);
+  $('#recNumTel').html(newBeneficiaire.infosPersos.coordonnees.numTel);
+  $('#recComprendFR').html(newBeneficiaire.infosPersos.etudes.comprendFR);
+  $('#recALeBac').html(newBeneficiaire.infosPersos.etudes.aLeBac);
+  $('#recEtudesSup').html(newBeneficiaire.infosPersos.etudes.etudesSup);
+
+  /* Situation familiale */
+  $('#recSituation').html(newBeneficiaire.situationFamiliale.situation);
+  $('#recDateSituation').html(newBeneficiaire.situationFamiliale.dateSituation);
+  $('#recPrenomConjoint').html(newBeneficiaire.situationFamiliale.conjoint.prenom);
+  $('#recNomConjoint').html(newBeneficiaire.situationFamiliale.conjoint.nom);
+  $('#recDateNaissanceConjoin').html(newBeneficiaire.situationFamiliale.conjoint.dateNaissance);
+  $('#recResideFranceConjoint').html(newBeneficiaire.situationFamiliale.conjoint.resideFrance);
+  $('#recDateEntreeFranceConjoint').html(newBeneficiaire.situationFamiliale.conjoint.dateEntreeFrance);
+  $('#recSituationConjoint').html(newBeneficiaire.situationFamiliale.conjoint.situation);
+  $('#recEnfants').html('uwu');
+
+  /* Contacts */
+  $('#recTelAvocat').html(newBeneficiaire.contacts.avocat);
+  $('#recTelAssistanteSociale').html(newBeneficiaire.contacts.assistanteSociale);
+  $('#recTelAssociation').html(newBeneficiaire.contacts.association);
+  $('#recOrientePar').html(newBeneficiaire.contacts.orientePar);
+
+  /* Entrée en France */
+  $('#recDateEntreeFrance').html(newBeneficiaire.entreeFrance.dates.dateEntreeFrance);
+  $('#recDateValiditeTitre').html(newBeneficiaire.entreeFrance.dates.dateValiditeTitre);
+  $('#recAvecVisa').html(newBeneficiaire.entreeFrance.moyens.visa.avecVisa);
+  $('#recDateValiditeVisa').html(newBeneficiaire.entreeFrance.moyens.visa.dateValiditeVisa);
+  $('#recAvecPasseport').html(newBeneficiaire.entreeFrance.moyens.passeport.avecPasseport);
+  $('#recDateValiditePasseport').html(newBeneficiaire.entreeFrance.moyens.passeport.dateValiditePasseport);
+
+  /* Cotisation */
+  $('#recPayee').html(newBeneficiaire.cotisation.payee);
+  $('#recMontant').html(newBeneficiaire.cotisation.montant);
+  $('#recRaisonPasCotise').html(newBeneficiaire.cotisation.motif);
+
+}
+
+function getMontant() {
+  var sit = parseInt($('#montanCotisation')[0].value);
+  var int = 0;
+
+  switch (sit) {
+    case 0:
+      int = 0;
+      break;
+    case 1:
+      int = 5;
+      break;
+    case 2:
+      int = 10;
+      break;
+    case 3:
+      int = 20;
+      break;
+  }
+
+  return int;
+}
+
+function getSituation() {
+  var sit = parseInt($('#situation')[0].value);
+  var text = "";
+
+  switch (sit) {
+    case 0:
+      text = "Célibataire";
+      break;
+    case 1:
+      text = "Marié.e";
+      break;
+    case 2:
+      text = "Pacsé.e";
+      break;
+    case 3:
+      text = "Concubin.e";
+      break;
+    case 4:
+      text = "Veuf.ve";
+      break;
+  }
+
+  return text;
+}
+
+function getCotisationStatus() {
+  if ($('#payee').is(':checked')) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function getGenre() {
+  if ($('#isHomme').is(':checked')) {
+    return 'H';
+  } else {
+    return 'F';
+  }
+}
+
+function getEnfants() {
+  var res = [];
+
+  for(var i = 0; i < nbEnfants ; i++) {
+    var idStr = "enfant" + i;
+    var enfantCourant = {
+      prenom: $('#'+idStr+' #prenomEnfant')[0].value,
+      nom: $('#'+idStr+' #nomEnfant')[0].value,
+      dateNaissance: $('#'+idStr+' #dateNaissanceEnfant')[0].value,
+      resideFrance: $('#checkResideFranceEnfant').is(':checked'),
+      dateEntreeFrance: $('#'+idStr+' #dateEntreeFranceEnfant')[0].value,
+      nationalite: $('#'+idStr+' #nationaliteEnfant')[0].value,
+      paysNaissance: $('#'+idStr+' #paysNaissanceEnfant')[0].value
+    };
+    res[i] = enfantCourant;
+  }
+
+  return res;
+
+}
+
+/* clonage de la div enfant */
+$('#duplicateEnfant').click(function(){
+
+  /* Création du clone */
+  var clone = $('#enfant0').clone(true);
+
+  /* Gestion de l'id */
+  var idClone =  "enfant"+ ++nbEnfants
+  clone.attr('id', idClone);
+
+  /* Couleur de fond */
+  if (nbEnfants % 2 != 0) {
+    clone.css('background-color', 'rgb(196, 229, 255)');
+  }
+
+  $('#enfant0').parent().append(clone);
+
+  /* Initialisation du datepicker */
+  $('#'+idClone+' input.datepicker').datepicker(datepickerConfigWithMaxDate);
+
+  /* Initialisation du champ auto-complete "Pays de naissance" */
+  $('#'+idClone+' input.autocomplete.pays-naissance').autocomplete({ minLength: 2, data: listePays });
+
+  /* Initialisation du champ auto-complete "Nationalite" */
+  $('#'+idClone+' input.autocomplete.nationalite').autocomplete({ minLength: 2, data: listeNationalites });
+  
+})
 
 $('.form .stages label').click(function() {
   // on doit attendre la fin de la transition (3s)
@@ -437,11 +720,17 @@ $('.form button.btn-suivant').click(function() {
 
   $('button.btn-precedent').show();
 
-  if (selectedIndex == 6) {
+  if (selectedIndex >= 6) {
     $('button.btn-suivant').html('Valider');
   } else {
     $('button.btn-suivant').html('étape suivante');
   }
+
+  if(selectedIndex == 7){
+    setNewBeneficiaire();
+    $('#modal1').modal('open');
+  }
+  
 });
 
 $('.form button.btn-precedent').click(function() {
@@ -578,6 +867,17 @@ $('.resideFranceConjoint input').change(function() {
   
 })
 
+
+$('#validerFormulaire').click(function(){
+  $.post( '/inscireBeneficiaire', 
+          newBeneficiaire, 
+          function(){ 
+            M.toast({html: 'Inscription effectuée !'});
+            window.location.href = '/logged';
+          }
+  );
+})
+
 $(document).ready(function(){
 
   $('#today').html((new Date()).getFullYear());
@@ -587,7 +887,10 @@ $(document).ready(function(){
   $('button.btn-precedent').hide();
 
   /* Initialisation du datepicker */
-  $('.datepicker').datepicker(datepickerConfig);
+  $('.datepicker').datepicker(datepickerConfigWithMaxDate);
+  $('#dateValiditeTitre.datepicker').datepicker(datepickerConfigWithMinDate);
+  $('#dateValiditePasseport.datepicker').datepicker(datepickerConfigWithMinDate);
+  $('#dateValiditeVisa.datepicker').datepicker(datepickerConfigWithMinDate);
 
   /* Initialisation du champ auto-complete "Pays de naissance" */
   $('input.autocomplete.pays-naissance').autocomplete({ minLength: 2, data: listePays });
@@ -595,35 +898,10 @@ $(document).ready(function(){
   /* Initialisation du champ auto-complete "Nationalite" */
   $('input.autocomplete.nationalite').autocomplete({ minLength: 2, data: listeNationalites });
 
+  /* Initialisation de la modale de confirmation */
+  $('#modal1').modal();
 });
 
-/* clonage de la div enfant */
-var nbEnfants = 0;
-$('#duplicateEnfant').click(function(){
 
-  /* Création du clone */
-  var clone = $('#enfant0').clone(true);
-
-  /* Gestion de l'id */
-  var idClone =  "enfant"+ ++nbEnfants
-  clone.attr('id', idClone);
-
-  /* Couleur de fond */
-  if (nbEnfants % 2 != 0) {
-    clone.css('background-color', 'rgb(196, 229, 255)');
-  }
-
-  $('#enfant0').parent().append(clone);
-
-  /* Initialisation du datepicker */
-  $('#'+idClone+' input.datepicker').datepicker(datepickerConfig);
-
-  /* Initialisation du champ auto-complete "Pays de naissance" */
-  $('#'+idClone+' input.autocomplete.pays-naissance').autocomplete({ minLength: 2, data: listePays });
-
-  /* Initialisation du champ auto-complete "Nationalite" */
-  $('#'+idClone+' input.autocomplete.nationalite').autocomplete({ minLength: 2, data: listeNationalites });
-  
-})
 
   
