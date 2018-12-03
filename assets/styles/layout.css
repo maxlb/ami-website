@@ -32,7 +32,7 @@ nav ul a {
 .sidebar {
   height: 100%;
   position: fixed;
-  max-width: 350px;
+  width: 350px;
   padding: 40px !important;
 }
 
@@ -170,6 +170,22 @@ main {
   height: 100%;
 }
 
+@media only screen and (max-width: 992px){
+  header, main, footer {
+    padding-left: 0 !important;
+  }
+}
 
+.pl300{
+  padding-left: 300px;
+}
 
+.w100 {
+  width: 100%;
+}
 
+a.sidenav-trigger.top-nav {
+  position: absolute;
+  top: 20px;
+  color: white;
+}

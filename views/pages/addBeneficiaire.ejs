@@ -3,19 +3,20 @@
 <h2>Ajouter un bénéficiaire</h2>
 
 <div class="row">
-  <div class="col s12">
+  <div class="col s9">
     <div class="card-panel ami">
-        <div class="row info">
-            <div class="col s2 infoIcon">
-                <i class="material-icons white-text medium">info_outline</i>
-            </div>
-            <div class="col s10">
-              <span class="white-text card-title subtitle">
-                  Veuillez renseigner le formulaire ci-dessous pour ajouter un nouveau bénéficiaire.
-                  <br />
-                  Cliquez sur "ÉTAPE SUIVANTE" ou sur les numéros pour naviguer entre les étapes.
-              </span>
-            </div>
+      <div class="row info">
+        <div class="col s2 infoIcon">
+          <i class="material-icons white-text medium">info_outline</i>
+        </div>
+        <div class="col s10">
+          <span class="white-text card-title infoText">
+            Veuillez renseigner le formulaire ci-dessous pour ajouter un nouveau bénéficiaire.
+            <br />
+            Cliquez sur "ÉTAPE SUIVANTE" ou sur les numéros pour naviguer entre les étapes.
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -80,12 +81,14 @@
             <!-- Nom, prénoms -->
             <div class="row">
               <div class="input-field col s6">
-                <input id="prenom" type="text">
+                <input id="prenom" type="text" required class="validate">
                 <label for="prenom">Prénoms</label>
+                <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
               </div>
               <div class="input-field col s6">
-                <input id="nom" type="text">
+                <input id="nom" type="text" required class="validate">
                 <label for="nom">Nom</label>
+                <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
               </div>
             </div>
 
@@ -101,7 +104,7 @@
                     <span>Femme</span>
                   </label>
                   <label>
-                    <input id="isHomme" name="genre" type="radio" class="with-gap"/>
+                    <input id="isHomme" name="genre" type="radio" class="with-gap" checked/>
                     <span>Homme</span>
                   </label>
               </div>
@@ -111,8 +114,9 @@
               </div>
               <div class="col s3">
                 <div class="input-field inline">
-                  <input  id="dateNaissance" type="text" class="datepicker">
+                  <input  id="dateNaissance" type="text" required class="datepicker validate">
                   <label for="dateNaissance">Date de naissance</label>
+                  <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
                 </div>
               </div>
             </div>
@@ -120,12 +124,14 @@
             <!-- Nationalité, pays de naissance -->
             <div class="row">
               <div class="input-field col s6">
-                <input id="nationalite" type="text" class="autocomplete nationalite">
+                <input id="nationalite" type="text" class="autocomplete nationalite validate" required> 
                 <label for="nationalite">Nationalité</label>
+                <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
               </div>
               <div class="input-field col s6">
-                <input id="paysNaissance" type="text" class="autocomplete pays-naissance">
+                <input id="paysNaissance" type="text" class="autocomplete pays-naissance validate" required">
                 <label for="paysNaissance">Pays de naissance</label>
+                <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
               </div>
             </div>
             
@@ -154,7 +160,7 @@
                 <span class="helper-text" data-error="Adresse mail invalide"></span>
               </div>
               <div class="input-field col s6">
-                <input id="numTel" type="text">
+                <input id="numTel" type="text" maxlength="10">
                 <label for="numTel">Numéro de téléphone</label>
               </div>
             </div>
@@ -162,21 +168,21 @@
 
             <span class="card-title subtitle">Niveau d'études</span>
             <!-- Niveau d'études -->
-            <div class="switch col s3 etudes">
+            <div class="switch col s4 etudes">
               Comprend le français
               <label>
-                <input type="checkbox">
+                <input type="checkbox" id="comprendFR">
                 <span class="lever"></span>
               </label>
             </div>
             <div class="switch col s3 etudes">
               A obtenu le bac
               <label>
-                <input type="checkbox">
+                <input type="checkbox" id="aLeBac">
                 <span class="lever"></span>
               </label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col s5">
               <input id="etudesSup" type="text">
               <label for="etudesSup">Études supérieures</label>
             </div>
@@ -276,7 +282,7 @@
                 <div class="switch col s4 resideFranceEnfant">
                   Réside en France
                   <label>
-                    <input type="checkbox">
+                    <input type="checkbox" id="checkResideFranceEnfant">
                     <span class="lever"></span>
                   </label>
                 </div>
@@ -323,7 +329,7 @@
                 Avocat
               </div>
               <div class="input-field col s9">
-                <input id="telAvocat" type="text">
+                <input id="telAvocat" type="text" maxlength="10">
                 <label for="telAvocat">Numéro de téléphone</label>
               </div>
             </div>
@@ -334,7 +340,7 @@
                 Assistante sociale
               </div>
               <div class="input-field col s9">
-                <input id="telAssistanteSociale" type="text">
+                <input id="telAssistanteSociale" type="text" maxlength="10">
                 <label for="telAssistanteSociale">Numéro de téléphone</label>
               </div>
             </div>
@@ -345,7 +351,7 @@
                 Association
               </div>
               <div class="input-field col s9">
-                <input id="telAssociation" type="text">
+                <input id="telAssociation" type="text" maxlength="10">
                 <label for="telAssociation">Numéro de téléphone</label>
               </div>
             </div>
@@ -492,12 +498,12 @@
               <div class="row">
                 <div class="input-field col s3">
                     <label>
-                      <input id="payee" name="choixCotisation" type="radio" class="with-gap" />
+                      <input id="payee" name="choixCotisation" type="radio" class="with-gap" checked />
                       <span>Cotisation payée</span>
                     </label>
                 </div>
                 <div class="input-field col s4">
-                    <select id="montanCotisation" disabled>
+                    <select id="montanCotisation">
                       <option value="" disabled selected>Choisir un montant</option>
                       <option value="1">5 €</option>
                       <option value="2">10 €</option>
@@ -535,3 +541,80 @@
 </div>
 
 
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Récapitulatif de l'inscription</h4>
+      <p>Vérifiez bien l'ensemble des informations ci-dessous avant de valider.</p>
+      <ul class="collection with-header">
+        <!-- Inscription -->
+        <li class="collection-header noTBord"><h5>Inscription</h5></li>
+        <li class="collection-item"><div>Inscription réalisée par        <span class="secondary-content" id="recInscritPar"></span></div></li>
+        <li class="collection-item noBBord"><div>Date de l'inscription   <span class="secondary-content" id="recInscriLe"></span></div></li>
+
+        <!-- Informations personnelles -->  
+        <li class="collection-header"><h5>Identité</h5></li>
+        <li class="collection-item"><div>Prénom                          <span class="secondary-content" id="recPrenom"></span></div></li>
+        <li class="collection-item"><div>Nom                             <span class="secondary-content" id="recNom"></span></div></li>
+        <li class="collection-item"><div>Nom de jeune fille              <span class="secondary-content" id="recNomJF"></span></div></li>
+        <li class="collection-item"><div>Genre                           <span class="secondary-content" id="recGenre"></span></div></li>
+        <li class="collection-item"><div>Date de naissance               <span class="secondary-content" id="recDateNaissance"></span></div></li>
+        <li class="collection-item"><div>Nationalite                     <span class="secondary-content" id="recNationalite"></span></div></li>
+        <li class="collection-item noBBord"><div>Pays de naissance       <span class="secondary-content" id="recPaysNaissance"></span></div></li>
+        <li class="collection-header"><h5>Coordonnées</h5></li>
+        <li class="collection-item"><div>Adresse                         <span class="secondary-content" id="recAdresse"></span></div></li>
+        <li class="collection-item"><div>Code postal                     <span class="secondary-content" id="recCodePostal"></span></div></li>
+        <li class="collection-item"><div>Ville                           <span class="secondary-content" id="recVille"></span></div></li>
+        <li class="collection-item"><div>Mail                            <span class="secondary-content" id="recMail"></span></div></li>
+        <li class="collection-item noBBord"><div>Numéro de téléphone     <span class="secondary-content" id="recNumTel"></span></div></li>
+        <li class="collection-header"><h5>Études</h5></li>
+        <li class="collection-item"><div>Comprends le français           <span class="secondary-content" id="recComprendFR"></span></div></li>
+        <li class="collection-item"><div>A le bac                        <span class="secondary-content" id="recALeBac"></span></div></li>
+        <li class="collection-item noBBord"><div>Études supérieures      <span class="secondary-content" id="recEtudesSup"></span></div></li>
+
+        <!-- Situation familiale -->  
+        <li class="collection-header"><h5>Situation familiale</h5></li>
+        <li class="collection-item"><div>Situation                       <span class="secondary-content" id="recSituation"></span></div></li>
+        <li class="collection-item noBBord"><div>Depuis le               <span class="secondary-content" id="recDateSituation"></span></div></li>
+        <li class="collection-header"><h5>Conjoint(e)</h5></li>
+        <li class="collection-item"><div>Prénom                          <span class="secondary-content" id="recPrenomConjoint"></span></div></li>
+        <li class="collection-item"><div>Nom                             <span class="secondary-content" id="recNomConjoint"></span></div></li>
+        <li class="collection-item"><div>Date de naissance               <span class="secondary-content" id="recDateNaissanceConjoin"></span></div></li>
+        <li class="collection-item"><div>Réside en France                <span class="secondary-content" id="recResideFranceConjoint"></span></div></li>
+        <li class="collection-item"><div>Date d'entrée en France         <span class="secondary-content" id="recDateEntreeFranceConjoint"></span></div></li>
+        <li class="collection-item noBBord"><div>Situation administrative<span class="secondary-content" id="recSituationConjoint"></span></div></li>
+        <li class="collection-header"><h5>Enfant(s) </h5></li>
+        <li class="collection-item noBBord"><div>...                     <span class="secondary-content" id="recEnfants"></span></div></li>
+
+        <!-- Contacts -->  
+        <li class="collection-header"><h5>Contacts</h5></li>
+        <li class="collection-item"><div>Avocat                          <span class="secondary-content" id="recTelAvocat"></span></div></li>
+        <li class="collection-item"><div>Assisstante sociale             <span class="secondary-content" id="recTelAssistanteSociale"></span></div></li>
+        <li class="collection-item"><div>Association                     <span class="secondary-content" id="recTelAssociation"></span></div></li>
+        <li class="collection-item noBBord"><div>Orienté par             <span class="secondary-content" id="recOrientePar"></span></div></li>
+
+        <!-- Entrée en France -->  
+        <li class="collection-header"><h5>Arrivée en France </h5></li>
+        <li class="collection-item"><div>Entrée en France                <span class="secondary-content" id="recDateEntreeFrance"></span></div></li>
+        <li class="collection-item noBBord"><div>Validité du titre               <span class="secondary-content" id="recDateValiditeTitre"></span></div></li>
+        <li class="collection-header"><h5>Moyens d'entrée </h5></li>
+        <li class="collection-item"><div>Visa                            <span class="secondary-content" id="recAvecVisa"></span></div></li>
+        <li class="collection-item"><div>Date validité visa              <span class="secondary-content" id="recDateValiditeVisa"></span></div></li>
+        <li class="collection-item"><div>Passeport                       <span class="secondary-content" id="recAvecPasseport"></span></div></li>
+        <li class="collection-item noBBord"><div>Date validité passeport <span class="secondary-content" id="recDateValiditePasseport"></span></div></li>
+
+        <!-- Cotisation -->  
+        <li class="collection-header"><h5>Cotisation</h5></li>
+        <li class="collection-item"><div>Payée                           <span class="secondary-content" id="recPayee"></span></div></li>
+        <li class="collection-item"><div>Montant                         <span class="secondary-content" id="recMontant"></span></div></li>
+        <li class="collection-item"><div>Motif de non-paiement           <span class="secondary-content" id="recRaisonPasCotise"></span></div></li>
+ 
+      </ul>
+    </div>
+    
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-red btn-flat">Annuler</a>
+      <a id="validerFormulaire" href="#!" class="modal-close waves-effect waves-green btn-flat">Valider</a>
+    </div>
+  </div>
