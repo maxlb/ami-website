@@ -520,6 +520,14 @@ function setNewBeneficiaire() {
   setRecapitulatif();
 }
 
+function boolToString(bool){
+  if(bool){
+    return "Oui";
+  } else {
+    return "Non";
+  }
+}
+
 
 function setRecapitulatif(){
   /* Inscription */
@@ -539,8 +547,8 @@ function setRecapitulatif(){
   $('#recVille').html(newBeneficiaire.infosPersos.coordonnees.ville);
   $('#recMail').html(newBeneficiaire.infosPersos.coordonnees.mail);
   $('#recNumTel').html(newBeneficiaire.infosPersos.coordonnees.numTel);
-  $('#recComprendFR').html(newBeneficiaire.infosPersos.etudes.comprendFR);
-  $('#recALeBac').html(newBeneficiaire.infosPersos.etudes.aLeBac);
+  $('#recComprendFR').html(boolToString(newBeneficiaire.infosPersos.etudes.comprendFR));
+  $('#recALeBac').html(boolToString(newBeneficiaire.infosPersos.etudes.aLeBac));
   $('#recEtudesSup').html(newBeneficiaire.infosPersos.etudes.etudesSup);
 
   /* Situation familiale */
@@ -549,10 +557,29 @@ function setRecapitulatif(){
   $('#recPrenomConjoint').html(newBeneficiaire.situationFamiliale.conjoint.prenom);
   $('#recNomConjoint').html(newBeneficiaire.situationFamiliale.conjoint.nom);
   $('#recDateNaissanceConjoin').html(newBeneficiaire.situationFamiliale.conjoint.dateNaissance);
-  $('#recResideFranceConjoint').html(newBeneficiaire.situationFamiliale.conjoint.resideFrance);
+  $('#recResideFranceConjoint').html(boolToString(newBeneficiaire.situationFamiliale.conjoint.resideFrance));
   $('#recDateEntreeFranceConjoint').html(newBeneficiaire.situationFamiliale.conjoint.dateEntreeFrance);
   $('#recSituationConjoint').html(newBeneficiaire.situationFamiliale.conjoint.situation);
-  $('#recEnfants').html('uwu');
+
+  /* Enfants */
+  var html = ""
+  if(newBeneficiaire.situationFamiliale.enfants.length > 0 && newBeneficiaire.situationFamiliale.enfants[0].prenom != ""){
+    $(newBeneficiaire.situationFamiliale.enfants).each(function(index, enfant) {
+      var nb = index + 1;
+      html +=    "<li class='collection-header'><h5>Enfant " + nb + " </h5></li>\
+                  <li class='collection-item'><div>Prénom                     <span class='secondary-content'>" + enfant.prenom + "</span></div></li>\
+                  <li class='collection-item'><div>Nom                        <span class='secondary-content'>" + enfant.nom + "</span></div></li>\
+                  <li class='collection-item'><div>Date de naissance          <span class='secondary-content'>" + enfant.dateNaissance + "</span></div></li>\
+                  <li class='collection-item'><div>Réside en France           <span class='secondary-content'>" + boolToString(enfant.resideFrance) + "</span></div></li>\
+                  <li class='collection-item'><div>Date d'entrée en France    <span class='secondary-content'>" + enfant.dateEntreeFrance + "</span></div></li>\
+                  <li class='collection-item'><div>Nationalité                <span class='secondary-content'>" + enfant.nationalite + "</span></div></li>\
+                  <li class='collection-item noBBord'><div>Pays de naissance          <span class='secondary-content'>" + enfant.paysNaissance + "</span></div></li>";
+    });
+  } else {
+    html +=    "<li class='collection-header'><h5>Enfants</h5></li>\
+                <li class='collection-item'><div>Pas d'enfants</div></li>";
+  }
+  $('#recEnfants').html(html);
 
   /* Contacts */
   $('#recTelAvocat').html(newBeneficiaire.contacts.avocat);
@@ -563,14 +590,14 @@ function setRecapitulatif(){
   /* Entrée en France */
   $('#recDateEntreeFrance').html(newBeneficiaire.entreeFrance.dates.dateEntreeFrance);
   $('#recDateValiditeTitre').html(newBeneficiaire.entreeFrance.dates.dateValiditeTitre);
-  $('#recAvecVisa').html(newBeneficiaire.entreeFrance.moyens.visa.avecVisa);
+  $('#recAvecVisa').html(boolToString(newBeneficiaire.entreeFrance.moyens.visa.avecVisa));
   $('#recDateValiditeVisa').html(newBeneficiaire.entreeFrance.moyens.visa.dateValiditeVisa);
-  $('#recAvecPasseport').html(newBeneficiaire.entreeFrance.moyens.passeport.avecPasseport);
+  $('#recAvecPasseport').html(boolToString(newBeneficiaire.entreeFrance.moyens.passeport.avecPasseport));
   $('#recDateValiditePasseport').html(newBeneficiaire.entreeFrance.moyens.passeport.dateValiditePasseport);
 
   /* Cotisation */
-  $('#recPayee').html(newBeneficiaire.cotisation.payee);
-  $('#recMontant').html(newBeneficiaire.cotisation.montant);
+  $('#recPayee').html(boolToString(newBeneficiaire.cotisation.payee));
+  $('#recMontant').html(newBeneficiaire.cotisation.montant + " €");
   $('#recRaisonPasCotise').html(newBeneficiaire.cotisation.motif);
 
 }
@@ -641,13 +668,13 @@ function getGenre() {
 function getEnfants() {
   var res = [];
 
-  for(var i = 0; i < nbEnfants ; i++) {
+  for(var i = 0; i <= nbEnfants ; i++) {
     var idStr = "enfant" + i;
     var enfantCourant = {
       prenom: $('#'+idStr+' #prenomEnfant')[0].value,
       nom: $('#'+idStr+' #nomEnfant')[0].value,
       dateNaissance: $('#'+idStr+' #dateNaissanceEnfant')[0].value,
-      resideFrance: $('#checkResideFranceEnfant').is(':checked'),
+      resideFrance: $('#'+idStr+ ' #checkResideFranceEnfant').is(':checked'),
       dateEntreeFrance: $('#'+idStr+' #dateEntreeFranceEnfant')[0].value,
       nationalite: $('#'+idStr+' #nationaliteEnfant')[0].value,
       paysNaissance: $('#'+idStr+' #paysNaissanceEnfant')[0].value
@@ -794,24 +821,33 @@ $('#situation').change(function() {
 
 })
 
-$('#visa').click(function() {
 
-  if ($(this).prop('checked')) {
-    $('#dateValiditeVisa').removeAttr('disabled');
+function disabledField( check, fieldToDesactivate) {
+  if (check.prop('checked')) {
+    fieldToDesactivate.removeAttr('disabled');
   } else {
-    $("#dateValiditeVisa").attr('disabled',"disabled");
+    fieldToDesactivate.attr('disabled',"disabled");
   }
+}
 
+$('#visa').click(function() {
+  disabledField($(this), $('#dateValiditeVisa'));
 })
 
 $('#passeport').click(function() {
+  disabledField($(this), $('#dateValiditePasseport'));
+})
 
-  if ($(this).prop('checked')) {
-    $('#dateValiditePasseport').removeAttr('disabled');
-  } else {
-    $("#dateValiditePasseport").attr('disabled',"disabled");
-  }
-  
+$('#procNormale').click(function() {
+  disabledField($(this), $('#derConvProcNormale'));
+})
+
+$('#procAcceleree').click(function() {
+  disabledField($(this), $('#derConvpProcAcceleree'));
+})
+
+$('#procDublin').click(function() {
+  disabledField($(this), $('#derConvProcDublin'));
 })
 
 $('#payee').click(function() {
@@ -872,7 +908,7 @@ $('#validerFormulaire').click(function(){
   $.post( '/inscireBeneficiaire', 
           newBeneficiaire, 
           function(){ 
-            M.toast({html: 'Inscription effectuée !'});
+            sessionStorage.setItem("InscriptionStatus", true);
             window.location.href = '/logged';
           }
   );

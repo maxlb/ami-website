@@ -445,23 +445,157 @@
             <div class="row row-etape">
   
               <span class="card-title subtitle">Demande d’asile</span>
+
+              <!-- Procédure normale -->
               <div class="row">
-                <div class="input-field col s12">
-                  . . .
+                <div class="input-field col s3">
+                    <label>
+                      <input id="procNormale" type="checkbox" class="filled-in" />
+                      <span>Procédure normale</span>
+                    </label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="derConvProcNormale" type="text" class="datepicker" disabled> 
+                  <label for="derConvProcNormale">Dernière convocation</label>
+                </div>
+              </div>
+
+              <!-- Procédure accélérée -->
+              <div class="row">
+                <div class="input-field col s3">
+                    <label>
+                      <input id="procAcceleree" type="checkbox" class="filled-in" />
+                      <span>Procédure accélérée</span>
+                    </label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="derConvpProcAcceleree" type="text" class="datepicker" disabled> 
+                  <label for="derConvpProcAcceleree">Dernière convocation</label>
+                </div>
+              </div>
+
+              <!-- Procédure Dublin -->
+              <div class="row">
+                <div class="input-field col s3">
+                    <label>
+                      <input id="procDublin" type="checkbox" class="filled-in" />
+                      <span>Procédure Dublin</span>
+                    </label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="derConvProcDublin" type="text" class="datepicker" disabled> 
+                  <label for="derConvProcDublin">Dernière convocation</label>
                 </div>
               </div>
 
               <span class="card-title subtitle">OFPRA</span>
+              <!-- Lettre d’enregistrement -->
               <div class="row">
-                <div class="input-field col s12">
-                  . . .
+                <div class="input-field col s3 mt2em">
+                  Lettre d’enregistrement
+                </div>
+                <div class="input-field col s4">
+                  <input id="OFPRADateLettreEnr" type="text" class="datepicker"> 
+                  <label for="OFPRADateLettreEnr">Date de la lettre</label>
+                </div>
+              </div>
+
+              <!-- Convocation -->
+              <div class="row">
+                <div class="input-field col s3 mt2em">
+                  Convocation à l'OFPRA
+                </div>
+                <div class="input-field col s4">
+                  <input id="OFPRADateConvoc" type="text" class="datepicker"> 
+                  <label for="OFPRADateConvoc">Date de convocation</label>
+                </div>
+              </div>
+
+              <!-- Réponse -->
+              <div class="row">
+                <div class="input-field col s3 mt2em">
+                  Réponse de l'OFPRA
+                </div>
+                <div class="input-field col s4">
+                  <input id="OFPRADateRep" type="text" class="datepicker"> 
+                  <label for="OFPRADateRep">Date de réponse</label>
+                </div>
+                <div class="col s2 OFPRARep mt1em">
+                  <label>
+                    <input id="isAccOFPRA" name="repOFPRA" type="radio" class="with-gap"/>
+                    <span>Acceptée</span>
+                  </label>
+                  <label>
+                    <input id="isRefOFPRA" name="repOFPRA" type="radio" class="with-gap"/>
+                    <span>Refusée</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Réexamen -->
+              <div class="row">
+                <div class="input-field col s3 mt2em">
+                  Réexamen de l'OFPRA
+                </div>
+                <div class="input-field col s4">
+                  <input id="OFPRADateReexam" type="text" class="datepicker"> 
+                  <label for="OFPRADateReexam">Date de réexamen</label>
                 </div>
               </div>
 
               <span class="card-title subtitle">CNDA</span>
+
+              <!-- Avocat -->
               <div class="row">
-                <div class="input-field col s12">
-                  . . .
+                <div class="input-field col s3 mt2em">
+                  Avocat
+                </div>
+                <div class="input-field col s4">
+                  <input id="CNDAAvocat" type="text" maxlength="10">
+                  <label for="CNDAAvocat">Nom Prénom</label>
+                </div>
+              </div>
+
+              <!-- Lettre d’enregistrement -->
+              <div class="row">
+                <div class="input-field col s3 mt2em">
+                  Lettre d’enregistrement
+                </div>
+                <div class="input-field col s4">
+                  <input id="CNDADateLettreEnr" type="text" class="datepicker"> 
+                  <label for="CNDADateLettreEnr">Date de la lettre</label>
+                </div>
+              </div>
+
+              <!-- Convocation -->
+              <div class="row">
+                <div class="input-field col s3 mt2em">
+                  Convocation à la CNDA
+                </div>
+                <div class="input-field col s4">
+                  <input id="CNDADateConvoc" type="text" class="datepicker"> 
+                  <label for="CNDADateConvoc">Date de convocation</label>
+                </div>
+              </div>
+
+              <!-- Réponse -->
+              <div class="row">
+                <div class="input-field col s3 mt2em">
+                  Décision de la CNDA
+                </div>
+                <div class="input-field col s4">
+                  <input id="CNDADateRep" type="text" class="datepicker"> 
+                  <label for="CNDADateRep">Date de réponse</label>
+                </div>
+                <div class="col s2 CNDARep mt1em">
+                  <label>
+                    <input id="isAccCNDA" name="repCNDA" type="radio" class="with-gap"/>
+                    <span>Acceptée</span>
+                  </label>
+                  <label>
+                    <input id="isRefCNDA" name="repCNDA" type="radio" class="with-gap"/>
+                    <span>Refusée</span>
+                  </label>
                 </div>
               </div>
 
@@ -584,8 +718,7 @@
         <li class="collection-item"><div>Réside en France                <span class="secondary-content" id="recResideFranceConjoint"></span></div></li>
         <li class="collection-item"><div>Date d'entrée en France         <span class="secondary-content" id="recDateEntreeFranceConjoint"></span></div></li>
         <li class="collection-item noBBord"><div>Situation administrative<span class="secondary-content" id="recSituationConjoint"></span></div></li>
-        <li class="collection-header"><h5>Enfant(s) </h5></li>
-        <li class="collection-item noBBord"><div>...                     <span class="secondary-content" id="recEnfants"></span></div></li>
+        <div id="recEnfants"> </div>
 
         <!-- Contacts -->  
         <li class="collection-header"><h5>Contacts</h5></li>
