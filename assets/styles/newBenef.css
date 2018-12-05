@@ -293,6 +293,14 @@ input.valid, input.valid:focus {
   margin-top: 2em;
 }
 
+.mt2em{
+  margin-top: 2em;
+}
+
+.mt1em{
+  margin-top: 1em;
+}
+
 .ami{
   background-color: #2196F3 !important;
   padding: 10px;
