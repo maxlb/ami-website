@@ -18,7 +18,7 @@ module.exports.datastores = {
   default: {
 
     adapter: 'sails-mysql',
-    url: 'mysql://ami-appli:AQWZSXedc123@localhost:3306/ami'
+    url: 'mysql://Maxime:AQWZSXedc0178@145.14.158.15:3306/ami' /* 'mysql://ami-appli:AQWZSXedc123@localhost:3306/ami' */
 
   }
 
