@@ -227,8 +227,8 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
      onlyAllowOrigins: [
-       'https://asso-ami.fr',
-       'http://145.14.158.15',
+       'https://asso-ami.appspot.com',
+       'https://console.cloud.google.com',
      ],
 
 
@@ -313,7 +313,7 @@ module.exports = {
   * this, just try deploying without setting it and see if it works.)       *
   *                                                                         *
   ***************************************************************************/
-   port: 443,
+   //port: 443,
 
 
 
@@ -334,12 +334,12 @@ module.exports = {
   * > https://sailsjs.com/config/*#?sailsconfigssl                          *
   *                                                                         *
   **************************************************************************/
-   ssl: {
+  /* ssl: {
 	  ca: require('fs').readFileSync(require('path').resolve(__dirname,'../SSL/asso-ami_fr.crt')),
 	  key: require('fs').readFileSync(require('path').resolve(__dirname,'../SSL/HSSL-5bf9ab91394d2.key')),
 	  cert: require('fs').readFileSync(require('path').resolve(__dirname,'../SSL/ca.txt'))
 	},
-
+*/
 
 
   /**************************************************************************
