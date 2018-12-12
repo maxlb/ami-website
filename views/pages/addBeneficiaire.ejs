@@ -374,11 +374,11 @@
     <div data-panel="four">
       <div class="card">
           <div class="card-content">
-            <span class="card-title">Entrée en France du bénéficiaire</span>
+            <span class="card-title">Vie en France du bénéficiaire</span>
   
             <div class="row row-etape">
   
-              <span class="card-title subtitle">Date</span>
+              <span class="card-title subtitle">Entrée en France</span>
   
               <!-- Date d'entrée en France -->
               <div class="row">
@@ -391,18 +391,8 @@
                 </div>
               </div>
               
-              <!-- Date d'entrée en France -->
-              <div class="row">
-                <div class="input-field col s3">
-                  Date de validité du titre
-                </div>
-                <div class="input-field col s4">
-                  <input id="dateValiditeTitre" type="text" class="datepicker">
-                  <label for="dateValiditeTitre">Date</label>
-                </div>
-              </div>
+              <span class="card-title subtitle">Moyen(s) d'entrée</span>
   
-              <span class="card-title subtitle sub-enfant">Moyen d'entrée</span>
               <!-- Passeport -->
               <div class="row">
                 <div class="input-field col s3">
@@ -428,6 +418,92 @@
                 <div class="input-field col s4">
                   <input id="dateValiditeVisa" type="text" class="datepicker" disabled> 
                   <label for="dateValiditeVisa">Date de validité</label>
+                </div>
+              </div>
+
+              <span class="card-title subtitle">Titre de séjour</span>
+
+              <!-- Carte de séjour temporaire -->
+              <div class="row">
+                <div class="input-field col s3">
+                    <label>
+                      <input id="carteSejour" type="checkbox" class="filled-in" />
+                      <span>Carte de séjour temporaire</span>
+                    </label>
+                </div>
+                <div class="input-field col s5">
+                  <input id="mentionCarteSejour" type="text" disabled> 
+                  <label for="mentionCarteSejour">Mention</label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="dateCarteSejour" type="text" class="datepicker" disabled> 
+                  <label for="dateCarteSejour">Date de validité</label>
+                </div>
+              </div>
+
+              <!-- Carte de résident -->
+              <div class="row">
+                <div class="input-field col s3">
+                    <label>
+                      <input id="carteResident" type="checkbox" class="filled-in" />
+                      <span>Carte de résident</span>
+                    </label>
+                </div>
+                <div class="input-field col s5">
+                  <input id="mentionCarteResident" type="text" disabled> 
+                  <label for="mentionCarteResident">Mention</label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="dateCarteResident" type="text" class="datepicker" disabled> 
+                  <label for="dateCarteResident">Date de validité</label>
+                </div>
+              </div>
+
+              <!-- Ressortissant européen -->
+              <div class="row">
+                <div class="input-field col s3">
+                    <label>
+                      <input id="ressortissantEU" type="checkbox" class="filled-in" />
+                      <span>Ressortissant européen</span>
+                    </label>
+                </div>
+                <div class="input-field col s5">
+                  <input id="paysRessortissantEU" type="text" class="autocomplete pays-ressortissant" disabled>
+                  <label for="paysRessortissantEU">Pays</label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="dateRessortissantEU" type="text" class="datepicker" disabled> 
+                  <label for="dateRessortissantEU">Date de validité</label>
+                </div>
+              </div>
+
+              <span class="card-title subtitle">Bénéficiaire de la protection internationale</span>
+
+              <!-- Réfugié -->
+              <div class="row">
+                <div class="input-field col s3">
+                    <label>
+                      <input id="refugie" type="checkbox" class="filled-in" />
+                      <span>Réfugié</span>
+                    </label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="dateValiditeRefugie" type="text" class="datepicker" disabled> 
+                  <label for="dateValiditeRefugie">Date de validité</label>
+                </div>
+              </div>
+
+              <!-- Protection subsidiaire -->
+              <div class="row">
+                <div class="input-field col s3">
+                    <label>
+                      <input id="protectionSubsidiaire" type="checkbox" class="filled-in" />
+                      <span>Protection subsidiaire</span>
+                    </label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="dateValiditeProtectionSubsidiaire" type="text" class="datepicker" disabled> 
+                  <label for="dateValiditeProtectionSubsidiaire">Date de validité</label>
                 </div>
               </div>
 
@@ -488,7 +564,7 @@
                 </div>
               </div>
 
-              <span class="card-title subtitle">OFPRA</span>
+              <span class="card-title subtitle">Office Français de Protection des Réfugiés et des Apatrides (OFPRA)</span>
               <!-- Lettre d’enregistrement -->
               <div class="row">
                 <div class="input-field col s3 mt2em">
@@ -543,7 +619,7 @@
                 </div>
               </div>
 
-              <span class="card-title subtitle">CNDA</span>
+              <span class="card-title subtitle">Cour Nationale du Droit d’Asile (CNDA)</span>
 
               <!-- Avocat -->
               <div class="row">
@@ -599,19 +675,72 @@
                 </div>
               </div>
 
-              <span class="card-title subtitle">OQTF</span>
-              <div class="row">
-                <div class="input-field col s12">
-                  . . .
+              <span class="card-title subtitle">Obligation de Quitter le Territoire Français (OQTF)</span>
+  
+                <!-- Convocation -->
+                <div class="row">
+                  <div class="input-field col s3 mt2em">
+                    Convocation au tribunal administratif
+                  </div>
+                  <div class="input-field col s4">
+                    <input id="OQTFDateConvoc" type="text" class="datepicker"> 
+                    <label for="OQTFDateConvoc">Date de convocation</label>
+                  </div>
                 </div>
-              </div>
+  
+                <!-- Réponse -->
+                <div class="row">
+                  <div class="input-field col s3 mt2em">
+                    Décision du tribunal administratif
+                  </div>
+                  <div class="input-field col s4">
+                    <input id="OQTFDateRep" type="text" class="datepicker"> 
+                    <label for="OQTFDateRep">Date de réponse</label>
+                  </div>
+                  <div class="col s2 CNDARep mt1em">
+                    <label>
+                      <input id="isAccOQTF" name="repOQTF" type="radio" class="with-gap"/>
+                      <span>Confirmation</span>
+                    </label>
+                    <label>
+                      <input id="isRefOQTF" name="repOQTF" type="radio" class="with-gap"/>
+                      <span>Annulation</span>
+                    </label>
+                  </div>
+                </div>
 
-              <span class="card-title subtitle">Titre de séjour</span>
-              <div class="row">
-                <div class="input-field col s12">
-                  . . .
+
+                <!-- Convocation -->
+                <div class="row">
+                  <div class="input-field col s3 mt2em">
+                    Convocation la Cour administrative d'appel
+                  </div>
+                  <div class="input-field col s4">
+                    <input id="OQTFDateConvoc2" type="text" class="datepicker"> 
+                    <label for="OQTFDateConvoc2">Date de convocation</label>
+                  </div>
                 </div>
-              </div>
+  
+                <!-- Réponse -->
+                <div class="row">
+                  <div class="input-field col s3 mt2em">
+                    Décision de la Cour administrative d'appel
+                  </div>
+                  <div class="input-field col s4">
+                    <input id="OQTFDateRep2" type="text" class="datepicker"> 
+                    <label for="OQTFDateRep2">Date de réponse</label>
+                  </div>
+                  <div class="col s2 CNDARep mt1em">
+                    <label>
+                      <input id="isAccOQTF2" name="repOQTF2" type="radio" class="with-gap"/>
+                      <span>Confirmation</span>
+                    </label>
+                    <label>
+                      <input id="isRefOQTF2" name="repOQTF2" type="radio" class="with-gap"/>
+                      <span>Annulation</span>
+                    </label>
+                  </div>
+                </div>
 
             </div>
           </div>
@@ -727,15 +856,29 @@
         <li class="collection-item"><div>Association                     <span class="secondary-content" id="recTelAssociation"></span></div></li>
         <li class="collection-item noBBord"><div>Orienté par             <span class="secondary-content" id="recOrientePar"></span></div></li>
 
-        <!-- Entrée en France -->  
-        <li class="collection-header"><h5>Arrivée en France </h5></li>
-        <li class="collection-item"><div>Entrée en France                <span class="secondary-content" id="recDateEntreeFrance"></span></div></li>
-        <li class="collection-item noBBord"><div>Validité du titre               <span class="secondary-content" id="recDateValiditeTitre"></span></div></li>
+        <!-- Vie en France -->  
+        <li class="collection-header"><h5>Vie en France </h5></li>
+        <li class="collection-item noBBord"><div>Entrée en France                <span class="secondary-content" id="recDateEntreeFrance"></span></div></li>
         <li class="collection-header"><h5>Moyens d'entrée </h5></li>
         <li class="collection-item"><div>Visa                            <span class="secondary-content" id="recAvecVisa"></span></div></li>
         <li class="collection-item"><div>Date validité visa              <span class="secondary-content" id="recDateValiditeVisa"></span></div></li>
         <li class="collection-item"><div>Passeport                       <span class="secondary-content" id="recAvecPasseport"></span></div></li>
         <li class="collection-item noBBord"><div>Date validité passeport <span class="secondary-content" id="recDateValiditePasseport"></span></div></li>
+        <li class="collection-header"><h5>Titres de séjour </h5></li>
+        <li class="collection-item"><div>Carte de séjour temporaire      <span class="secondary-content" id="recCarteSejour"></span></div></li>
+        <li class="collection-item"><div>Mention carte de séjour temporaire <span class="secondary-content" id="recMentionCarteSejour"></span></div></li>
+        <li class="collection-item"><div>Date validité carte de séjour temporaire<span class="secondary-content" id="recDateValiditeCarteSejour"></span></div></li>
+        <li class="collection-item"><div>Carte de résident               <span class="secondary-content" id="recCarteResident"></span></div></li>
+        <li class="collection-item"><div>Mention carte de résident       <span class="secondary-content" id="recMentionCarteResident"></span></div></li>
+        <li class="collection-item"><div>Date validité carte de résident <span class="secondary-content" id="recDateValiditeCarteResident"></span></div></li>
+        <li class="collection-item"><div>Ressortissant européen          <span class="secondary-content" id="recRessortissantEU"></span></div></li>
+        <li class="collection-item"><div>Pays européen                   <span class="secondary-content" id="recPaysRessortissantEU"></span></div></li>
+        <li class="collection-item noBBord"><div>Date validité ressortissant européen <span class="secondary-content" id="recDateValiditeRessortissantEU"></span></div></li>
+        <li class="collection-header"><h5>Bénéficiaire de la protection internationale </h5></li>
+        <li class="collection-item"><div>Réfugié                         <span class="secondary-content" id="recRefugie"></span></div></li>
+        <li class="collection-item"><div>Date validité carte de réfugié  <span class="secondary-content" id="recDateValiditeRefugie"></span></div></li>
+        <li class="collection-item"><div>Protection subsidiaire          <span class="secondary-content" id="recProtecSub"></span></div></li>
+        <li class="collection-item noBBord"><div>Date validité carte de protection subsidiaire  <span class="secondary-content" id="recDateValiditeProtecSub"></span></div></li>
 
         <!-- Cotisation -->  
         <li class="collection-header"><h5>Cotisation</h5></li>

@@ -198,6 +198,57 @@ var listePays = {
   "Vanuatu": null
 }
 
+var listePaysEU = {
+  "Allemagne": null,
+  "Albanie": null,
+  "Andorre": null,
+  "Arménie": null,
+  "Autriche": null,
+  "Azerbaïdjan": null,
+  "Belgique": null,
+  "Biélorussie": null,
+  "Bosnie-Herzégovine": null,
+  "Bulgarie": null,
+  "Chypre": null,
+  "Croatie": null,
+  "Danemark": null,
+  "Espagne": null,
+  "Estonie": null,
+  "Finlande": null,
+  "France": null,
+  "Géorgie": null,
+  "Grèce": null,
+  "Hongrie": null,
+  "Irlande": null,
+  "Islande": null,
+  "Italie": null,
+  "Lettonie": null,
+  "Liechtenstein": null,
+  "Lituanie": null,
+  "Luxembourg": null,
+  "République de Macédoine": null,
+  "Malte": null,
+  "Moldavie": null,
+  "Monaco": null,
+  "Monténégro": null,
+  "Norvège": null,
+  "Pays-Bas": null,
+  "Pologne": null,
+  "Portugal": null,
+  "République tchèque": null,
+  "Roumanie": null,
+  "Royaume-Uni": null,
+  "Russie": null,
+  "Saint-Marin": null,
+  "Serbie": null,
+  "Slovaquie": null,
+  "Slovénie": null,
+  "Suède": null,
+  "Suisse": null,
+  "Ukraine": null,
+  "Vatican": null
+}
+
 var listeNationalites = {
   "Afghane": null,
   "Sud-Africaine": null,
@@ -427,85 +478,112 @@ var nbEnfants = 0;
 
 var newBeneficiaire = {}
 
+function getInfoCheckDate(checkbox, fieldDate){
+  var info = {
+    obtenu: getValueFromCheckBox(checkbox),
+    dateValidite: getValueFromField(fieldDate)
+  };
+  return info;
+}
+
+function getInfoCheckDateText(checkbox, fieldDate, fieldText){
+  var info = {
+    obtenu: getValueFromCheckBox(checkbox),
+    dateValidite: getValueFromField(fieldDate),
+    info: getValueFromField(fieldText)
+  };
+  return info;
+}
+
+function getValueFromField(field) {
+  return $('#'+field)[0].value;
+}
+
+function getValueFromCheckBox(checkbox) {
+  return $('#'+checkbox).prop('checked');
+}
+
 function setNewBeneficiaire() {
 
   /* Inscription */
   var inscriptionObj = {
-    inscripteur: $('#inscritPar')[0].value,
-    dateInscription: $('#inscriLe')[0].value
+    inscripteur: getValueFromField('inscritPar'),
+    dateInscription: getValueFromField('inscriLe')
   };
   
   /* Infos personnelles */
   var infosPersosObj = {
     identite: {
-      prenom: $('#prenom')[0].value,
-      nom: $('#nom')[0].value,
+      prenom: getValueFromField('prenom'),
+      nom: getValueFromField('nom'),
       genre: getGenre(),
-      dateNaissance: $('#dateNaissance')[0].value,
-      nomJeuneFille: $('#nomJF')[0].value,
-      nationalite: $('#nationalite')[0].value,
-      paysNaissance: $('#paysNaissance')[0].value
+      dateNaissance: getValueFromField('dateNaissance'),
+      nomJeuneFille: getValueFromField('nomJF'),
+      nationalite: getValueFromField('nationalite'),
+      paysNaissance: getValueFromField('paysNaissance')
     },
     coordonnees: {
-      adresse: $('#adresse')[0].value,
-      codePostal: $('#codePostal')[0].value,
-      ville: $('#ville')[0].value,
-      mail: $('#mail')[0].value,
-      numTel: $('#numTel')[0].value
+      adresse: getValueFromField('adresse'),
+      codePostal: getValueFromField('codePostal'),
+      ville: getValueFromField('ville'),
+      mail: getValueFromField('mail'),
+      numTel: getValueFromField('numTel')
     },
     etudes: {
-      comprendFR: $('#comprendFR').is(':checked'),
-      aLeBac: $('#aLeBac').is(':checked'),
-      etudesSup: $('#etudesSup')[0].value
+      comprendFR: getValueFromCheckBox('comprendFR'),
+      aLeBac: getValueFromCheckBox('aLeBac'),
+      etudesSup: getValueFromField('etudesSup')
     }
   };
 
   /* Situation familiale */
   var situationFamilialeObj = {
     situation: getSituation(),
-    dateSituation: $('#dateSituation')[0].value,
+    dateSituation: getValueFromField('dateSituation'),
     conjoint: {
-      prenom: $('#prenomConjoint')[0].value,
-      nom: $('#nomConjoint')[0].value,
-      dateNaissance: $('#dateNaissanceConjoint')[0].value,
-      resideFrance: $('#checkResideFranceConjoint').is(':checked'),
-      dateEntreeFrance: $('#dateEntreeFranceConjoint')[0].value,
-      situation: $('#situationConjoint')[0].value
+      prenom: getValueFromField('prenomConjoint'),
+      nom: getValueFromField('nomConjoint'),
+      dateNaissance: getValueFromField('dateNaissanceConjoint'),
+      resideFrance: getValueFromCheckBox('checkResideFranceConjoint'),
+      dateEntreeFrance: getValueFromField('dateEntreeFranceConjoint'),
+      situation: getValueFromField('situationConjoint')
     },
     enfants: getEnfants()
   };
 
   /* Contacts */
   var contactsObj = {
-    avocat: $('#telAvocat')[0].value,
-    assistanteSociale: $('#telAssistanteSociale')[0].value,
-    association: $('#telAssociation')[0].value,
-    orientePar: $('#orientePar')[0].value
+    avocat: getValueFromField('telAvocat'),
+    assistanteSociale: getValueFromField('telAssistanteSociale'),
+    association: getValueFromField('telAssociation'),
+    orientePar: getValueFromField('orientePar')
   };
 
   /* Entrée en France */
-  var entreeFranceObj = {
-    dates: {
-      dateEntreeFrance: $('#dateEntreeFrance')[0].value,
-      dateValiditeTitre: $('#dateValiditeTitre')[0].value
+  var vieFranceObj = {
+    entree: {
+      dateEntreeFrance: getValueFromField('dateEntreeFrance'),
     },
     moyens: {
-      visa:{
-        avecVisa: $('#visa').is(':checked'),
-        dateValiditeVisa: $('#dateValiditeVisa')[0].value
-      },
-      passeport: {
-        avecPasseport: $('#passeport').is(':checked'),
-        dateValiditePasseport: $('#dateValiditePasseport')[0].value
-      }
+      visa: getInfoCheckDate('visa', 'dateValiditeVisa'),
+      passeport: getInfoCheckDate('passeport', 'dateValiditePasseport')
+    },
+    titreSejour: {
+      carteSejour: getInfoCheckDateText('carteSejour', 'dateCarteSejour', 'mentionCarteSejour'),
+      carteResident: getInfoCheckDateText('carteResident', 'dateCarteResident', 'mentionCarteResident'),
+      ressortissantEU: getInfoCheckDateText('ressortissantEU', 'dateRessortissantEU', 'paysRessortissantEU')
+    },
+    protectionInternationale: {
+      refugie: getInfoCheckDate('refugie', 'dateValiditeRefugie'),
+      protectionSubsidiaire: getInfoCheckDate('protectionSubsidiaire', 'dateValiditeProtectionSubsidiaire') 
     }
   };
 
   /* Cotisation */
   var cotisationObj = {
-    payee: getCotisationStatus(),
+    payee: getValueFromCheckBox('payee'),
     montant: getMontant(),
-    motif: $('#raisonPasCotise')[0].value
+    motif: getValueFromField('raisonPasCotise')
   };
 
   newBeneficiaire = {
@@ -513,7 +591,7 @@ function setNewBeneficiaire() {
     infosPersos: infosPersosObj,
     situationFamiliale: situationFamilialeObj,
     contacts: contactsObj,
-    entreeFrance: entreeFranceObj,
+    vieEnFrance: vieFranceObj,
     cotisation: cotisationObj
   }
 
@@ -527,7 +605,6 @@ function boolToString(bool){
     return "Non";
   }
 }
-
 
 function setRecapitulatif(){
   /* Inscription */
@@ -587,13 +664,25 @@ function setRecapitulatif(){
   $('#recTelAssociation').html(newBeneficiaire.contacts.association);
   $('#recOrientePar').html(newBeneficiaire.contacts.orientePar);
 
-  /* Entrée en France */
-  $('#recDateEntreeFrance').html(newBeneficiaire.entreeFrance.dates.dateEntreeFrance);
-  $('#recDateValiditeTitre').html(newBeneficiaire.entreeFrance.dates.dateValiditeTitre);
-  $('#recAvecVisa').html(boolToString(newBeneficiaire.entreeFrance.moyens.visa.avecVisa));
-  $('#recDateValiditeVisa').html(newBeneficiaire.entreeFrance.moyens.visa.dateValiditeVisa);
-  $('#recAvecPasseport').html(boolToString(newBeneficiaire.entreeFrance.moyens.passeport.avecPasseport));
-  $('#recDateValiditePasseport').html(newBeneficiaire.entreeFrance.moyens.passeport.dateValiditePasseport);
+  /* Vie en France */
+  $('#recDateEntreeFrance').html(newBeneficiaire.vieEnFrance.entree.dateEntreeFrance);
+  $('#recAvecVisa').html(boolToString(newBeneficiaire.vieEnFrance.moyens.visa.obtenu));
+  $('#recDateValiditeVisa').html(newBeneficiaire.vieEnFrance.moyens.visa.dateValidite);
+  $('#recAvecPasseport').html(boolToString(newBeneficiaire.vieEnFrance.moyens.passeport.obtenu));
+  $('#recDateValiditePasseport').html(newBeneficiaire.vieEnFrance.moyens.passeport.dateValidite);
+  $('#recCarteSejour').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.carteSejour.obtenu));
+  $('#recMentionCarteSejour').html(newBeneficiaire.vieEnFrance.titreSejour.carteSejour.info);
+  $('#recDateValiditeCarteSejour').html(newBeneficiaire.vieEnFrance.titreSejour.carteSejour.dateValidite);
+  $('#recCarteResident').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.carteResident.obtenu));
+  $('#recMentionCarteResident').html(newBeneficiaire.vieEnFrance.titreSejour.carteResident.info);
+  $('#recDateValiditeCarteResident').html(newBeneficiaire.vieEnFrance.titreSejour.carteResident.dateValidite);
+  $('#recRessortissantEU').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.ressortissantEU.obtenu));
+  $('#recPaysRessortissantEU').html(newBeneficiaire.vieEnFrance.titreSejour.ressortissantEU.info);
+  $('#recDateValiditeRessortissantEU').html(newBeneficiaire.vieEnFrance.titreSejour.ressortissantEU.dateValidite);
+  $('#recRefugie').html(boolToString(newBeneficiaire.vieEnFrance.protectionInternationale.refugie.obtenu));
+  $('#recDateValiditeRefugie').html(newBeneficiaire.vieEnFrance.protectionInternationale.refugie.dateValidite);
+  $('#recProtecSub').html(boolToString(newBeneficiaire.vieEnFrance.protectionInternationale.protectionSubsidiaire.obtenu));
+  $('#recDateValiditeProtecSub').html(newBeneficiaire.vieEnFrance.protectionInternationale.protectionSubsidiaire.dateValidite);
 
   /* Cotisation */
   $('#recPayee').html(boolToString(newBeneficiaire.cotisation.payee));
@@ -603,7 +692,7 @@ function setRecapitulatif(){
 }
 
 function getMontant() {
-  var sit = parseInt($('#montanCotisation')[0].value);
+  var sit = parseInt(getValueFromField('montanCotisation'));
   var int = 0;
 
   switch (sit) {
@@ -625,7 +714,7 @@ function getMontant() {
 }
 
 function getSituation() {
-  var sit = parseInt($('#situation')[0].value);
+  var sit = parseInt(getValueFromField('situation'));
   var text = "";
 
   switch (sit) {
@@ -649,16 +738,8 @@ function getSituation() {
   return text;
 }
 
-function getCotisationStatus() {
-  if ($('#payee').is(':checked')) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 function getGenre() {
-  if ($('#isHomme').is(':checked')) {
+  if (getValueFromCheckBox('isHomme')) {
     return 'H';
   } else {
     return 'F';
@@ -671,13 +752,13 @@ function getEnfants() {
   for(var i = 0; i <= nbEnfants ; i++) {
     var idStr = "enfant" + i;
     var enfantCourant = {
-      prenom: $('#'+idStr+' #prenomEnfant')[0].value,
-      nom: $('#'+idStr+' #nomEnfant')[0].value,
-      dateNaissance: $('#'+idStr+' #dateNaissanceEnfant')[0].value,
-      resideFrance: $('#'+idStr+ ' #checkResideFranceEnfant').is(':checked'),
-      dateEntreeFrance: $('#'+idStr+' #dateEntreeFranceEnfant')[0].value,
-      nationalite: $('#'+idStr+' #nationaliteEnfant')[0].value,
-      paysNaissance: $('#'+idStr+' #paysNaissanceEnfant')[0].value
+      prenom: getValueFromField(idStr+' #prenomEnfant'),
+      nom: getValueFromField(idStr+' #nomEnfant'),
+      dateNaissance: getValueFromField(idStr+' #dateNaissanceEnfant'),
+      resideFrance: getValueFromCheckBox(idStr+ ' #checkResideFranceEnfant'),
+      dateEntreeFrance: getValueFromField(idStr+' #dateEntreeFranceEnfant'),
+      nationalite: getValueFromField(idStr+' #nationaliteEnfant'),
+      paysNaissance: getValueFromField(idStr+' #paysNaissanceEnfant')
     };
     res[i] = enfantCourant;
   }
@@ -821,7 +902,6 @@ $('#situation').change(function() {
 
 })
 
-
 function disabledField( check, fieldToDesactivate) {
   if (check.prop('checked')) {
     fieldToDesactivate.removeAttr('disabled');
@@ -836,6 +916,29 @@ $('#visa').click(function() {
 
 $('#passeport').click(function() {
   disabledField($(this), $('#dateValiditePasseport'));
+})
+
+$('#carteSejour').click(function() {
+  disabledField($(this), $('#mentionCarteSejour'));
+  disabledField($(this), $('#dateCarteSejour'));
+})
+
+$('#carteResident').click(function() {
+  disabledField($(this), $('#mentionCarteResident'));
+  disabledField($(this), $('#dateCarteResident'));
+})
+
+$('#ressortissantEU').click(function() {
+  disabledField($(this), $('#paysRessortissantEU'));
+  disabledField($(this), $('#dateRessortissantEU'));
+})
+
+$('#refugie').click(function() {
+  disabledField($(this), $('#dateValiditeRefugie'));
+})
+
+$('#protectionSubsidiaire').click(function() {
+  disabledField($(this), $('#dateValiditeProtectionSubsidiaire'));
 })
 
 $('#procNormale').click(function() {
@@ -927,9 +1030,15 @@ $(document).ready(function(){
   $('#dateValiditeTitre.datepicker').datepicker(datepickerConfigWithMinDate);
   $('#dateValiditePasseport.datepicker').datepicker(datepickerConfigWithMinDate);
   $('#dateValiditeVisa.datepicker').datepicker(datepickerConfigWithMinDate);
-
+  $('#dateCarteSejour.datepicker').datepicker(datepickerConfigWithMinDate);
+  $('#dateCarteResident.datepicker').datepicker(datepickerConfigWithMinDate);
+  $('#dateRessortissantEU.datepicker').datepicker(datepickerConfigWithMinDate);
+  $('#dateValiditeRefugie.datepicker').datepicker(datepickerConfigWithMinDate);
+  $('#dateValiditeProtectionSubsidiaire.datepicker').datepicker(datepickerConfigWithMinDate);
+  
   /* Initialisation du champ auto-complete "Pays de naissance" */
   $('input.autocomplete.pays-naissance').autocomplete({ minLength: 2, data: listePays });
+  $('input.autocomplete.pays-ressortissant').autocomplete({ minLength: 2, data: listePaysEU });
 
   /* Initialisation du champ auto-complete "Nationalite" */
   $('input.autocomplete.nationalite').autocomplete({ minLength: 2, data: listeNationalites });
@@ -937,7 +1046,3 @@ $(document).ready(function(){
   /* Initialisation de la modale de confirmation */
   $('#modal1').modal();
 });
-
-
-
-  
