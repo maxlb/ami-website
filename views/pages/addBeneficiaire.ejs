@@ -825,12 +825,14 @@
         <li class="collection-item"><div>Date de naissance               <span class="secondary-content" id="recDateNaissance"></span></div></li>
         <li class="collection-item"><div>Nationalite                     <span class="secondary-content" id="recNationalite"></span></div></li>
         <li class="collection-item noBBord"><div>Pays de naissance       <span class="secondary-content" id="recPaysNaissance"></span></div></li>
+        
         <li class="collection-header"><h5>Coordonnées</h5></li>
         <li class="collection-item"><div>Adresse                         <span class="secondary-content" id="recAdresse"></span></div></li>
         <li class="collection-item"><div>Code postal                     <span class="secondary-content" id="recCodePostal"></span></div></li>
         <li class="collection-item"><div>Ville                           <span class="secondary-content" id="recVille"></span></div></li>
         <li class="collection-item"><div>Mail                            <span class="secondary-content" id="recMail"></span></div></li>
         <li class="collection-item noBBord"><div>Numéro de téléphone     <span class="secondary-content" id="recNumTel"></span></div></li>
+        
         <li class="collection-header"><h5>Études</h5></li>
         <li class="collection-item"><div>Comprends le français           <span class="secondary-content" id="recComprendFR"></span></div></li>
         <li class="collection-item"><div>A le bac                        <span class="secondary-content" id="recALeBac"></span></div></li>
@@ -840,6 +842,7 @@
         <li class="collection-header"><h5>Situation familiale</h5></li>
         <li class="collection-item"><div>Situation                       <span class="secondary-content" id="recSituation"></span></div></li>
         <li class="collection-item noBBord"><div>Depuis le               <span class="secondary-content" id="recDateSituation"></span></div></li>
+        
         <li class="collection-header"><h5>Conjoint(e)</h5></li>
         <li class="collection-item"><div>Prénom                          <span class="secondary-content" id="recPrenomConjoint"></span></div></li>
         <li class="collection-item"><div>Nom                             <span class="secondary-content" id="recNomConjoint"></span></div></li>
@@ -847,6 +850,7 @@
         <li class="collection-item"><div>Réside en France                <span class="secondary-content" id="recResideFranceConjoint"></span></div></li>
         <li class="collection-item"><div>Date d'entrée en France         <span class="secondary-content" id="recDateEntreeFranceConjoint"></span></div></li>
         <li class="collection-item noBBord"><div>Situation administrative<span class="secondary-content" id="recSituationConjoint"></span></div></li>
+        
         <div id="recEnfants"> </div>
 
         <!-- Contacts -->  
@@ -859,11 +863,13 @@
         <!-- Vie en France -->  
         <li class="collection-header"><h5>Vie en France </h5></li>
         <li class="collection-item noBBord"><div>Entrée en France                <span class="secondary-content" id="recDateEntreeFrance"></span></div></li>
+        
         <li class="collection-header"><h5>Moyens d'entrée </h5></li>
         <li class="collection-item"><div>Visa                            <span class="secondary-content" id="recAvecVisa"></span></div></li>
         <li class="collection-item"><div>Date validité visa              <span class="secondary-content" id="recDateValiditeVisa"></span></div></li>
         <li class="collection-item"><div>Passeport                       <span class="secondary-content" id="recAvecPasseport"></span></div></li>
         <li class="collection-item noBBord"><div>Date validité passeport <span class="secondary-content" id="recDateValiditePasseport"></span></div></li>
+        
         <li class="collection-header"><h5>Titres de séjour </h5></li>
         <li class="collection-item"><div>Carte de séjour temporaire      <span class="secondary-content" id="recCarteSejour"></span></div></li>
         <li class="collection-item"><div>Mention carte de séjour temporaire <span class="secondary-content" id="recMentionCarteSejour"></span></div></li>
@@ -874,11 +880,43 @@
         <li class="collection-item"><div>Ressortissant européen          <span class="secondary-content" id="recRessortissantEU"></span></div></li>
         <li class="collection-item"><div>Pays européen                   <span class="secondary-content" id="recPaysRessortissantEU"></span></div></li>
         <li class="collection-item noBBord"><div>Date validité ressortissant européen <span class="secondary-content" id="recDateValiditeRessortissantEU"></span></div></li>
+        
         <li class="collection-header"><h5>Bénéficiaire de la protection internationale </h5></li>
         <li class="collection-item"><div>Réfugié                         <span class="secondary-content" id="recRefugie"></span></div></li>
         <li class="collection-item"><div>Date validité carte de réfugié  <span class="secondary-content" id="recDateValiditeRefugie"></span></div></li>
         <li class="collection-item"><div>Protection subsidiaire          <span class="secondary-content" id="recProtecSub"></span></div></li>
         <li class="collection-item noBBord"><div>Date validité carte de protection subsidiaire  <span class="secondary-content" id="recDateValiditeProtecSub"></span></div></li>
+
+        <!-- Démarches administratives -->  
+        <li class="collection-header"><h5>Demande d'asile </h5></li>
+        <li class="collection-item"><div>Procédure normale               <span class="secondary-content" id="recProcNormale"></span></div></li>
+        <li class="collection-item"><div>Dernière convocation            <span class="secondary-content" id="recDerConvProcNormale"></span></div></li>
+        <li class="collection-item"><div>Procédure accélérée             <span class="secondary-content" id="recProcAcceleree"></span></div></li>
+        <li class="collection-item"><div>Dernière convocation            <span class="secondary-content" id="recDerConvProcAccélérée"></span></div></li>
+        <li class="collection-item"><div>Procédure Dublin                <span class="secondary-content" id="recProcDublin"></span></div></li>
+        <li class="collection-item noBBord"><div>Dernière convocation    <span class="secondary-content" id="recDerConvProcDublin"></span></div></li>
+       
+        <li class="collection-header"><h5>OFPRA </h5></li>
+        <li class="collection-item"><div>Date de la lettre d'enregistrement <span class="secondary-content" id="recOFPRADateLettreEnr"></span></div></li>
+        <li class="collection-item"><div>Date de la convocation             <span class="secondary-content" id="recOFPRADateConvoc"></span></div></li>
+        <li class="collection-item"><div>Réponse                            <span class="secondary-content" id="recOFPRARep"></span></div></li>
+        <li class="collection-item"><div>Date de la réponse                 <span class="secondary-content" id="recOFPRADateRep"></span></div></li>
+        <li class="collection-item noBBord"><div>Date de réexamen           <span class="secondary-content" id="recOFPRADateReexam"></span></div></li>
+
+        <li class="collection-header"><h5>CNDA </h5></li>
+        <li class="collection-item"><div>Avocat                             <span class="secondary-content" id="recCNDAAvocat"></span></div></li>
+        <li class="collection-item"><div>Date de la lettre d'enregistrement <span class="secondary-content" id="recCNDADateLettreEnr"></span></div></li>
+        <li class="collection-item"><div>Date de la convocation             <span class="secondary-content" id="recCNDADateConvoc"></span></div></li>
+        <li class="collection-item"><div>Réponse                            <span class="secondary-content" id="recCNDARep"></span></div></li>
+        <li class="collection-item noBBord"><div>Date de la réponse         <span class="secondary-content" id="recCNDADateRep"></span></div></li>
+        
+        <li class="collection-header"><h5>OQTF </h5></li>
+        <li class="collection-item"><div>Date de la convocation             <span class="secondary-content" id="recOQTFDateConvoc"></span></div></li>
+        <li class="collection-item"><div>Réponse                            <span class="secondary-content" id="recOQTFRep"></span></div></li>
+        <li class="collection-item noBBord"><div>Date de la réponse         <span class="secondary-content" id="recOQTFDateRep"></span></div></li>
+        <li class="collection-item"><div>Date de la convocation en Appel    <span class="secondary-content" id="recOQTFDateConvoc2"></span></div></li>
+        <li class="collection-item"><div>Réponse de l'Appel                 <span class="secondary-content" id="recOQTFRep2"></span></div></li>
+        <li class="collection-item noBBord"><div>Date de la réponse de l'Appel <span class="secondary-content" id="recOQTFDateRep2"></span></div></li>
 
         <!-- Cotisation -->  
         <li class="collection-header"><h5>Cotisation</h5></li>

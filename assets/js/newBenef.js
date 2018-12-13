@@ -480,8 +480,8 @@ var newBeneficiaire = {}
 
 function getInfoCheckDate(checkbox, fieldDate){
   var info = {
-    obtenu: getValueFromCheckBox(checkbox),
-    dateValidite: getValueFromField(fieldDate)
+    check: getValueFromCheckBox(checkbox),
+    date: getValueFromField(fieldDate)
   };
   return info;
 }
@@ -489,7 +489,7 @@ function getInfoCheckDate(checkbox, fieldDate){
 function getInfoCheckDateText(checkbox, fieldDate, fieldText){
   var info = {
     obtenu: getValueFromCheckBox(checkbox),
-    dateValidite: getValueFromField(fieldDate),
+    date: getValueFromField(fieldDate),
     info: getValueFromField(fieldText)
   };
   return info;
@@ -579,6 +579,37 @@ function setNewBeneficiaire() {
     }
   };
 
+  /* Démarches  Administratives */
+  var demAdminObj = {
+    demandeAsile: {
+      procAcceleree: getInfoCheckDate('procNormale', 'derConvProcNormale'),
+      procNormale: getInfoCheckDate('procAcceleree', 'derConvpProcAcceleree'),
+      procDublin: getInfoCheckDate('procDublin', 'derConvProcDublin')
+    },
+    OFPRA: {
+      lettreEnregistrement: getValueFromField('OFPRADateLettreEnr'),
+      convocation: getValueFromField('OFPRADateConvoc'),
+      reponse: getReponse('isAccOFPRA', 'isRefOFPRA'),
+      dateReponse: getValueFromField('OFPRADateRep'),
+      reexamen: getValueFromField('OFPRADateReexam')
+    },
+    CNDA: {
+      avocat: getValueFromField('CNDAAvocat'),
+      lettreEnregistrement: getValueFromField('CNDADateLettreEnr'),
+      convocation: getValueFromField('CNDADateConvoc'),
+      reponse: getReponse('isAccCNDA', 'isRefCNDA'),
+      dateReponse: getValueFromField('CNDADateRep')
+    },
+    OQTF: {
+      convocation: getValueFromField('OQTFDateConvoc'),
+      reponse: getReponse('isAccOQTF', 'isRefOQTF'),
+      dateReponse: getValueFromField('OQTFDateRep'),
+      convocationAppel: getValueFromField('OQTFDateConvoc2'),
+      reponseAppel: getReponse('isAccOQTF2', 'isRefOQTF2', true),
+      dateReponseAppel: getValueFromField('OQTFDateRep2'),
+    }
+  }
+
   /* Cotisation */
   var cotisationObj = {
     payee: getValueFromCheckBox('payee'),
@@ -592,6 +623,7 @@ function setNewBeneficiaire() {
     situationFamiliale: situationFamilialeObj,
     contacts: contactsObj,
     vieEnFrance: vieFranceObj,
+    demAdmin: demAdminObj,
     cotisation: cotisationObj
   }
 
@@ -666,23 +698,47 @@ function setRecapitulatif(){
 
   /* Vie en France */
   $('#recDateEntreeFrance').html(newBeneficiaire.vieEnFrance.entree.dateEntreeFrance);
-  $('#recAvecVisa').html(boolToString(newBeneficiaire.vieEnFrance.moyens.visa.obtenu));
-  $('#recDateValiditeVisa').html(newBeneficiaire.vieEnFrance.moyens.visa.dateValidite);
-  $('#recAvecPasseport').html(boolToString(newBeneficiaire.vieEnFrance.moyens.passeport.obtenu));
-  $('#recDateValiditePasseport').html(newBeneficiaire.vieEnFrance.moyens.passeport.dateValidite);
-  $('#recCarteSejour').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.carteSejour.obtenu));
+  $('#recAvecVisa').html(boolToString(newBeneficiaire.vieEnFrance.moyens.visa.check));
+  $('#recDateValiditeVisa').html(newBeneficiaire.vieEnFrance.moyens.visa.date);
+  $('#recAvecPasseport').html(boolToString(newBeneficiaire.vieEnFrance.moyens.passeport.check));
+  $('#recDateValiditePasseport').html(newBeneficiaire.vieEnFrance.moyens.passeport.date);
+  $('#recCarteSejour').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.carteSejour.check));
   $('#recMentionCarteSejour').html(newBeneficiaire.vieEnFrance.titreSejour.carteSejour.info);
-  $('#recDateValiditeCarteSejour').html(newBeneficiaire.vieEnFrance.titreSejour.carteSejour.dateValidite);
-  $('#recCarteResident').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.carteResident.obtenu));
+  $('#recDateValiditeCarteSejour').html(newBeneficiaire.vieEnFrance.titreSejour.carteSejour.date);
+  $('#recCarteResident').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.carteResident.check));
   $('#recMentionCarteResident').html(newBeneficiaire.vieEnFrance.titreSejour.carteResident.info);
-  $('#recDateValiditeCarteResident').html(newBeneficiaire.vieEnFrance.titreSejour.carteResident.dateValidite);
-  $('#recRessortissantEU').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.ressortissantEU.obtenu));
+  $('#recDateValiditeCarteResident').html(newBeneficiaire.vieEnFrance.titreSejour.carteResident.date);
+  $('#recRessortissantEU').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.ressortissantEU.check));
   $('#recPaysRessortissantEU').html(newBeneficiaire.vieEnFrance.titreSejour.ressortissantEU.info);
-  $('#recDateValiditeRessortissantEU').html(newBeneficiaire.vieEnFrance.titreSejour.ressortissantEU.dateValidite);
-  $('#recRefugie').html(boolToString(newBeneficiaire.vieEnFrance.protectionInternationale.refugie.obtenu));
-  $('#recDateValiditeRefugie').html(newBeneficiaire.vieEnFrance.protectionInternationale.refugie.dateValidite);
-  $('#recProtecSub').html(boolToString(newBeneficiaire.vieEnFrance.protectionInternationale.protectionSubsidiaire.obtenu));
-  $('#recDateValiditeProtecSub').html(newBeneficiaire.vieEnFrance.protectionInternationale.protectionSubsidiaire.dateValidite);
+  $('#recDateValiditeRessortissantEU').html(newBeneficiaire.vieEnFrance.titreSejour.ressortissantEU.date);
+  $('#recRefugie').html(boolToString(newBeneficiaire.vieEnFrance.protectionInternationale.refugie.check));
+  $('#recDateValiditeRefugie').html(newBeneficiaire.vieEnFrance.protectionInternationale.refugie.date);
+  $('#recProtecSub').html(boolToString(newBeneficiaire.vieEnFrance.protectionInternationale.protectionSubsidiaire.check));
+  $('#recDateValiditeProtecSub').html(newBeneficiaire.vieEnFrance.protectionInternationale.protectionSubsidiaire.date);
+
+  /* Démarches administrative */
+  $('#recProcNormale').html(boolToString(newBeneficiaire.demAdmin.demandeAsile.procAcceleree.check));
+  $('#recDerConvProcNormale').html(newBeneficiaire.demAdmin.demandeAsile.procAcceleree.date);
+  $('#recProcAcceleree').html(boolToString(newBeneficiaire.demAdmin.demandeAsile.procNormale.check));
+  $('#recDerConvProcAccélérée').html(newBeneficiaire.demAdmin.demandeAsile.procNormale.date);
+  $('#recProcDublin').html(boolToString(newBeneficiaire.demAdmin.demandeAsile.procDublin.check));
+  $('#recDerConvProcDublin').html(newBeneficiaire.demAdmin.demandeAsile.procDublin.date);
+  $('#recOFPRADateLettreEnr').html(newBeneficiaire.demAdmin.OFPRA.lettreEnregistrement);
+  $('#recOFPRADateConvoc').html(newBeneficiaire.demAdmin.OFPRA.convocation);
+  $('#recOFPRARep').html(newBeneficiaire.demAdmin.OFPRA.reponse);
+  $('#recOFPRADateRep').html(newBeneficiaire.demAdmin.OFPRA.dateReponse);
+  $('#recOFPRADateReexam').html(newBeneficiaire.demAdmin.OFPRA.reexamen);
+  $('#recCNDAAvocat').html(newBeneficiaire.demAdmin.CNDA.avocat);
+  $('#recCNDADateLettreEnr').html(newBeneficiaire.demAdmin.CNDA.lettreEnregistrement);
+  $('#recCNDADateConvoc').html(newBeneficiaire.demAdmin.CNDA.convocation);
+  $('#recCNDARep').html(newBeneficiaire.demAdmin.CNDA.reponse);
+  $('#recCNDADateRep').html(newBeneficiaire.demAdmin.CNDA.dateReponse);
+  $('#recOQTFDateConvoc').html(newBeneficiaire.demAdmin.OQTF.convocation);
+  $('#recOQTFRep').html(newBeneficiaire.demAdmin.OQTF.reponse);
+  $('#recOQTFDateRep').html(newBeneficiaire.demAdmin.OQTF.dateReponse);
+  $('#recOQTFDateConvoc2').html(newBeneficiaire.demAdmin.OQTF.convocationApel);
+  $('#recOQTFRep2').html(newBeneficiaire.demAdmin.OQTF.reponseAppel);
+  $('#recOQTFDateRep2').html(newBeneficiaire.demAdmin.OQTF.dateReponseAppel);
 
   /* Cotisation */
   $('#recPayee').html(boolToString(newBeneficiaire.cotisation.payee));
@@ -743,6 +799,22 @@ function getGenre() {
     return 'H';
   } else {
     return 'F';
+  }
+}
+
+function getReponse(responseYesField, responseNoField, isOQTF = false) {
+  var ok = 'Acceptée';
+  var ko = 'Refusée';
+  if(isOQTF) {
+    ok = 'Confirmation';
+    ko = 'Annulation';
+  }
+  if (getValueFromCheckBox(responseYesField)) {
+    return ok;
+  } else if(getValueFromCheckBox(responseNoField)) {
+    return ko;
+  } else {
+    return '';
   }
 }
 
