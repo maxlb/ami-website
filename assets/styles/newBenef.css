@@ -152,6 +152,16 @@ input:disabled + label {
   box-shadow: 0 1px 0 0 #2196F3 !important;
 }
 
+/* label focus color */
+.input-field input:focus + label.white-text {
+  color: white !important;
+}
+/* label underline focus color */
+.input-field input:focus.white-text {
+  border-bottom: 1px solid white !important;
+  box-shadow: 0 1px 0 0 white !important;
+}
+
 /* valid label underline focus color */
 input.valid, input.valid:focus {
   border-bottom: 1px solid #9e9e9e !important;
@@ -312,6 +322,7 @@ input.valid, input.valid:focus {
 
 .infoIcon{
   padding-left: 5% !important;
+  margin-top: 4em;
 }
 
 .infoInsciption{
@@ -347,4 +358,12 @@ li.noTBord {
 
 .secondary-content {
   color: #2196F3 !important;
+}
+
+.mb0{
+  margin-bottom: 0px;
+}
+
+.titre{
+  text-align: center;
 }

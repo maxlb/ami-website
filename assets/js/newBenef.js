@@ -474,6 +474,22 @@ var datepickerConfigWithMinDate = {
   }
 }
 
+var datepickerConfig = { 
+  format: 'dd/mm/yyyy',
+  firstDay: 1, 
+  showClearBtn: true,
+  yearRange: 20,
+  i18n: {
+    cancel: 'Annuler',
+    clear: 'Effacer',
+    months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+    monthsShort: ['Janv', 'Févr', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'],
+    weekdays: ['Dimanche','Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+    weekdaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+    weekdaysAbbrev: ['D','L', 'M', 'M', 'J', 'V', 'S']
+  }
+}
+
 var nbEnfants = 0;
 
 var newBeneficiaire = {}
@@ -594,7 +610,7 @@ function setNewBeneficiaire() {
       reexamen: getValueFromField('OFPRADateReexam')
     },
     CNDA: {
-      avocat: getValueFromField('CNDAAvocat'),
+      avocat: "Maître " + getValueFromField('CNDAAvocatPrenom') + " " + getValueFromField('CNDAAvocatPrenom') ,
       lettreEnregistrement: getValueFromField('CNDADateLettreEnr'),
       convocation: getValueFromField('CNDADateConvoc'),
       reponse: getReponse('isAccCNDA', 'isRefCNDA'),
@@ -736,7 +752,7 @@ function setRecapitulatif(){
   $('#recOQTFDateConvoc').html(newBeneficiaire.demAdmin.OQTF.convocation);
   $('#recOQTFRep').html(newBeneficiaire.demAdmin.OQTF.reponse);
   $('#recOQTFDateRep').html(newBeneficiaire.demAdmin.OQTF.dateReponse);
-  $('#recOQTFDateConvoc2').html(newBeneficiaire.demAdmin.OQTF.convocationApel);
+  $('#recOQTFDateConvoc2').html(newBeneficiaire.demAdmin.OQTF.convocationAppel);
   $('#recOQTFRep2').html(newBeneficiaire.demAdmin.OQTF.reponseAppel);
   $('#recOQTFDateRep2').html(newBeneficiaire.demAdmin.OQTF.dateReponseAppel);
 
@@ -937,8 +953,10 @@ $('input[name=genre]').click(function() {
 
   if($('input[name=genre]:checked').attr('id') == "isFemme") {
     $("#nomJF").removeAttr('disabled');
+    setIcon($("#nomJF"), true);
   } else {
     $("#nomJF").attr('disabled',"disabled");
+    setIcon($("#nomJF"), false);
   }
 
 })
@@ -949,80 +967,105 @@ $('#situation').change(function() {
   if($('#situation')[0].value == "0" || $('#situation')[0].value == "4") {
 
     $("#dateSituation").attr('disabled',"disabled");
+    setIcon($("#dateSituation"), false);
 
     $("#prenomConjoint").attr('disabled',"disabled");
+    setIcon($("#prenomConjoint"), false);
     $("#nomConjoint").attr('disabled',"disabled");
 
     $("#dateNaissanceConjoint").attr('disabled',"disabled");
+    setIcon($("#dateNaissanceConjoint"), false);
     $("#checkResideFranceConjoint").attr('disabled',"disabled");
     $("#dateEntreeFranceConjoint").attr('disabled',"disabled");
+    setIcon($("#dateEntreeFranceConjoint"), false);
 
     $("#situationConjoint").attr('disabled',"disabled");
+    setIcon($("#situationConjoint"), false);
     
   } else {
     $("#dateSituation").removeAttr('disabled');
+    setIcon($("#dateSituation"), true);
 
     $("#prenomConjoint").removeAttr('disabled');
+    setIcon($("#prenomConjoint"), true);
     $("#nomConjoint").removeAttr('disabled');
 
     $("#dateNaissanceConjoint").removeAttr('disabled');
+    setIcon($("#dateNaissanceConjoint"), true);
     $("#checkResideFranceConjoint").removeAttr('disabled');
     $("#dateEntreeFranceConjoint").removeAttr('disabled');
+    setIcon($("#dateEntreeFranceConjoint"), true);
 
     $("#situationConjoint").removeAttr('disabled');
+    setIcon($("#situationConjoint"), true);
   }
 
 })
 
-function disabledField( check, fieldToDesactivate) {
+function setIcon(field, active) {
+  if (active) {
+    $(field.parent()[0].children[0]).css('color', '#2196F3')
+  } else {
+    $(field.parent()[0].children[0]).css('color','rgba(0,0,0,0.42)')
+  }
+}
+
+function disabledField(check, fieldToDesactivate, isIcon = false) {
   if (check.prop('checked')) {
     fieldToDesactivate.removeAttr('disabled');
+    if(isIcon){
+
+      $(fieldToDesactivate.parent()[0].children[0]).css('color','#2196F3')
+    }
   } else {
-    fieldToDesactivate.attr('disabled',"disabled");
+    fieldToDesactivate.attr('disabled','disabled');
+    if(isIcon){
+      $(fieldToDesactivate.parent()[0].children[0]).css('color','rgba(0,0,0,0.42)')
+    }
   }
 }
 
 $('#visa').click(function() {
-  disabledField($(this), $('#dateValiditeVisa'));
+  disabledField($(this), $('#dateValiditeVisa'), true);
 })
 
 $('#passeport').click(function() {
-  disabledField($(this), $('#dateValiditePasseport'));
+  disabledField($(this), $('#dateValiditePasseport'), true);
 })
 
 $('#carteSejour').click(function() {
   disabledField($(this), $('#mentionCarteSejour'));
-  disabledField($(this), $('#dateCarteSejour'));
+  disabledField($(this), $('#dateCarteSejour'), true);
 })
 
 $('#carteResident').click(function() {
   disabledField($(this), $('#mentionCarteResident'));
-  disabledField($(this), $('#dateCarteResident'));
+  disabledField($(this), $('#dateCarteResident'), true);
 })
 
 $('#ressortissantEU').click(function() {
-  disabledField($(this), $('#paysRessortissantEU'));
-  disabledField($(this), $('#dateRessortissantEU'));
+  disabledField($(this), $('#paysRessortissantEU'), true);
+  disabledField($(this), $('#dateRessortissantEU'), true);
 })
 
 $('#refugie').click(function() {
-  disabledField($(this), $('#dateValiditeRefugie'));
+  disabledField($(this), $('#dateValiditeRefugie'), true);
 })
 
 $('#protectionSubsidiaire').click(function() {
-  disabledField($(this), $('#dateValiditeProtectionSubsidiaire'));
+  disabledField($(this), $('#dateValiditeProtectionSubsidiaire'), true);
 })
 
 $('#procNormale').click(function() {
-  disabledField($(this), $('#derConvProcNormale'));
+  disabledField($(this), $('#derConvProcNormale'), true);
 })
 
 $('#procAcceleree').click(function() {
-  disabledField($(this), $('#derConvpProcAcceleree'));
+  disabledField($(this), $('#derConvpProcAcceleree'), true);
 })
 
 $('#procDublin').click(function() {
-  disabledField($(this), $('#derConvProcDublin'));
+  disabledField($(this), $('#derConvProcDublin'), true);
 })
 
 $('#payee').click(function() {
@@ -1097,18 +1140,12 @@ $(document).ready(function(){
 
   $('button.btn-precedent').hide();
 
-  /* Initialisation du datepicker */
-  $('.datepicker').datepicker(datepickerConfigWithMaxDate);
-  $('#dateValiditeTitre.datepicker').datepicker(datepickerConfigWithMinDate);
-  $('#dateValiditePasseport.datepicker').datepicker(datepickerConfigWithMinDate);
-  $('#dateValiditeVisa.datepicker').datepicker(datepickerConfigWithMinDate);
-  $('#dateCarteSejour.datepicker').datepicker(datepickerConfigWithMinDate);
-  $('#dateCarteResident.datepicker').datepicker(datepickerConfigWithMinDate);
-  $('#dateRessortissantEU.datepicker').datepicker(datepickerConfigWithMinDate);
-  $('#dateValiditeRefugie.datepicker').datepicker(datepickerConfigWithMinDate);
-  $('#dateValiditeProtectionSubsidiaire.datepicker').datepicker(datepickerConfigWithMinDate);
-  
-  /* Initialisation du champ auto-complete "Pays de naissance" */
+  /* Initialisation des datepickers */
+  $('.maxToday.datepicker').datepicker(datepickerConfigWithMaxDate);
+  $('.minToday.datepicker').datepicker(datepickerConfigWithMinDate);
+  $('.notSet.datepicker').datepicker(datepickerConfig);
+
+  /* Initialisation des champs auto-complete "Pays" */
   $('input.autocomplete.pays-naissance').autocomplete({ minLength: 2, data: listePays });
   $('input.autocomplete.pays-ressortissant').autocomplete({ minLength: 2, data: listePaysEU });
 
@@ -1118,3 +1155,4 @@ $(document).ready(function(){
   /* Initialisation de la modale de confirmation */
   $('#modal1').modal();
 });
+

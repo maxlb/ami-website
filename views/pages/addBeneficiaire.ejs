@@ -1,9 +1,10 @@
 <% pageAffichee = "newBenef" %>
 
-<h2>Ajouter un bénéficiaire</h2>
+<h2 class="titre">Ajouter un bénéficiaire</h2>
 
+<!-- Bulle d'information -->
 <div class="row">
-  <div class="col s9">
+  <div class="col s10 offset-s1">
     <div class="card-panel ami">
       <div class="row info">
         <div class="col s2 infoIcon">
@@ -14,36 +15,36 @@
             Veuillez renseigner le formulaire ci-dessous pour ajouter un nouveau bénéficiaire.
             <br />
             Cliquez sur "ÉTAPE SUIVANTE" ou sur les numéros pour naviguer entre les étapes.
+            <br /><br />
+            <b>Informations sur l'inscrption :</b> 
           </span>
+
+          <!-- Informations inscription -->
+          <div class="row infoInsciption mb0">
+            <div class="col s6">
+              <div class="input-field inline" id="inscripteur">
+                <i class="material-icons prefix white-text">person_outline</i>
+                <input id="inscritPar" type="text" class="white-text">
+                <label for="inscritPar" class="white-text">Nom et prénom</label>
+              </div>
+            </div>
+            <div class="col s4">
+              <div class="input-field inline">
+                <i class="material-icons prefix white-text">today</i>
+                <input id="inscriLe" type="text" class="maxToday datepicker white-text">
+                <label for="inscriLe" class="white-text">Date d'inscription</label>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- FORMULAIRE -->
 <div class="form row">
-
-  <!-- Informations inscription -->
-  <div class="row infoInsciption">
-    <div class="col s3 inscripteurLabel">
-      <span class="card-title subtitle">Inscription réalisée par : </span>
-    </div>
-    <div class="col s4">
-      <div class="input-field inline" id="inscripteur">
-        <input id="inscritPar" type="text">
-        <label for="inscritPar">Nom et prénom</label>
-      </div>
-    </div>
-    <div class="col s1 inscripteurLabel">
-      <span class="card-title subtitle">Le : </span>
-    </div>
-    <div class="col s4">
-        <div class="input-field inline">
-          <input id="inscriLe" type="text" class="datepicker">
-          <label for="inscriLe">Date d'inscription</label>
-        </div>
-      </div>
-  </div>
 
   <!-- Bulles d'étapes -->
   <input id="one" type="radio" name="stage" checked="checked" />
@@ -81,6 +82,7 @@
             <!-- Nom, prénoms -->
             <div class="row">
               <div class="input-field col s6">
+                <i class="material-icons prefix default_color_text">person_outline</i>
                 <input id="prenom" type="text" required class="validate">
                 <label for="prenom">Prénoms</label>
                 <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
@@ -109,12 +111,14 @@
                   </label>
               </div>
               <div class="input-field col s6">
+                <i class="material-icons prefix disabled_color_text">person_outline</i>
                 <input id="nomJF" type="text" disabled>
                 <label for="nomJF">Nom de jeune fille</label>
               </div>
               <div class="col s3">
                 <div class="input-field inline">
-                  <input  id="dateNaissance" type="text" required class="datepicker validate">
+                  <i class="material-icons prefix default_color_text">today</i>
+                  <input  id="dateNaissance" type="text" required class="maxToday datepicker validate">
                   <label for="dateNaissance">Date de naissance</label>
                   <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
                 </div>
@@ -124,11 +128,13 @@
             <!-- Nationalité, pays de naissance -->
             <div class="row">
               <div class="input-field col s6">
+                <i class="material-icons prefix default_color_text">public</i>
                 <input id="nationalite" type="text" class="autocomplete nationalite validate" required> 
                 <label for="nationalite">Nationalité</label>
                 <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
               </div>
               <div class="input-field col s6">
+                <i class="material-icons prefix default_color_text">public</i>
                 <input id="paysNaissance" type="text" class="autocomplete pays-naissance validate" required">
                 <label for="paysNaissance">Pays de naissance</label>
                 <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
@@ -139,10 +145,12 @@
             <!-- Adresse, code postal, ville -->
             <div class="row">
               <div class="input-field col s6">
+                <i class="material-icons prefix default_color_text">home</i>
                 <input id="adresse" type="text">
                 <label for="adresse">Adresse</label>
               </div>
               <div class="input-field col s2">
+                <i class="material-icons prefix default_color_text">location_city</i>
                 <input id="codePostal" type="text">
                 <label for="codePostal">Code postal</label>
               </div>
@@ -155,11 +163,13 @@
             <!-- Mail, téléphone -->
             <div class="row">
               <div class="input-field col s6">
+                <i class="material-icons prefix default_color_text">mail_outline</i>
                 <input id="mail" type="email" class="validate">
                 <label for="mail">Adresse mail</label>
                 <span class="helper-text" data-error="Adresse mail invalide"></span>
               </div>
               <div class="input-field col s6">
+                <i class="material-icons prefix default_color_text">phone_iphone</i>
                 <input id="numTel" type="text" maxlength="10">
                 <label for="numTel">Numéro de téléphone</label>
               </div>
@@ -183,6 +193,7 @@
               </label>
             </div>
             <div class="input-field col s5">
+                <i class="material-icons prefix default_color_text">school</i>
               <input id="etudesSup" type="text">
               <label for="etudesSup">Études supérieures</label>
             </div>
@@ -205,6 +216,7 @@
             <!-- Situation de couple, date -->
             <div class="row">
               <div class="input-field col s6">
+                <i class="material-icons prefix default_color_text">people</i>
                 <select id="situation">
                   <option value="0" selected>Célibataire</option>
                   <option value="1">Marié.e</option>
@@ -215,13 +227,15 @@
                 <label>Situation</label>
               </div>
               <div class="input-field col s6">
-                <input id="dateSituation" type="text" class="datepicker" disabled>
+                <i class="material-icons prefix disabled_color_text">today</i>
+                <input id="dateSituation" type="text" class="maxToday datepicker" disabled>
                 <label for="dateSituation">Depuis le</label>
               </div>
             </div>
             <!-- Nom, prénopm -->
             <div class="row">
               <div class="input-field col s6">
+                <i class="material-icons prefix disabled_color_text">person_outline</i>
                 <input id="prenomConjoint" type="text" disabled>
                 <label for="prenomConjoint">Prénoms du/de la conjoint.e</label>
               </div>
@@ -234,7 +248,8 @@
             <!-- Date de naissance, vit en France, date d'entrée -->
             <div class="row">
               <div class="input-field inline col s4">
-                <input  id="dateNaissanceConjoint" type="text" class="datepicker" disabled>
+                <i class="material-icons prefix disabled_color_text">today</i>
+                <input  id="dateNaissanceConjoint" type="text" class="maxToday datepicker" disabled>
                 <label for="dateNaissanceConjoint">Date de naissance du/de la conjoint.e</label>
               </div>
               <div class="switch col s4 resideFranceConjoint">
@@ -245,7 +260,8 @@
                 </label>
               </div>
               <div class="input-field col s4">
-                <input id="dateEntreeFranceConjoint" type="text" class="datepicker" disabled>
+                <i class="material-icons prefix disabled_color_text">today</i>
+                <input id="dateEntreeFranceConjoint" type="text" class="maxToday datepicker" disabled>
                 <label for="dateEntreeFranceConjoint">Depuis le</label>
               </div>
             </div>
@@ -253,6 +269,7 @@
             <!-- Nom, prénopm -->
             <div class="row">
               <div class="input-field col s12">
+                <i class="material-icons prefix disabled_color_text">gavel</i>
                 <input id="situationConjoint" type="text" disabled>
                 <label for="situationConjoint">Situation administrative du/de la conjoint.e</label>
               </div>
@@ -264,6 +281,7 @@
               <!-- Nom, prénopm -->
               <div class="row">
                 <div class="input-field col s6">
+                  <i class="material-icons prefix default_color_text">face</i>
                   <input id="prenomEnfant" type="text">
                   <label for="prenomEnfant">Prénoms</label>
                 </div>
@@ -276,7 +294,8 @@
               <!-- Date de naissance, vit en France, date d'entrée -->
               <div class="row">
                 <div class="input-field inline col s4">
-                  <input  id="dateNaissanceEnfant" type="text" class="datepicker">
+                  <i class="material-icons prefix default_color_text">today</i>
+                  <input  id="dateNaissanceEnfant" type="text" class="maxToday datepicker">
                   <label for="dateNaissanceEnfant">Date de naissance</label>
                 </div>
                 <div class="switch col s4 resideFranceEnfant">
@@ -287,7 +306,8 @@
                   </label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="dateEntreeFranceEnfant" type="text" class="datepicker" disabled>
+                  <i class="material-icons prefix default_color_text">today</i>
+                  <input id="dateEntreeFranceEnfant" type="text" class="maxToday datepicker" disabled>
                   <label for="dateEntreeFranceEnfant">Depuis le</label>
                 </div>
               </div>
@@ -295,10 +315,12 @@
               <!-- Nationalité, pays de naissance -->
               <div class="row">
                 <div class="input-field col s6">
+                  <i class="material-icons prefix default_color_text">public</i>
                   <input id="nationaliteEnfant" type="text" class="autocomplete nationalite">
                   <label for="nationaliteEnfant">Nationalité</label>
                 </div>
                 <div class="input-field col s6">
+                  <i class="material-icons prefix default_color_text">public</i>
                   <input id="paysNaissanceEnfant" type="text" class="autocomplete pays-naissance">
                   <label for="paysNaissanceEnfant">Pays de naissance</label>
                 </div>
@@ -324,42 +346,36 @@
             <span class="card-title subtitle">Contacts</span>
 
             <!-- Avocat -->
-            <div class="row">
-              <div class="input-field col s3">
-                Avocat
-              </div>
-              <div class="input-field col s9">
+            <div class="row mb0">
+              <div class="input-field col s6 offset-s1">
+                <i class="material-icons prefix default_color_text">contact_phone</i>
                 <input id="telAvocat" type="text" maxlength="10">
-                <label for="telAvocat">Numéro de téléphone</label>
+                <label for="telAvocat">Numéro de téléphone d'un <b>avocat</b></label>
               </div>
             </div>
 
             <!-- Assistante sociale -->
-            <div class="row">
-              <div class="input-field col s3">
-                Assistante sociale
-              </div>
-              <div class="input-field col s9">
+            <div class="row mb0">
+              <div class="input-field col s6 offset-s1">
+                <i class="material-icons prefix default_color_text">contact_phone</i>
                 <input id="telAssistanteSociale" type="text" maxlength="10">
-                <label for="telAssistanteSociale">Numéro de téléphone</label>
+                <label for="telAssistanteSociale">Numéro de téléphone d'une <b>assistante sociale</b></label>
               </div>
             </div>
 
             <!-- Association -->
             <div class="row">
-              <div class="input-field col s3">
-                Association
-              </div>
-              <div class="input-field col s9">
+              <div class="input-field col s6 offset-s1">
+                <i class="material-icons prefix default_color_text">contact_phone</i>
                 <input id="telAssociation" type="text" maxlength="10">
-                <label for="telAssociation">Numéro de téléphone</label>
+                <label for="telAssociation">Numéro de téléphone d'une <b>association</b></label>
               </div>
             </div>
 
             <span class="card-title subtitle sub-enfant">Découverte de l'AMI</span>
             <!-- Orienté par -->
             <div class="row">
-              <div class="input-field col s12">
+              <div class="input-field col s11 offset-s1">
                 <input id="orientePar" type="text">
                 <label for="orientePar">Qui à orienté le bénéficiaire vers l'AMI ?</label>
               </div>
@@ -382,41 +398,41 @@
   
               <!-- Date d'entrée en France -->
               <div class="row">
-                <div class="input-field col s3">
-                  Date d'entrée en France
-                </div>
-                <div class="input-field col s4">
-                  <input id="dateEntreeFrance" type="text" class="datepicker">
-                  <label for="dateEntreeFrance">Date</label>
+                <div class="input-field col s4 offset-s1">
+                  <i class="material-icons prefix default_color_text">today</i>
+                  <input id="dateEntreeFrance" type="text" class="maxToday datepicker">
+                  <label for="dateEntreeFrance">Date d'entrée en France</label>
                 </div>
               </div>
               
               <span class="card-title subtitle">Moyen(s) d'entrée</span>
   
               <!-- Passeport -->
-              <div class="row">
-                <div class="input-field col s3">
+              <div class="row mb0">
+                <div class="input-field col s3 offset-s1">
                     <label>
                       <input  id="passeport" type="checkbox" class="filled-in" />
                       <span>Passeport</span>
                     </label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="dateValiditePasseport" type="text" class="datepicker" disabled>
+                  <i class="material-icons prefix disabled_color_text">today</i>
+                  <input id="dateValiditePasseport" type="text" class="minToday datepicker" disabled>
                   <label for="dateValiditePasseport">Date de validité</label>
                 </div>
               </div>
 
               <!-- Visa -->
               <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s3 offset-s1">
                     <label>
                       <input id="visa" type="checkbox" class="filled-in" />
                       <span>Visa</span>
                     </label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="dateValiditeVisa" type="text" class="datepicker" disabled> 
+                  <i class="material-icons prefix disabled_color_text">today</i>
+                  <input id="dateValiditeVisa" type="text" class="minToday datepicker" disabled> 
                   <label for="dateValiditeVisa">Date de validité</label>
                 </div>
               </div>
@@ -424,55 +440,59 @@
               <span class="card-title subtitle">Titre de séjour</span>
 
               <!-- Carte de séjour temporaire -->
-              <div class="row">
-                <div class="input-field col s3">
+              <div class="row mb0">
+                <div class="input-field col s3 offset-s1">
                     <label>
                       <input id="carteSejour" type="checkbox" class="filled-in" />
                       <span>Carte de séjour temporaire</span>
                     </label>
                 </div>
-                <div class="input-field col s5">
+                <div class="input-field col s4">
                   <input id="mentionCarteSejour" type="text" disabled> 
                   <label for="mentionCarteSejour">Mention</label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="dateCarteSejour" type="text" class="datepicker" disabled> 
+                  <i class="material-icons prefix disabled_color_text">today</i>
+                  <input id="dateCarteSejour" type="text" class="minToday datepicker" disabled> 
                   <label for="dateCarteSejour">Date de validité</label>
                 </div>
               </div>
 
               <!-- Carte de résident -->
-              <div class="row">
-                <div class="input-field col s3">
+              <div class="row mb0">
+                <div class="input-field col s3 offset-s1">
                     <label>
                       <input id="carteResident" type="checkbox" class="filled-in" />
                       <span>Carte de résident</span>
                     </label>
                 </div>
-                <div class="input-field col s5">
+                <div class="input-field col s4">
                   <input id="mentionCarteResident" type="text" disabled> 
                   <label for="mentionCarteResident">Mention</label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="dateCarteResident" type="text" class="datepicker" disabled> 
+                  <i class="material-icons prefix disabled_color_text">today</i>
+                  <input id="dateCarteResident" type="text" class="minToday datepicker" disabled> 
                   <label for="dateCarteResident">Date de validité</label>
                 </div>
               </div>
 
               <!-- Ressortissant européen -->
               <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s3 offset-s1">
                     <label>
                       <input id="ressortissantEU" type="checkbox" class="filled-in" />
                       <span>Ressortissant européen</span>
                     </label>
                 </div>
-                <div class="input-field col s5">
+                <div class="input-field col s4">
+                  <i class="material-icons prefix disabled_color_text">public</i>
                   <input id="paysRessortissantEU" type="text" class="autocomplete pays-ressortissant" disabled>
                   <label for="paysRessortissantEU">Pays</label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="dateRessortissantEU" type="text" class="datepicker" disabled> 
+                  <i class="material-icons prefix disabled_color_text">today</i>
+                  <input id="dateRessortissantEU" type="text" class="minToday datepicker" disabled> 
                   <label for="dateRessortissantEU">Date de validité</label>
                 </div>
               </div>
@@ -480,29 +500,31 @@
               <span class="card-title subtitle">Bénéficiaire de la protection internationale</span>
 
               <!-- Réfugié -->
-              <div class="row">
-                <div class="input-field col s3">
+              <div class="row mb0">
+                <div class="input-field col s3 offset-s1">
                     <label>
                       <input id="refugie" type="checkbox" class="filled-in" />
                       <span>Réfugié</span>
                     </label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="dateValiditeRefugie" type="text" class="datepicker" disabled> 
+                  <i class="material-icons prefix disabled_color_text">today</i>
+                  <input id="dateValiditeRefugie" type="text" class="minToday datepicker" disabled> 
                   <label for="dateValiditeRefugie">Date de validité</label>
                 </div>
               </div>
 
               <!-- Protection subsidiaire -->
               <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s3 offset-s1">
                     <label>
                       <input id="protectionSubsidiaire" type="checkbox" class="filled-in" />
                       <span>Protection subsidiaire</span>
                     </label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="dateValiditeProtectionSubsidiaire" type="text" class="datepicker" disabled> 
+                  <i class="material-icons prefix disabled_color_text">today</i>
+                  <input id="dateValiditeProtectionSubsidiaire" type="text" class="minToday datepicker" disabled> 
                   <label for="dateValiditeProtectionSubsidiaire">Date de validité</label>
                 </div>
               </div>
@@ -523,78 +545,75 @@
               <span class="card-title subtitle">Demande d’asile</span>
 
               <!-- Procédure normale -->
-              <div class="row">
-                <div class="input-field col s3">
+              <div class="row mb0">
+                <div class="input-field col s3 offset-s1">
                     <label>
                       <input id="procNormale" type="checkbox" class="filled-in" />
                       <span>Procédure normale</span>
                     </label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="derConvProcNormale" type="text" class="datepicker" disabled> 
+                  <i class="material-icons prefix disabled_color_text">today</i>
+                  <input id="derConvProcNormale" type="text" class="maxToday datepicker" disabled> 
                   <label for="derConvProcNormale">Dernière convocation</label>
                 </div>
               </div>
 
               <!-- Procédure accélérée -->
-              <div class="row">
-                <div class="input-field col s3">
+              <div class="row mb0">
+                <div class="input-field col s3 offset-s1">
                     <label>
                       <input id="procAcceleree" type="checkbox" class="filled-in" />
                       <span>Procédure accélérée</span>
                     </label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="derConvpProcAcceleree" type="text" class="datepicker" disabled> 
+                  <i class="material-icons prefix disabled_color_text">today</i>
+                  <input id="derConvpProcAcceleree" type="text" class="maxToday datepicker" disabled> 
                   <label for="derConvpProcAcceleree">Dernière convocation</label>
                 </div>
               </div>
 
               <!-- Procédure Dublin -->
               <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s3 offset-s1">
                     <label>
                       <input id="procDublin" type="checkbox" class="filled-in" />
                       <span>Procédure Dublin</span>
                     </label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="derConvProcDublin" type="text" class="datepicker" disabled> 
+                  <i class="material-icons prefix disabled_color_text">today</i>
+                  <input id="derConvProcDublin" type="text" class="maxToday datepicker" disabled> 
                   <label for="derConvProcDublin">Dernière convocation</label>
                 </div>
               </div>
 
               <span class="card-title subtitle">Office Français de Protection des Réfugiés et des Apatrides (OFPRA)</span>
               <!-- Lettre d’enregistrement -->
-              <div class="row">
-                <div class="input-field col s3 mt2em">
-                  Lettre d’enregistrement
-                </div>
-                <div class="input-field col s4">
-                  <input id="OFPRADateLettreEnr" type="text" class="datepicker"> 
-                  <label for="OFPRADateLettreEnr">Date de la lettre</label>
+              <div class="row mb0">
+                <div class="input-field col s6 offset-s1">
+                  <i class="material-icons prefix default_color_text">email</i>
+                  <input id="OFPRADateLettreEnr" type="text" class="maxToday datepicker"> 
+                  <label for="OFPRADateLettreEnr">Date de la lettre d'enregistrement</label>
                 </div>
               </div>
 
               <!-- Convocation -->
-              <div class="row">
-                <div class="input-field col s3 mt2em">
-                  Convocation à l'OFPRA
-                </div>
-                <div class="input-field col s4">
-                  <input id="OFPRADateConvoc" type="text" class="datepicker"> 
-                  <label for="OFPRADateConvoc">Date de convocation</label>
+              <div class="row mb0">
+                <div class="input-field col s6 offset-s1">
+                  <i class="material-icons prefix default_color_text">account_balance</i>
+                  <input id="OFPRADateConvoc" type="text" class="notSet datepicker"> 
+                  <label for="OFPRADateConvoc">Date de convocation à l'OFPRA</label>
                 </div>
               </div>
 
               <!-- Réponse -->
-              <div class="row">
-                <div class="input-field col s3 mt2em">
-                  Réponse de l'OFPRA
-                </div>
-                <div class="input-field col s4">
-                  <input id="OFPRADateRep" type="text" class="datepicker"> 
-                  <label for="OFPRADateRep">Date de réponse</label>
+              <div class="row mb0">
+                <div class="input-field col s6 offset-s1">
+                  <i class="material-icons prefix default_color_text">gavel</i>
+                  <input id="OFPRADateRep" type="text" class="notSet datepicker"> 
+                  <label for="OFPRADateRep">Date de réponse de l'OFPRA</label>
                 </div>
                 <div class="col s2 OFPRARep mt1em">
                   <label>
@@ -610,11 +629,9 @@
 
               <!-- Réexamen -->
               <div class="row">
-                <div class="input-field col s3 mt2em">
-                  Réexamen de l'OFPRA
-                </div>
-                <div class="input-field col s4">
-                  <input id="OFPRADateReexam" type="text" class="datepicker"> 
+                <div class="input-field col s6 offset-s1">
+                  <i class="material-icons prefix default_color_text">repeat</i>
+                  <input id="OFPRADateReexam" type="text" class="notSet datepicker"> 
                   <label for="OFPRADateReexam">Date de réexamen</label>
                 </div>
               </div>
@@ -623,45 +640,41 @@
 
               <!-- Avocat -->
               <div class="row">
-                <div class="input-field col s3 mt2em">
-                  Avocat
+                  <div class="input-field col s4 offset-s1">
+                  <i class="material-icons prefix default_color_text">person_outline</i>
+                  <input id="CNDAAvocatPrenom" type="text">
+                  <label for="CNDAAvocatPrenom">Prénom de l'avocat</label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="CNDAAvocat" type="text" maxlength="10">
-                  <label for="CNDAAvocat">Nom Prénom</label>
-                </div>
+                    <input id="CNDAAvocatNom" type="text">
+                    <label for="CNDAAvocatNom">Nom de l'avocat</label>
+                  </div>
               </div>
 
               <!-- Lettre d’enregistrement -->
-              <div class="row">
-                <div class="input-field col s3 mt2em">
-                  Lettre d’enregistrement
-                </div>
-                <div class="input-field col s4">
-                  <input id="CNDADateLettreEnr" type="text" class="datepicker"> 
-                  <label for="CNDADateLettreEnr">Date de la lettre</label>
+              <div class="row mb0">
+                <div class="input-field col s6 offset-s1">
+                  <i class="material-icons prefix default_color_text">email</i>
+                  <input id="CNDADateLettreEnr" type="text" class="notSet datepicker"> 
+                  <label for="CNDADateLettreEnr">Date de la lettre d’enregistrement</label>
                 </div>
               </div>
 
               <!-- Convocation -->
-              <div class="row">
-                <div class="input-field col s3 mt2em">
-                  Convocation à la CNDA
-                </div>
-                <div class="input-field col s4">
-                  <input id="CNDADateConvoc" type="text" class="datepicker"> 
-                  <label for="CNDADateConvoc">Date de convocation</label>
+              <div class="row mb0">
+                <div class="input-field col s6 offset-s1">
+                  <i class="material-icons prefix default_color_text">account_balance</i>
+                  <input id="CNDADateConvoc" type="text" class="notSet datepicker"> 
+                  <label for="CNDADateConvoc">Date de convocation à la CNDA</label>
                 </div>
               </div>
 
               <!-- Réponse -->
               <div class="row">
-                <div class="input-field col s3 mt2em">
-                  Décision de la CNDA
-                </div>
-                <div class="input-field col s4">
-                  <input id="CNDADateRep" type="text" class="datepicker"> 
-                  <label for="CNDADateRep">Date de réponse</label>
+                <div class="input-field col s6 offset-s1">
+                  <i class="material-icons prefix default_color_text">gavel</i>
+                  <input id="CNDADateRep" type="text" class="notSet datepicker"> 
+                  <label for="CNDADateRep">Date de décision de la CNDA</label>
                 </div>
                 <div class="col s2 CNDARep mt1em">
                   <label>
@@ -677,25 +690,34 @@
 
               <span class="card-title subtitle">Obligation de Quitter le Territoire Français (OQTF)</span>
   
-                <!-- Convocation -->
+                <!-- Avocat -->
                 <div class="row">
-                  <div class="input-field col s3 mt2em">
-                    Convocation au tribunal administratif
+                    <div class="input-field col s4 offset-s1">
+                    <i class="material-icons prefix default_color_text">person_outline</i>
+                    <input id="OQTFAvocatPrenom" type="text">
+                    <label for="OQTFAvocatPrenom">Nom de l'avocat</label>
                   </div>
                   <div class="input-field col s4">
-                    <input id="OQTFDateConvoc" type="text" class="datepicker"> 
-                    <label for="OQTFDateConvoc">Date de convocation</label>
+                      <input id="OQTFAvocatPrenom" type="text">
+                      <label for="OQTFAvocatPrenom">Prénom de l'avocat</label>
+                    </div>
+                </div>
+
+                <!-- Convocation -->
+                <div class="row mb0">
+                  <div class="input-field col s6 offset-s1">
+                    <i class="material-icons prefix default_color_text">account_balance</i>
+                    <input id="OQTFDateConvoc" type="text" class="notSet datepicker"> 
+                    <label for="OQTFDateConvoc">Date de convocation au <b>tribunal administratif</b></label>
                   </div>
                 </div>
   
                 <!-- Réponse -->
                 <div class="row">
-                  <div class="input-field col s3 mt2em">
-                    Décision du tribunal administratif
-                  </div>
-                  <div class="input-field col s4">
-                    <input id="OQTFDateRep" type="text" class="datepicker"> 
-                    <label for="OQTFDateRep">Date de réponse</label>
+                  <div class="input-field col s6 offset-s1">
+                    <i class="material-icons prefix default_color_text">gavel</i>
+                    <input id="OQTFDateRep" type="text" class="notSet datepicker"> 
+                    <label for="OQTFDateRep">Date de réponse du <b>tribunal administratif</b></label>
                   </div>
                   <div class="col s2 CNDARep mt1em">
                     <label>
@@ -711,24 +733,20 @@
 
 
                 <!-- Convocation -->
-                <div class="row">
-                  <div class="input-field col s3 mt2em">
-                    Convocation la Cour administrative d'appel
-                  </div>
-                  <div class="input-field col s4">
-                    <input id="OQTFDateConvoc2" type="text" class="datepicker"> 
-                    <label for="OQTFDateConvoc2">Date de convocation</label>
+                <div class="row mb0">
+                  <div class="input-field col s6 offset-s1">
+                    <i class="material-icons prefix default_color_text">account_balance</i>
+                    <input id="OQTFDateConvoc2" type="text" class="notSet datepicker"> 
+                    <label for="OQTFDateConvoc2">Date de convocation à la <b>Cour administrative d'appel</b></label>
                   </div>
                 </div>
   
                 <!-- Réponse -->
                 <div class="row">
-                  <div class="input-field col s3 mt2em">
-                    Décision de la Cour administrative d'appel
-                  </div>
-                  <div class="input-field col s4">
-                    <input id="OQTFDateRep2" type="text" class="datepicker"> 
-                    <label for="OQTFDateRep2">Date de réponse</label>
+                  <div class="input-field col s6 offset-s1">
+                    <i class="material-icons prefix default_color_text">gavel</i>
+                    <input id="OQTFDateRep2" type="text" class="notSet datepicker"> 
+                    <label for="OQTFDateRep2">Date de réponse de la <b>Cour administrative d'appel</b></label>
                   </div>
                   <div class="col s2 CNDARep mt1em">
                     <label>
@@ -759,7 +777,7 @@
 
               <!-- Montant -->
               <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s3 offset-s1">
                     <label>
                       <input id="payee" name="choixCotisation" type="radio" class="with-gap" checked />
                       <span>Cotisation payée</span>
@@ -778,7 +796,7 @@
 
               <!-- Montant -->
               <div class="row">
-                  <div class="input-field col s3">
+                  <div class="input-field col s3 offset-s1">
                       <label>
                         <input id="pasPayee" name="choixCotisation" type="radio" class="with-gap" />
                         <span>Cotisation non payée</span>
@@ -795,15 +813,12 @@
         </div>
     </div>
 
-
   </div>
 
   <button class="btn-large default_color btn-precedent">Étape précédente</button>
   <button class="btn-large default_color btn-suivant">Étape suivante</button>
 
 </div>
-
-
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
@@ -913,7 +928,7 @@
         <li class="collection-header"><h5>OQTF </h5></li>
         <li class="collection-item"><div>Date de la convocation             <span class="secondary-content" id="recOQTFDateConvoc"></span></div></li>
         <li class="collection-item"><div>Réponse                            <span class="secondary-content" id="recOQTFRep"></span></div></li>
-        <li class="collection-item noBBord"><div>Date de la réponse         <span class="secondary-content" id="recOQTFDateRep"></span></div></li>
+        <li class="collection-item"><div>Date de la réponse                 <span class="secondary-content" id="recOQTFDateRep"></span></div></li>
         <li class="collection-item"><div>Date de la convocation en Appel    <span class="secondary-content" id="recOQTFDateConvoc2"></span></div></li>
         <li class="collection-item"><div>Réponse de l'Appel                 <span class="secondary-content" id="recOQTFRep2"></span></div></li>
         <li class="collection-item noBBord"><div>Date de la réponse de l'Appel <span class="secondary-content" id="recOQTFDateRep2"></span></div></li>
