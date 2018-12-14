@@ -197,6 +197,26 @@
               <input id="etudesSup" type="text">
               <label for="etudesSup">Études supérieures</label>
             </div>
+
+
+            <span class="card-title subtitle">Permis de conduire</span>
+            <!-- Permis de conduire -->
+
+            <div class="row">
+              <div class="input-field inline col s4">
+                <i class="material-icons prefix default_color_text">today</i>
+                <input  id="datePermis" type="text" required class="maxToday datepicker validate">
+                <label for="datePermis">Date d'obtention</label>
+              </div>
+              <div class="switch col s3 etudes">
+                Possède une voiture
+                <label>
+                  <input type="checkbox" id="aUneVoiture">
+                  <span class="lever"></span>
+                </label>
+              </div>
+            </div>
+            
             
           </div>
 
@@ -695,11 +715,11 @@
                     <div class="input-field col s4 offset-s1">
                     <i class="material-icons prefix default_color_text">person_outline</i>
                     <input id="OQTFAvocatPrenom" type="text">
-                    <label for="OQTFAvocatPrenom">Nom de l'avocat</label>
+                    <label for="OQTFAvocatPrenom">Prénom de l'avocat</label>
                   </div>
                   <div class="input-field col s4">
-                      <input id="OQTFAvocatPrenom" type="text">
-                      <label for="OQTFAvocatPrenom">Prénom de l'avocat</label>
+                      <input id="OQTFAvocatNom" type="text">
+                      <label for="OQTFAvocatNom">Nom de l'avocat</label>
                     </div>
                 </div>
 
@@ -852,6 +872,10 @@
         <li class="collection-item"><div>Comprends le français           <span class="secondary-content" id="recComprendFR"></span></div></li>
         <li class="collection-item"><div>A le bac                        <span class="secondary-content" id="recALeBac"></span></div></li>
         <li class="collection-item noBBord"><div>Études supérieures      <span class="secondary-content" id="recEtudesSup"></span></div></li>
+        
+        <li class="collection-header"><h5>Conduite</h5></li>
+        <li class="collection-item"><div>Date d'obtention du permis de conduire  <span class="secondary-content" id="recDatePermis"></span></div></li>
+        <li class="collection-item noBBord"><div>Possède une voiture      <span class="secondary-content" id="recaUneVoiture"></span></div></li>
 
         <!-- Situation familiale -->  
         <li class="collection-header"><h5>Situation familiale</h5></li>
@@ -926,6 +950,7 @@
         <li class="collection-item noBBord"><div>Date de la réponse         <span class="secondary-content" id="recCNDADateRep"></span></div></li>
         
         <li class="collection-header"><h5>OQTF </h5></li>
+        <li class="collection-item"><div>Avocat                             <span class="secondary-content" id="recOQTFAvocat"></span></div></li>
         <li class="collection-item"><div>Date de la convocation             <span class="secondary-content" id="recOQTFDateConvoc"></span></div></li>
         <li class="collection-item"><div>Réponse                            <span class="secondary-content" id="recOQTFRep"></span></div></li>
         <li class="collection-item"><div>Date de la réponse                 <span class="secondary-content" id="recOQTFDateRep"></span></div></li>

@@ -549,6 +549,10 @@ function setNewBeneficiaire() {
       comprendFR: getValueFromCheckBox('comprendFR'),
       aLeBac: getValueFromCheckBox('aLeBac'),
       etudesSup: getValueFromField('etudesSup')
+    },
+    permis: {
+      date:  getValueFromField('datePermis'),
+      aUneVoiture: getValueFromCheckBox('aUneVoiture')
     }
   };
 
@@ -610,13 +614,14 @@ function setNewBeneficiaire() {
       reexamen: getValueFromField('OFPRADateReexam')
     },
     CNDA: {
-      avocat: "Maître " + getValueFromField('CNDAAvocatPrenom') + " " + getValueFromField('CNDAAvocatPrenom') ,
+      avocat: getAvocat('CNDA'),
       lettreEnregistrement: getValueFromField('CNDADateLettreEnr'),
       convocation: getValueFromField('CNDADateConvoc'),
       reponse: getReponse('isAccCNDA', 'isRefCNDA'),
       dateReponse: getValueFromField('CNDADateRep')
     },
     OQTF: {
+      avocat: getAvocat('OQTF'),
       convocation: getValueFromField('OQTFDateConvoc'),
       reponse: getReponse('isAccOQTF', 'isRefOQTF'),
       dateReponse: getValueFromField('OQTFDateRep'),
@@ -624,7 +629,7 @@ function setNewBeneficiaire() {
       reponseAppel: getReponse('isAccOQTF2', 'isRefOQTF2', true),
       dateReponseAppel: getValueFromField('OQTFDateRep2'),
     }
-  }
+  };
 
   /* Cotisation */
   var cotisationObj = {
@@ -675,6 +680,8 @@ function setRecapitulatif(){
   $('#recComprendFR').html(boolToString(newBeneficiaire.infosPersos.etudes.comprendFR));
   $('#recALeBac').html(boolToString(newBeneficiaire.infosPersos.etudes.aLeBac));
   $('#recEtudesSup').html(newBeneficiaire.infosPersos.etudes.etudesSup);
+  $('#recDatePermis').html(newBeneficiaire.infosPersos.permis.date);
+  $('#recaUneVoiture').html(boolToString(newBeneficiaire.infosPersos.permis.aUneVoiture));
 
   /* Situation familiale */
   $('#recSituation').html(newBeneficiaire.situationFamiliale.situation);
@@ -749,6 +756,7 @@ function setRecapitulatif(){
   $('#recCNDADateConvoc').html(newBeneficiaire.demAdmin.CNDA.convocation);
   $('#recCNDARep').html(newBeneficiaire.demAdmin.CNDA.reponse);
   $('#recCNDADateRep').html(newBeneficiaire.demAdmin.CNDA.dateReponse);
+  $('#recOQTFAvocat').html(newBeneficiaire.demAdmin.OQTF.avocat);
   $('#recOQTFDateConvoc').html(newBeneficiaire.demAdmin.OQTF.convocation);
   $('#recOQTFRep').html(newBeneficiaire.demAdmin.OQTF.reponse);
   $('#recOQTFDateRep').html(newBeneficiaire.demAdmin.OQTF.dateReponse);
@@ -761,6 +769,16 @@ function setRecapitulatif(){
   $('#recMontant').html(newBeneficiaire.cotisation.montant + " €");
   $('#recRaisonPasCotise').html(newBeneficiaire.cotisation.motif);
 
+}
+
+function getAvocat(field) {
+  var prenom = getValueFromField(field + 'AvocatPrenom');
+  var nom = getValueFromField(field + 'AvocatNom');
+  if (prenom != '' && nom != '') {
+    return 'Maître ' + prenom + ' ' + nom;
+  } else {
+    return '';
+  }
 }
 
 function getMontant() {

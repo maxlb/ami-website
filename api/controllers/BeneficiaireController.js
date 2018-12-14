@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+    
     inscrire(req, res) {
         let params = req.allParams();
     

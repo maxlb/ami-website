@@ -11,167 +11,45 @@ module.exports = {
 
   attributes: {
 
-    genre: {
-      type: 'string',
-      required: true,
-      maxLength: 1,
-      isIn: ['H', 'F', 'X']
-    },
+    /* Identité */
+    prenom: { type: 'string', required: true, maxLength: 200 },
+    nom: { type: 'string', required: true, maxLength: 200 },
+    nomJeuneFille: { type: 'string', maxLength: 200 },
+    genre: { type: 'string', required: true, maxLength: 1, isIn: ['H', 'F'] },
+    dateNaissance: { type: 'ref', columnType: 'date', required: true },
+    nationalite: { type: 'string', required: true, maxLength: 200 },
+    paysNaissance: { required: true, type: 'string', maxLength: 200 },
 
-    nom: {
-      type: 'string',
-      required: true,
-      maxLength: 200
-    },
+    /* Coordonnées */
+    adresse: { type: 'string', maxLength: 500 },
+    codePostal: { type: 'number', isInteger: true },
+    ville: { type: 'string', maxLength: 200 },
+    telephone: { type: 'string', maxLength: 10 },
+    mail: { type: 'string', isEmail: true, maxLength: 100 },
 
-    nomJeuneFille: {
-      type: 'string',
-      required: false,
-      maxLength: 200
-    },
+    /* Études */
+    aLeBac: { type: 'boolean', defaultsTo: false },
+    typeEtudesSup: { type: 'string', maxLength: 200 },
+    comprendFr: { type: 'boolean', defaultsTo: true },
 
-    prenom: {
-      type: 'string',
-      required: true,
-      maxLength: 200
-    },
+    /* Contacts */
+    numAvocat: { type: 'string', maxLength: 10 },
+    numAssistSociale: { type: 'string', maxLength: 10 },
+    numAsso: { type: 'string', maxLength: 10 },
+    orientePar: { type: 'string', maxLength: 200 },
 
-    nationalite: {
-      type: 'string',
-      required: true,
-      maxLength: 200
-    },
+    /* Inscription */
+    dateInscription: { type: 'ref', columnType: 'date', required: true },
+    inscritPar: { type: 'string', maxLength: 200 },
 
-    paysNaissance: {
-      required: true,
-      type: 'string',
-      maxLength: 200
-    },
+    /* Vie en France */
+    dateEntreeFrance: { type: 'ref', columnType: 'date' },
 
-    dateNaissance: {
-      type: 'ref',
-      columnType: 'date',
-      required: true
-    },
-
-    adresse: {
-      type: 'string',
-      required: false,
-      maxLength: 500
-    },
-
-    codePostal: {
-      type: 'number',
-      isInteger: true,
-      required: false
-    },
-
-    ville: {
-      type: 'string',
-      required: false,
-      maxLength: 200
-    },
-
-    telephone: {
-      type: 'string',
-      required: false,
-      maxLength: 10
-    },
-
-    mail: {
-      type: 'string',
-      isEmail: true,
-      required: false,
-      maxLength: 100
-    },
-
-    dateInscription: {
-      type: 'ref',
-      columnType: 'date',
-      required: true
-    },
-
-    aLeBac: {
-      type: 'boolean',
-      required: false,
-      defaultsTo: false
-    },
-
-    typeEtudesSup: {
-      type: 'string',
-      required: true,
-      maxLength: 200
-    },
-
-    comprendFr: {
-      type: 'boolean',
-      required: false,
-      defaultsTo: true
-    },
-
-    numAvocat: {
-      type: 'string',
-      required: false,
-      maxLength: 10
-    },
-
-    numAssistSociale: {
-      type: 'string',
-      required: false,
-      maxLength: 10
-    },
-
-    numAsso: {
-      type: 'string',
-      required: false,
-      maxLength: 10
-    },
-
-    orientePar: {
-      type: 'string',
-      required: true,
-      maxLength: 200
-    },
-
-    dateEntreeFrance: {
-      type: 'ref',
-      columnType: 'date',
-      required: false
-    },
-
-    estEuropeen: {
-      type: 'boolean',
-      required: true
-    },
-
-    paysRessortissant: {
-      type: 'string',
-      required: false,
-      maxLength: 200
-    },
-
-    dateValiditeCarteEU: {
-      type: 'ref',
-      columnType: 'date',
-      required: false
-    },
-
-    estRegularisePref: {
-      type: 'boolean',
-      required: false
-    },
-
-    dateDemandeRegPref: {
-      type: 'ref',
-      columnType: 'date',
-      required: false
-    },
-
-    dateRepRegPref: {
-      type: 'ref',
-      columnType: 'date',
-      required: false
-    }
+    /* Titres de séjour */
+    /* Carte EU */
+    estEuropeen: { type: 'boolean' },
+    paysRessortissant: { type: 'string', maxLength: 200 },
+    dateValiditeCarteEU: { type: 'ref', columnType: 'date' }
 
   }
 
