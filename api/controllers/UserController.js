@@ -10,13 +10,13 @@ module.exports = {
   login(req, res) {
     let params = req.allParams();
 
-    console.log(params);
+    sails.log.info('UserController - login - Connexion de %s', params.mail);
 
     User.findOne({
       mail: params.mail
     }).decrypt().exec((err, user) => {
       if (err) {
-        console.log(err);
+        sails.log.error(err);
       }
       if (!user || user.password !== params.password) {
         return res.redirect('/');

@@ -602,14 +602,14 @@ function setNewBeneficiaire() {
   /* Démarches  Administratives */
   var demAdminObj = {
     demandeAsile: {
-      procAcceleree: getInfoCheckDate('procNormale', 'derConvProcNormale'),
-      procNormale: getInfoCheckDate('procAcceleree', 'derConvpProcAcceleree'),
+      procAcceleree: getInfoCheckDate('procAcceleree', 'derConvpProcAcceleree'),
+      procNormale: getInfoCheckDate('procNormale', 'derConvProcNormale'),
       procDublin: getInfoCheckDate('procDublin', 'derConvProcDublin')
     },
     OFPRA: {
       lettreEnregistrement: getValueFromField('OFPRADateLettreEnr'),
       convocation: getValueFromField('OFPRADateConvoc'),
-      reponse: getReponse('isAccOFPRA', 'isRefOFPRA'),
+      reponse: getReponse('isRefOFPRA', 'isSubOFPRA', 'isRejOFPRA'),
       dateReponse: getValueFromField('OFPRADateRep'),
       reexamen: getValueFromField('OFPRADateReexam')
     },
@@ -617,16 +617,16 @@ function setNewBeneficiaire() {
       avocat: getAvocat('CNDA'),
       lettreEnregistrement: getValueFromField('CNDADateLettreEnr'),
       convocation: getValueFromField('CNDADateConvoc'),
-      reponse: getReponse('isAccCNDA', 'isRefCNDA'),
+      reponse: getReponse('isRefCNDA', 'isSubCNDA', 'isRejCNDA'),
       dateReponse: getValueFromField('CNDADateRep')
     },
     OQTF: {
       avocat: getAvocat('OQTF'),
       convocation: getValueFromField('OQTFDateConvoc'),
-      reponse: getReponse('isAccOQTF', 'isRefOQTF'),
+      reponse: getReponse('isConfOQTF', 'isAnnOQTF', 'isAnnCondOQTF', true),
       dateReponse: getValueFromField('OQTFDateRep'),
       convocationAppel: getValueFromField('OQTFDateConvoc2'),
-      reponseAppel: getReponse('isAccOQTF2', 'isRefOQTF2', true),
+      reponseAppel: getReponse('isConfOQTF2', 'isAnnOQTF2', null, true),
       dateReponseAppel: getValueFromField('OQTFDateRep2'),
     }
   };
@@ -725,13 +725,13 @@ function setRecapitulatif(){
   $('#recDateValiditeVisa').html(newBeneficiaire.vieEnFrance.moyens.visa.date);
   $('#recAvecPasseport').html(boolToString(newBeneficiaire.vieEnFrance.moyens.passeport.check));
   $('#recDateValiditePasseport').html(newBeneficiaire.vieEnFrance.moyens.passeport.date);
-  $('#recCarteSejour').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.carteSejour.check));
+  $('#recCarteSejour').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.carteSejour.obtenu));
   $('#recMentionCarteSejour').html(newBeneficiaire.vieEnFrance.titreSejour.carteSejour.info);
   $('#recDateValiditeCarteSejour').html(newBeneficiaire.vieEnFrance.titreSejour.carteSejour.date);
-  $('#recCarteResident').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.carteResident.check));
+  $('#recCarteResident').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.carteResident.obtenu));
   $('#recMentionCarteResident').html(newBeneficiaire.vieEnFrance.titreSejour.carteResident.info);
   $('#recDateValiditeCarteResident').html(newBeneficiaire.vieEnFrance.titreSejour.carteResident.date);
-  $('#recRessortissantEU').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.ressortissantEU.check));
+  $('#recRessortissantEU').html(boolToString(newBeneficiaire.vieEnFrance.titreSejour.ressortissantEU.obtenu));
   $('#recPaysRessortissantEU').html(newBeneficiaire.vieEnFrance.titreSejour.ressortissantEU.info);
   $('#recDateValiditeRessortissantEU').html(newBeneficiaire.vieEnFrance.titreSejour.ressortissantEU.date);
   $('#recRefugie').html(boolToString(newBeneficiaire.vieEnFrance.protectionInternationale.refugie.check));
@@ -740,10 +740,10 @@ function setRecapitulatif(){
   $('#recDateValiditeProtecSub').html(newBeneficiaire.vieEnFrance.protectionInternationale.protectionSubsidiaire.date);
 
   /* Démarches administrative */
-  $('#recProcNormale').html(boolToString(newBeneficiaire.demAdmin.demandeAsile.procAcceleree.check));
-  $('#recDerConvProcNormale').html(newBeneficiaire.demAdmin.demandeAsile.procAcceleree.date);
-  $('#recProcAcceleree').html(boolToString(newBeneficiaire.demAdmin.demandeAsile.procNormale.check));
-  $('#recDerConvProcAccélérée').html(newBeneficiaire.demAdmin.demandeAsile.procNormale.date);
+  $('#recProcAcceleree').html(boolToString(newBeneficiaire.demAdmin.demandeAsile.procAcceleree.check));
+  $('#recDerConvProcAccélérée').html(newBeneficiaire.demAdmin.demandeAsile.procAcceleree.date);
+  $('#recProcNormale').html(boolToString(newBeneficiaire.demAdmin.demandeAsile.procNormale.check));
+  $('#recDerConvProcNormale').html(newBeneficiaire.demAdmin.demandeAsile.procNormale.date);
   $('#recProcDublin').html(boolToString(newBeneficiaire.demAdmin.demandeAsile.procDublin.check));
   $('#recDerConvProcDublin').html(newBeneficiaire.demAdmin.demandeAsile.procDublin.date);
   $('#recOFPRADateLettreEnr').html(newBeneficiaire.demAdmin.OFPRA.lettreEnregistrement);
@@ -836,20 +836,27 @@ function getGenre() {
   }
 }
 
-function getReponse(responseYesField, responseNoField, isOQTF = false) {
-  var ok = 'Acceptée';
-  var ko = 'Refusée';
+function getReponse(responseOneField, responseTwoField, responseThreeField, isOQTF = false) {
+  var rep1 = 'Statut de réfugié';
+  var rep2 = 'Protection subsidiaire';
+  var rep3 = 'Rejet';
   if(isOQTF) {
-    ok = 'Confirmation';
-    ko = 'Annulation';
+    var rep1 = 'Confirmation de l’OQTF';
+    var rep2 = 'Annulation de l’OQTF';
+    var rep3 = 'Annulation de l’OQTF et condamnation de la préfecture';
   }
-  if (getValueFromCheckBox(responseYesField)) {
-    return ok;
-  } else if(getValueFromCheckBox(responseNoField)) {
-    return ko;
-  } else {
-    return '';
+
+  if (getValueFromCheckBox(responseOneField)) {
+    return rep1;
+  } else if(getValueFromCheckBox(responseTwoField)) {
+    return rep2;
+  } else if(responseThreeField != null) {
+    if(getValueFromCheckBox(responseThreeField)){
+      return rep3;
+    }
   }
+
+  return '';
 }
 
 function getEnfants() {
@@ -1139,16 +1146,12 @@ $('.resideFranceConjoint input').change(function() {
   
 })
 
-
 $('#validerFormulaire').click(function(){
-  $.post( '/inscireBeneficiaire', 
-          newBeneficiaire, 
-          function(){ 
-            sessionStorage.setItem("InscriptionStatus", true);
-            window.location.href = '/logged';
-          }
-  );
-})
+  $.post( '/inscireBeneficiaire', newBeneficiaire,  function(){ 
+    sessionStorage.setItem("InscriptionStatus", true);
+    window.location.href = '/logged';
+  } );
+});
 
 $(document).ready(function(){
 
