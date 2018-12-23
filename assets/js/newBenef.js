@@ -1,3 +1,6 @@
+
+/**************** INITIALISATION DES VARIABLES ****************/
+
 var listePays = {
   "Afrique du Sud": null,
   "Algérie": null,
@@ -440,6 +443,12 @@ var listeNationalites = {
   "Zimbabwéenne": null
 }
 
+var nbEnfants = 0;
+
+var newBeneficiaire = {}
+
+/**************** CONFIGURATION DES DATEPICKERS ****************/
+
 var datepickerConfigWithMaxDate = { 
   format: 'dd/mm/yyyy',
   firstDay: 1, 
@@ -490,9 +499,30 @@ var datepickerConfig = {
   }
 }
 
-var nbEnfants = 0;
+/**************** INITIALISATION DES ÉLÉMENTS ****************/
 
-var newBeneficiaire = {}
+$('#today').html((new Date()).getFullYear());
+  
+$('select').formSelect();
+
+$('button.btn-precedent').hide();
+
+/* Initialisation des datepickers */
+$('.maxToday.datepicker').datepicker(datepickerConfigWithMaxDate);
+$('.minToday.datepicker').datepicker(datepickerConfigWithMinDate);
+$('.notSet.datepicker').datepicker(datepickerConfig);
+
+/* Initialisation des champs auto-complete "Pays" */
+$('input.autocomplete.pays-naissance').autocomplete({ minLength: 2, data: listePays });
+$('input.autocomplete.pays-ressortissant').autocomplete({ minLength: 2, data: listePaysEU });
+
+/* Initialisation du champ auto-complete "Nationalite" */
+$('input.autocomplete.nationalite').autocomplete({ minLength: 2, data: listeNationalites });
+
+/* Initialisation de la modale de confirmation */
+$('#modal1').modal();
+
+/**************** FONCTIONS DE RÉCUPÉPARATION D'INFORMATIONS ****************/
 
 function getInfoCheckDate(checkbox, fieldDate){
   var info = {
@@ -517,6 +547,191 @@ function getValueFromField(field) {
 
 function getValueFromCheckBox(checkbox) {
   return $('#'+checkbox).prop('checked');
+}
+
+function getAvocat(field) {
+  var prenom = getValueFromField(field + 'AvocatPrenom');
+  var nom = getValueFromField(field + 'AvocatNom');
+  if (prenom != '' && nom != '') {
+    return 'Maître ' + prenom + ' ' + nom;
+  } else {
+    return '';
+  }
+}
+
+function getMontant() {
+  var sit = parseInt(getValueFromField('montanCotisation'));
+  var int = 0;
+
+  switch (sit) {
+    case 0:
+      int = 0;
+      break;
+    case 1:
+      int = 5;
+      break;
+    case 2:
+      int = 10;
+      break;
+    case 3:
+      int = 20;
+      break;
+  }
+
+  return int;
+}
+
+function getSituation() {
+  var sit = parseInt(getValueFromField('situation'));
+  var text = "";
+
+  switch (sit) {
+    case 0:
+      text = "Célibataire";
+      break;
+    case 1:
+      text = "Marié.e";
+      break;
+    case 2:
+      text = "Pacsé.e";
+      break;
+    case 3:
+      text = "Concubin.e";
+      break;
+    case 4:
+      text = "Veuf.ve";
+      break;
+  }
+
+  return text;
+}
+
+function getGenre() {
+  if (getValueFromCheckBox('isHomme')) {
+    return 'H';
+  } else {
+    return 'F';
+  }
+}
+
+function getReponse(responseOneField, responseTwoField, responseThreeField, isOQTF = false) {
+  var rep1 = 'Statut de réfugié';
+  var rep2 = 'Protection subsidiaire';
+  var rep3 = 'Rejet';
+  if(isOQTF) {
+    var rep1 = 'Confirmation de l’OQTF';
+    var rep2 = 'Annulation de l’OQTF';
+    var rep3 = 'Annulation de l’OQTF et condamnation de la préfecture';
+  }
+
+  if (getValueFromCheckBox(responseOneField)) {
+    return rep1;
+  } else if(getValueFromCheckBox(responseTwoField)) {
+    return rep2;
+  } else if(responseThreeField != null) {
+    if(getValueFromCheckBox(responseThreeField)){
+      return rep3;
+    }
+  }
+
+  return '';
+}
+
+function getEnfants() {
+  var res = [];
+
+  for(var i = 0; i <= nbEnfants ; i++) {
+    var idStr = "enfant" + i;
+    var enfantCourant = {
+      prenom: getValueFromField(idStr+' #prenomEnfant'),
+      nom: getValueFromField(idStr+' #nomEnfant'),
+      dateNaissance: getValueFromField(idStr+' #dateNaissanceEnfant'),
+      resideFrance: getValueFromCheckBox(idStr+ ' #checkResideFranceEnfant'),
+      dateEntreeFrance: getValueFromField(idStr+' #dateEntreeFranceEnfant'),
+      nationalite: getValueFromField(idStr+' #nationaliteEnfant'),
+      paysNaissance: getValueFromField(idStr+' #paysNaissanceEnfant')
+    };
+    res[i] = enfantCourant;
+  }
+
+  return res;
+
+}
+
+/**************** GESTION DES BOUTONS DU FORMULAIRE ****************/
+
+$('.form .stages label').click(function() {
+  // on doit attendre la fin de la transition (3s)
+  setTimeout(function(){
+    var radioButtons = $('.form > input:radio');
+    var checkedButton = radioButtons.delay(20000).filter(':checked');
+    var selectedIndex = radioButtons.index(checkedButton);
+
+    selectedIndex = selectedIndex + 1;
+
+    if (selectedIndex == 6) {
+      $('button.btn-suivant').html('Valider');
+    } else {
+      $('button.btn-suivant').html('étape suivante');
+    }
+    if (selectedIndex == 1) {
+      $('button.btn-precedent').hide();
+    } else {
+      $('button.btn-precedent').show();
+    }
+  }, 305);
+
+});
+
+$('.form button.btn-suivant').click(function() {
+  var radioButtons = $('.form > input:radio');
+  var selectedIndex = radioButtons.index(radioButtons.filter(':checked'));
+
+  selectedIndex = selectedIndex + 2;
+
+  $('.form > input[type="radio"]:nth-of-type(' + selectedIndex + ')').prop('checked', true);
+
+  $('button.btn-precedent').show();
+
+  if (selectedIndex >= 6) {
+    $('button.btn-suivant').html('Valider');
+  } else {
+    $('button.btn-suivant').html('étape suivante');
+  }
+
+  if(selectedIndex == 7){
+    setNewBeneficiaire();
+    $('#modal1').modal('open');
+  }
+  
+});
+
+$('.form button.btn-precedent').click(function() {
+  var radioButtons = $('.form > input:radio');
+  var selectedIndex = radioButtons.index(radioButtons.filter(':checked'));
+
+  selectedIndex = selectedIndex;
+
+  $('.form > input[type="radio"]:nth-of-type(' + selectedIndex + ')').prop('checked', true);
+
+  $('button.btn-suivant').show();
+  $('button.btn-suivant').html('étape suivante');
+
+  if (selectedIndex == 1) {
+    $('button.btn-precedent').hide();
+  } else {
+    $('button.btn-precedent').show();
+  }
+});
+
+/**************** GESTION DE LA VALIDATION DU FORMULAIRE ****************/
+
+function boolToString(bool){
+  if(bool){
+    return "Oui";
+  } else {
+    return "Non";
+  }
 }
 
 function setNewBeneficiaire() {
@@ -651,14 +866,6 @@ function setNewBeneficiaire() {
   setRecapitulatif();
 }
 
-function boolToString(bool){
-  if(bool){
-    return "Oui";
-  } else {
-    return "Non";
-  }
-}
-
 function setRecapitulatif(){
   /* Inscription */
   $('#recInscritPar').html(newBeneficiaire.inscription.inscripteur);
@@ -771,261 +978,14 @@ function setRecapitulatif(){
 
 }
 
-function getAvocat(field) {
-  var prenom = getValueFromField(field + 'AvocatPrenom');
-  var nom = getValueFromField(field + 'AvocatNom');
-  if (prenom != '' && nom != '') {
-    return 'Maître ' + prenom + ' ' + nom;
-  } else {
-    return '';
-  }
-}
-
-function getMontant() {
-  var sit = parseInt(getValueFromField('montanCotisation'));
-  var int = 0;
-
-  switch (sit) {
-    case 0:
-      int = 0;
-      break;
-    case 1:
-      int = 5;
-      break;
-    case 2:
-      int = 10;
-      break;
-    case 3:
-      int = 20;
-      break;
-  }
-
-  return int;
-}
-
-function getSituation() {
-  var sit = parseInt(getValueFromField('situation'));
-  var text = "";
-
-  switch (sit) {
-    case 0:
-      text = "Célibataire";
-      break;
-    case 1:
-      text = "Marié.e";
-      break;
-    case 2:
-      text = "Pacsé.e";
-      break;
-    case 3:
-      text = "Concubin.e";
-      break;
-    case 4:
-      text = "Veuf.ve";
-      break;
-  }
-
-  return text;
-}
-
-function getGenre() {
-  if (getValueFromCheckBox('isHomme')) {
-    return 'H';
-  } else {
-    return 'F';
-  }
-}
-
-function getReponse(responseOneField, responseTwoField, responseThreeField, isOQTF = false) {
-  var rep1 = 'Statut de réfugié';
-  var rep2 = 'Protection subsidiaire';
-  var rep3 = 'Rejet';
-  if(isOQTF) {
-    var rep1 = 'Confirmation de l’OQTF';
-    var rep2 = 'Annulation de l’OQTF';
-    var rep3 = 'Annulation de l’OQTF et condamnation de la préfecture';
-  }
-
-  if (getValueFromCheckBox(responseOneField)) {
-    return rep1;
-  } else if(getValueFromCheckBox(responseTwoField)) {
-    return rep2;
-  } else if(responseThreeField != null) {
-    if(getValueFromCheckBox(responseThreeField)){
-      return rep3;
-    }
-  }
-
-  return '';
-}
-
-function getEnfants() {
-  var res = [];
-
-  for(var i = 0; i <= nbEnfants ; i++) {
-    var idStr = "enfant" + i;
-    var enfantCourant = {
-      prenom: getValueFromField(idStr+' #prenomEnfant'),
-      nom: getValueFromField(idStr+' #nomEnfant'),
-      dateNaissance: getValueFromField(idStr+' #dateNaissanceEnfant'),
-      resideFrance: getValueFromCheckBox(idStr+ ' #checkResideFranceEnfant'),
-      dateEntreeFrance: getValueFromField(idStr+' #dateEntreeFranceEnfant'),
-      nationalite: getValueFromField(idStr+' #nationaliteEnfant'),
-      paysNaissance: getValueFromField(idStr+' #paysNaissanceEnfant')
-    };
-    res[i] = enfantCourant;
-  }
-
-  return res;
-
-}
-
-/* clonage de la div enfant */
-$('#duplicateEnfant').click(function(){
-
-  /* Création du clone */
-  var clone = $('#enfant0').clone(true);
-
-  /* Gestion de l'id */
-  var idClone =  "enfant"+ ++nbEnfants
-  clone.attr('id', idClone);
-
-  /* Couleur de fond */
-  if (nbEnfants % 2 != 0) {
-    clone.css('background-color', 'rgb(196, 229, 255)');
-  }
-
-  $('#enfant0').parent().append(clone);
-
-  /* Initialisation du datepicker */
-  $('#'+idClone+' input.datepicker').datepicker(datepickerConfigWithMaxDate);
-
-  /* Initialisation du champ auto-complete "Pays de naissance" */
-  $('#'+idClone+' input.autocomplete.pays-naissance').autocomplete({ minLength: 2, data: listePays });
-
-  /* Initialisation du champ auto-complete "Nationalite" */
-  $('#'+idClone+' input.autocomplete.nationalite').autocomplete({ minLength: 2, data: listeNationalites });
-  
-})
-
-$('.form .stages label').click(function() {
-  // on doit attendre la fin de la transition (3s)
-  setTimeout(function(){
-    var radioButtons = $('.form > input:radio');
-    var checkedButton = radioButtons.delay(20000).filter(':checked');
-    var selectedIndex = radioButtons.index(checkedButton);
-
-    selectedIndex = selectedIndex + 1;
-
-    if (selectedIndex == 6) {
-      $('button.btn-suivant').html('Valider');
-    } else {
-      $('button.btn-suivant').html('étape suivante');
-    }
-    if (selectedIndex == 1) {
-      $('button.btn-precedent').hide();
-    } else {
-      $('button.btn-precedent').show();
-    }
-  }, 305);
-
+$('#validerFormulaire').click(function(){
+  $.post( '/inscireBeneficiaire', newBeneficiaire,  function(){ 
+    sessionStorage.setItem("InscriptionStatus", true);
+    window.location.href = '/logged';
+  } );
 });
 
-$('.form button.btn-suivant').click(function() {
-  var radioButtons = $('.form > input:radio');
-  var selectedIndex = radioButtons.index(radioButtons.filter(':checked'));
-
-  selectedIndex = selectedIndex + 2;
-
-  $('.form > input[type="radio"]:nth-of-type(' + selectedIndex + ')').prop('checked', true);
-
-  $('button.btn-precedent').show();
-
-  if (selectedIndex >= 6) {
-    $('button.btn-suivant').html('Valider');
-  } else {
-    $('button.btn-suivant').html('étape suivante');
-  }
-
-  if(selectedIndex == 7){
-    setNewBeneficiaire();
-    $('#modal1').modal('open');
-  }
-  
-});
-
-$('.form button.btn-precedent').click(function() {
-  var radioButtons = $('.form > input:radio');
-  var selectedIndex = radioButtons.index(radioButtons.filter(':checked'));
-
-  selectedIndex = selectedIndex;
-
-  $('.form > input[type="radio"]:nth-of-type(' + selectedIndex + ')').prop('checked', true);
-
-  $('button.btn-suivant').show();
-  $('button.btn-suivant').html('étape suivante');
-
-  if (selectedIndex == 1) {
-    $('button.btn-precedent').hide();
-  } else {
-    $('button.btn-precedent').show();
-  }
-});
-
-
-// Fonction qui se déclanche au clic sur l'un des radio bouton du genre
-$('input[name=genre]').click(function() {
-
-  if($('input[name=genre]:checked').attr('id') == "isFemme") {
-    $("#nomJF").removeAttr('disabled');
-    setIcon($("#nomJF"), true);
-  } else {
-    $("#nomJF").attr('disabled',"disabled");
-    setIcon($("#nomJF"), false);
-  }
-
-})
-
-// Fonction qui se déclanche au clic sur l'une des situations
-$('#situation').change(function() {
-
-  if($('#situation')[0].value == "0" || $('#situation')[0].value == "4") {
-
-    $("#dateSituation").attr('disabled',"disabled");
-    setIcon($("#dateSituation"), false);
-
-    $("#prenomConjoint").attr('disabled',"disabled");
-    setIcon($("#prenomConjoint"), false);
-    $("#nomConjoint").attr('disabled',"disabled");
-
-    $("#dateNaissanceConjoint").attr('disabled',"disabled");
-    setIcon($("#dateNaissanceConjoint"), false);
-    $("#checkResideFranceConjoint").attr('disabled',"disabled");
-    $("#dateEntreeFranceConjoint").attr('disabled',"disabled");
-    setIcon($("#dateEntreeFranceConjoint"), false);
-
-    $("#situationConjoint").attr('disabled',"disabled");
-    setIcon($("#situationConjoint"), false);
-    
-  } else {
-    $("#dateSituation").removeAttr('disabled');
-    setIcon($("#dateSituation"), true);
-
-    $("#prenomConjoint").removeAttr('disabled');
-    setIcon($("#prenomConjoint"), true);
-    $("#nomConjoint").removeAttr('disabled');
-
-    $("#dateNaissanceConjoint").removeAttr('disabled');
-    setIcon($("#dateNaissanceConjoint"), true);
-    $("#checkResideFranceConjoint").removeAttr('disabled');
-    $("#dateEntreeFranceConjoint").removeAttr('disabled');
-    setIcon($("#dateEntreeFranceConjoint"), true);
-
-    $("#situationConjoint").removeAttr('disabled');
-    setIcon($("#situationConjoint"), true);
-  }
-
-})
+/**************** GESTION DES CLICKS POUR ACTIVER LES CHAMPS ****************/
 
 function setIcon(field, active) {
   if (active) {
@@ -1119,7 +1079,33 @@ $('#pasPayee').click(function() {
 
 })
 
-// Fonction qui se déclanche au clic sur la résidence de l'enfant en France
+$('#duplicateEnfant').click(function(){
+
+  /* Création du clone */
+  var clone = $('#enfant0').clone(true);
+
+  /* Gestion de l'id */
+  var idClone =  "enfant"+ ++nbEnfants
+  clone.attr('id', idClone);
+
+  /* Couleur de fond */
+  if (nbEnfants % 2 != 0) {
+    clone.css('background-color', 'rgb(196, 229, 255)');
+  }
+
+  $('#enfant0').parent().append(clone);
+
+  /* Initialisation du datepicker */
+  $('#'+idClone+' input.datepicker').datepicker(datepickerConfigWithMaxDate);
+
+  /* Initialisation du champ auto-complete "Pays de naissance" */
+  $('#'+idClone+' input.autocomplete.pays-naissance').autocomplete({ minLength: 2, data: listePays });
+
+  /* Initialisation du champ auto-complete "Nationalite" */
+  $('#'+idClone+' input.autocomplete.nationalite').autocomplete({ minLength: 2, data: listeNationalites });
+  
+})
+
 $('.resideFranceEnfant input').change(function() {
 
   var length =  $(this).length;
@@ -1135,7 +1121,6 @@ $('.resideFranceEnfant input').change(function() {
 
 })
 
-// Fonction qui se déclanche au clic sur la résidence du conjoint en France
 $('.resideFranceConjoint input').change(function() {
 
     if($(this)[0].checked) {
@@ -1146,34 +1131,54 @@ $('.resideFranceConjoint input').change(function() {
   
 })
 
-$('#validerFormulaire').click(function(){
-  $.post( '/inscireBeneficiaire', newBeneficiaire,  function(){ 
-    sessionStorage.setItem("InscriptionStatus", true);
-    window.location.href = '/logged';
-  } );
-});
+$('input[name=genre]').click(function() {
 
-$(document).ready(function(){
+  if($('input[name=genre]:checked').attr('id') == "isFemme") {
+    $("#nomJF").removeAttr('disabled');
+    setIcon($("#nomJF"), true);
+  } else {
+    $("#nomJF").attr('disabled',"disabled");
+    setIcon($("#nomJF"), false);
+  }
 
-  $('#today').html((new Date()).getFullYear());
-  
-  $('select').formSelect();
+})
 
-  $('button.btn-precedent').hide();
+$('#situation').change(function() {
 
-  /* Initialisation des datepickers */
-  $('.maxToday.datepicker').datepicker(datepickerConfigWithMaxDate);
-  $('.minToday.datepicker').datepicker(datepickerConfigWithMinDate);
-  $('.notSet.datepicker').datepicker(datepickerConfig);
+  if($('#situation')[0].value == "0" || $('#situation')[0].value == "4") {
 
-  /* Initialisation des champs auto-complete "Pays" */
-  $('input.autocomplete.pays-naissance').autocomplete({ minLength: 2, data: listePays });
-  $('input.autocomplete.pays-ressortissant').autocomplete({ minLength: 2, data: listePaysEU });
+    $("#dateSituation").attr('disabled',"disabled");
+    setIcon($("#dateSituation"), false);
 
-  /* Initialisation du champ auto-complete "Nationalite" */
-  $('input.autocomplete.nationalite').autocomplete({ minLength: 2, data: listeNationalites });
+    $("#prenomConjoint").attr('disabled',"disabled");
+    setIcon($("#prenomConjoint"), false);
+    $("#nomConjoint").attr('disabled',"disabled");
 
-  /* Initialisation de la modale de confirmation */
-  $('#modal1').modal();
-});
+    $("#dateNaissanceConjoint").attr('disabled',"disabled");
+    setIcon($("#dateNaissanceConjoint"), false);
+    $("#checkResideFranceConjoint").attr('disabled',"disabled");
+    $("#dateEntreeFranceConjoint").attr('disabled',"disabled");
+    setIcon($("#dateEntreeFranceConjoint"), false);
 
+    $("#situationConjoint").attr('disabled',"disabled");
+    setIcon($("#situationConjoint"), false);
+    
+  } else {
+    $("#dateSituation").removeAttr('disabled');
+    setIcon($("#dateSituation"), true);
+
+    $("#prenomConjoint").removeAttr('disabled');
+    setIcon($("#prenomConjoint"), true);
+    $("#nomConjoint").removeAttr('disabled');
+
+    $("#dateNaissanceConjoint").removeAttr('disabled');
+    setIcon($("#dateNaissanceConjoint"), true);
+    $("#checkResideFranceConjoint").removeAttr('disabled');
+    $("#dateEntreeFranceConjoint").removeAttr('disabled');
+    setIcon($("#dateEntreeFranceConjoint"), true);
+
+    $("#situationConjoint").removeAttr('disabled');
+    setIcon($("#situationConjoint"), true);
+  }
+
+})
