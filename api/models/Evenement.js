@@ -38,10 +38,11 @@ module.exports = {
       description: Evenement.setDescriptionPredefinie(etape, type),
       date: date,
       decision: decision,
-      beneficiaireConcerne: await Beneficiaire.findOne({ id: idBeneficiare })
+      beneficiaireConcerne: idBeneficiare
     };
 
-    Evenement.create(event); 
+    await Evenement.create(event); 
+    sails.log.debug(`Evenement - buildEvenementDA - Evenement inséré : ${etape} - ${type}` );
   },
 
   setNomPredefini: function(etape, type) {
@@ -98,11 +99,11 @@ module.exports = {
         break;
       case "OQTF":
         motEtape = `la contestation de l'OQTF`;
-        descrptionEtape = `au tribunal administratif de Nantes qui vérifiera l'absence de vice de procédure. Il y aura alors confirmation ou annulation. Il peut y avoir condamnation de la préfecture qui amènera à un réexamen auprès de la l'OFPRA.`
+        descrptionEtape = `au tribunal administratif qui vérifiera l'absence de vice de procédure. Il y aura alors confirmation ou annulation. Il peut y avoir condamnation de la préfecture qui amènera à un réexamen auprès de la l'OFPRA.`
         break;
       case "OQTFAppel":
         motEtape = `la contestation de l'OQTF en Appel`;
-        descrptionEtape = `au tribunal administratif de Nantes qui vérifiera l'absence de vice de procédure. Il y aura alors confirmation ou annulation.`
+        descrptionEtape = `au tribunal administratif qui vérifiera l'absence de vice de procédure. Il y aura alors confirmation ou annulation.`
         break;
       default:
         break;

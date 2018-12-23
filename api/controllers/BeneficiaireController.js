@@ -174,6 +174,46 @@ function buildEnfantsFromParams(params) {
     return enfants;
 }
 
+async function buildEventsFromParams(params, idBenef) {
+    var etapes = ["OFPRA", "CNDA", "OQTF"];
+
+    etapes.forEach(async function (etape) {
+        // Lettre d'enregistrement
+        if ( isDefined(params.lettreEnregistrement) ) {
+            await Evenement.buildEvenementDA(idBenef, getDateValue(params.lettreEnregistrement), etape, "enregistrement");
+        }
+
+        // Convocation
+        if ( isDefined(params.convocation) ) {
+            await Evenement.buildEvenementDA(idBenef, getDateValue(params.convocation), etape, "convocation");
+        }
+
+        // Réponse
+        if ( isDefined(params.reponse) && isDefined(params.dateReponse) ) {
+            await Evenement.buildEvenementDA(idBenef, getDateValue(params.dateReponse), etape, "reponse", getStringValue(params.reponse));
+        }
+
+        // Convocation en Appel
+        if ( isDefined(params.convocationAppel) ) {
+            await Evenement.buildEvenementDA(idBenef, getDateValue(params.convocationAppel), etape , "convocationAppel");
+        }
+
+        // Réponse de l'Appel
+        if ( isDefined(params.reponseAppel) && isDefined(params.dateReponseAppel) ) {
+            await Evenement.buildEvenementDA(idBenef, getDateValue(params.dateReponseAppel), etape + "Appel", "reponseAppel", getStringValue(params.reponseAppel));
+        }
+
+        sails.log.debug(`BeneficiaireController - buildEventFromParams - Evenement traité : ${etape}`);
+    })
+    
+    return 1
+
+}
+
+function isDefined(value) {
+    return typeof value !== "undefined" && value !== null && value !== ""
+}
+
 function getStringValue(value){
     return (value != "") ? value : "";
 }
@@ -211,26 +251,26 @@ module.exports = {
     
     async inscrire(req, res) {
         
-        sails.log.info('BeneficiaireController - inscrire - Récupération bénéficiaire');
+        sails.log.info('BeneficiaireController - inscrire - Inscrption commencée');
         let params = req.allParams();
 
         /* Infomrations générales du bénéficiaire */
         var benefJSON = buildBenefFromParams(params);
         var benefObj = await Beneficiaire.create(benefJSON).fetch();
-        sails.log.info('BeneficiaireController - inscrire - Bénéficiaire inséré');
+        sails.log.debug('BeneficiaireController - inscrire - Bénéficiaire inséré');
 
         /* Cotisation du bénéficiaire */
         var cotisationJSON = buildCotisationFromParams(params.cotisation);
         cotisationJSON.payeur = benefObj.id;
         await Cotisation.create(cotisationJSON);
-        sails.log.info('BeneficiaireController - inscrire - Cotisation insérée');
+        sails.log.debug('BeneficiaireController - inscrire - Cotisation insérée');
 
         /* Conjoint du bénéficiaire */
         var conjointJSON = buildConjointFromParams(params.situationFamiliale.conjoint);
         if(conjointJSON != -1){
             conjointJSON.beneficiaireLie = benefObj.id;
             await Conjoint.create(conjointJSON);
-            sails.log.info('BeneficiaireController - inscrire - Conjoint inséré');
+            sails.log.debug('BeneficiaireController - inscrire - Conjoint inséré');
         }
         
         /* Enfants du bénéficiaire */
@@ -238,13 +278,16 @@ module.exports = {
         enfantsJSON.forEach(async function(enfantJSON) {
             enfantJSON.parent = benefObj.id;
             await Enfant.create(enfantJSON);
+            sails.log.debug('BeneficiaireController - inscrire - Enfant inséré');
         });
-        sails.log.info('BeneficiaireController - inscrire - Enfants insérés');
         
+        /* Evènements du bénéficiaires */
+        await buildEventsFromParams(params.demAdmin.OFPRA, benefObj.id);
+
+        sails.log.info('BeneficiaireController - inscrire - Inscription terminée');
+
         return res.ok();
-    },
-
-
+    }
 
 };
 
