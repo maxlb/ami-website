@@ -247,6 +247,70 @@ function getNumberValue(value){
     return (value != "") ? parseInt(value) : 0;
 }
 
+var setFormatDate = function(date) {
+    if (!date) {
+        return "";
+    } else {
+        var j = date.getDate();
+        var m = date.getMonth() + 1;
+        var a = date.getFullYear();
+
+        j = (j < 10 ) ? "0" + j : j;
+        m = (m < 10 ) ? "0" + m : m;
+
+        return `${j}/${m}/${a}`;
+    }
+};
+
+async function getSituation(idBenef, isMineur, isFr) {
+    var situationDetectee = "";
+    var lastDecision = "";
+
+    var events = await Evenement.find({beneficiaireConcerne: idBenef}).sort('date ASC');
+        
+    if(events.length == 0) {
+        situationDetectee = "Inconnu - Autre";
+    } else {
+        events.forEach(event => {
+            if (event.decision !== null && event.decision !== "") {
+                lastDecision = event.decision;
+            }
+        });
+
+        switch (lastDecision) {
+            case "Rejet":
+                situationDetectee = "Débouté du droit d'asile";
+                break;
+            case "Statut de réfugié":
+                situationDetectee = "Réfugié";
+                break;
+            case "Protection subsidiaire":
+                situationDetectee = "Protection subsidiaire";
+                break;
+            case "Confirmation de l’OQTF":
+                situationDetectee = "Débouté - OQTF confirmée";
+                break;
+            case "Annulation de l’OQTF":
+                situationDetectee = "Débouté - OQTF annulée";
+                break;
+            case "Annulation de l’OQTF et condamnation de la préfecture":
+                situationDetectee = "Demandeur d'asile - En attente de réexamen";
+                break;
+            default:
+                situationDetectee = "Demandeur d'asile";
+                break;
+        }
+    }
+
+    if(isMineur) {
+        situationDetectee = "Mineur";
+    } else if (isFr) {
+        situationDetectee = "Nationalité Française";
+    }
+    
+    return situationDetectee;
+}
+
 module.exports = {
     
     async inscrire(req, res) {
@@ -287,7 +351,54 @@ module.exports = {
         sails.log.info('BeneficiaireController - inscrire - Inscription terminée');
 
         return res.ok();
+    },
+
+    async getAll(req, res) {
+
+        // Fonctionq
+        
+
+        var data = {};
+        data.benefs = [];
+        var annee = new Date().getFullYear();
+
+        var beneficiaires = await Beneficiaire.find().sort('id ASC');
+        sails.log.info(`BeneficiaireController - getAll - ${beneficiaires.length} bénéficiaires récupérés`);
+
+        beneficiaires.forEach(async function(benef, i) {
+            sails.log.debug(`BeneficiaireController - getAll - Traitement du bénéficiaire d'ID : ${benef.id}`);
+            var benefObj= {
+                numCarte: benef.id,
+                nom: benef.nom,
+                prenom: benef.prenom,
+                dateNaissance: benef.dateNaissance,
+                nationalite: benef.nationalite,
+                sexe: benef.genre,
+                telephone: benef.telephone,
+                entreeFrance: benef.dateEntreeFrance,
+                inscription: benef.dateInscription,
+                cotisation: 0,
+                situationAdministrative: "Demandeur d'asile"
+            };
+
+            // Cotisation
+            benefObj.cotisation = (await Cotisation.find({annee: annee, payeur: benefObj.numCarte}))[0].montant;
+            sails.log.debug(`BeneficiaireController - getAll - Cotisation du bénéficiaire ${benefObj.cotisation}`);
+                   
+            // Situation Administrative 
+            benefObj.situationAdministrative = await getSituation(benefObj.numCarte, (benefObj.dateNaissance.getFullYear() >= annee - 18 ), (benefObj.nationalite == "Française"))
+            sails.log.debug(`BeneficiaireController - getAll - Situation du bénéficiaire ${benefObj.situationAdministrative}`);
+
+            data.benefs[i] = benefObj;
+    
+            if (i == beneficiaires.length-1) {
+                // Fonction de mise en forme de la date envoyée à la vue
+                data.setFormatDate = setFormatDate;
+
+                return res.view('pages/allBeneficiaires', { data });
+            }
+            
+        });
     }
 
 };
-

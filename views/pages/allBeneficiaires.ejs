@@ -1,0 +1,47 @@
+<% pageAffichee = "allBenef" %>
+
+<%
+
+%>
+
+<h2 class="titre">Liste des bénéficiaires actifs</h2>
+
+<div class="row">
+
+    <table class="col s12 striped highlight responsive-table">
+        <thead>
+            <tr>
+                <th>N° carte</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>Nationalité</th>
+                <th>Sexe</th>
+                <th>Téléphone</th>
+                <th>Entrée en France</th>
+                <th>Inscritpion</th>
+                <th>Situation Administrative</th>
+                <th>Cotisation</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <% data.benefs.forEach(function(benef) { %>
+                <tr>
+                    <td><%= benef.numCarte %></td>
+                    <td><%= benef.nom %></td>
+                    <td><%= benef.prenom %></td>
+                    <td><%= data.setFormatDate(benef.dateNaissance) %></td>
+                    <td><%= benef.nationalite %></td>
+                    <td><%= benef.sexe %></td>
+                    <td><%= benef.telephone %></td>
+                    <td><%= data.setFormatDate(benef.entreeFrance) %></td>
+                    <td><%= data.setFormatDate(benef.inscription) %></td>
+                    <td><%= benef.situationAdministrative %></td>
+                    <td><%= benef.cotisation %> €</td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+</div>
