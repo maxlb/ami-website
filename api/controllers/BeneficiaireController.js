@@ -360,13 +360,13 @@ module.exports = {
 
         var data = {};
         data.benefs = [];
-        var annee = new Date().getFullYear();
+        var annee = '2018' //new Date().getFullYear();
 
         var beneficiaires = await Beneficiaire.find().sort('id ASC');
         sails.log.info(`BeneficiaireController - getAll - ${beneficiaires.length} bénéficiaires récupérés`);
 
         beneficiaires.forEach(async function(benef, i) {
-            sails.log.debug(`BeneficiaireController - getAll - Traitement du bénéficiaire d'ID : ${benef.id}`);
+            sails.log.debug(`BeneficiaireController - getAll - Bénéficiaire ID : ${benef.id}`);
             var benefObj= {
                 numCarte: benef.id,
                 nom: benef.nom,
@@ -382,13 +382,22 @@ module.exports = {
             };
 
             // Cotisation
-            benefObj.cotisation = (await Cotisation.find({annee: annee, payeur: benefObj.numCarte}))[0].montant;
-            sails.log.debug(`BeneficiaireController - getAll - Cotisation du bénéficiaire ${benefObj.cotisation}`);
-                   
+            try {
+                var cot = await Cotisation.find({annee: annee, payeur: benef.id});
+                benefObj.cotisation = cot[0].montant;
+                sails.log.debug(`BeneficiaireController - getAll - Bénéficiaire ID : ${benefObj.numCarte} - Cotisation OK`);
+            } catch (err) {
+                sails.log.error(`BeneficiaireController - getAll - ERREUR : Bénéficiaire ID : ${benefObj.numCarte} - Cotisation KO - ${err}`);
+            }
+            
             // Situation Administrative 
-            benefObj.situationAdministrative = await getSituation(benefObj.numCarte, (benefObj.dateNaissance.getFullYear() >= annee - 18 ), (benefObj.nationalite == "Française"))
-            sails.log.debug(`BeneficiaireController - getAll - Situation du bénéficiaire ${benefObj.situationAdministrative}`);
-
+            try {
+                benefObj.situationAdministrative = await getSituation(benefObj.numCarte, (benefObj.dateNaissance.getFullYear() >= annee - 18 ), (benefObj.nationalite == "Française"))
+                sails.log.debug(`BeneficiaireController - getAll - Bénéficiaire ID : ${benefObj.numCarte} - Situation OK`);
+            } catch (err) {
+                sails.log.error(`BeneficiaireController - getAll - ERREUR : Bénéficiaire ID : ${benefObj.numCarte} - Situation KO - ${err}`);
+            }
+        
             data.benefs[i] = benefObj;
     
             if (i == beneficiaires.length-1) {
