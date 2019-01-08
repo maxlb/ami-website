@@ -5,6 +5,7 @@
 
 
 <div class="row">
+
   <ul class="collapsible">
     <li>
       <div class="collapsible-header"><i class="material-icons">filter_list</i>Appliquer des filtres</div>
@@ -91,7 +92,7 @@
           <tbody>
 
             <% data.benefs.forEach(function(benef) { %>
-                <tr>
+                <tr id="<%= benef.numCarte %>" onclick="goToProfile('<%= benef.numCarte %>')">
                     <td><%= benef.numCarte %></td>
                     <td><%= benef.nom %></td>
                     <td><%= benef.prenom %></td>
@@ -103,8 +104,11 @@
                     <td><%= benef.situationAdministrative %></td>
                     <td><%= benef.cotisation %> €</td>
                 </tr>
+
             <% }); %>
 
           </tbody>
         </table>
   </div>
+
+  

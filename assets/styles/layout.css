@@ -29,6 +29,10 @@ nav ul a {
 }
 
 /******** Menu latéral ********/
+.imgLogo{
+  margin-top: 50px;
+}
+
 .sidebar {
   height: 100%;
   position: fixed;

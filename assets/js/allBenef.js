@@ -189,6 +189,10 @@ var listeNationalites = {
     "Zimbabwéenne": null
 }
 
+var goToProfile = function(strID) {
+    window.location.href = "/profil/" + strID;
+}
+
 var listeSituations = {
     "Débouté du droit d'asile": null,
     "Réfugié": null,
@@ -212,32 +216,31 @@ $(document).ready(function() {
 
     var table = $('#datatable').DataTable({
         "searching": true,
-        "pageLength": 10,
-        "lengthMenu" : [30, 60, 100, 150, 200, "All"],
+        "lengthMenu" : [30, 60, 100, 150, 200],
         "language": {
-            "info": "_START_ - _END_ sur _TOTAL_",
+            "info": "_START_ à _END_ sur _TOTAL_",
             "zeroRecords": "Aucun résultat ...",
             "paginate": {
                 "previous": "Précédent",
                 "next": "Suivant"
             },
             "infoFiltered": "filtrés sur _MAX_ bénéficiaires",
-            "lengthMenu": "Nombre par page : _MENU_ "
+            "lengthMenu": "Afficher _MENU_ bénéficiaires par page"
         },
         bAutoWidth: false,
         "scrollX": true,
         "order": [[ 7, 'desc' ]],
         "columns": [
-            { "width": "6%" },      // N° carte
-            { "width": "15%" },     // Nom
-            { "width": "15%" },     // Prénom
-            { "width": "8%" },      // Date de naissance
-            { "width": "14%" },     // Nationalité
-            { "width": "5%" },      // Sexe
-            { "width": "8%" },      // Entrée en France
-            { "width": "8%" },      // Inscription
-            { "width": "13%" },     // Situation Administrative
-            { "width": "7%" },      // Cotisation
+            { "width": "6%", "className": "text-center" },      // N° carte
+            { "width": "15%" },                                 // Nom
+            { "width": "15%" },                                 // Prénom
+            { "width": "8%", "className": "text-center" },      // Date de naissance
+            { "width": "14%" },                                 // Nationalité
+            { "width": "5%", "className": "text-center" },      // Sexe
+            { "width": "8%", "className": "text-center" },      // Entrée en France
+            { "width": "8%", "className": "text-center" },      // Inscription
+            { "width": "13%" },                                 // Situation Administrative
+            { "width": "7%", "className": "text-center" },      // Cotisation
           ],
           "stripeClasses": [ 'strip1', 'strip2' ],
     });
@@ -253,7 +256,5 @@ $(document).ready(function() {
     $('#sexe').on('keyup change', function(){ table.column(5).search(this.value).draw() });
     $('#dateEntree').on('keyup change', function(){ table.column(6).search(this.value).draw() });
     $('#dateInscription').on('keyup change', function(){ table.column(7).search(this.value).draw() });
-    $('#situation').on('keyup change', function(){ table.column(8).search(this.value).draw() });
-
-    
+    $('#situation').on('keyup change', function(){ table.column(8).search(this.value).draw() }); 
 });
