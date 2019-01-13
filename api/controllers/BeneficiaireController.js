@@ -429,6 +429,36 @@ module.exports = {
         data.setFormatDate = setFormatDate;
 
         return res.view('pages/allBeneficiaires', { data });
-    }
+    },
 
+    async getByID(req, res) {
+        let params = req.allParams();
+        var data = {}
+
+        // Récupération du bénéficiaire et ses liaisons
+        await Beneficiaire
+                .findOne(params.id)
+                .populate('conjoint')
+                .populate('enfants')
+                .populate('cotisation')
+                .populate('evenement')
+                .then(benef => {
+                    if(benef == undefined || benef == null) {
+                        throw Error(`Bénéficiaire de N° de carte ${params.id} inexistant.`)
+                    } else {
+                        data.benefObj = benef;
+                        sails.log.debug(`BeneficiaireController - getByID - Bénéficiaire ${benef.id} OK`);
+                    }  
+                })
+                .catch(error => {  
+                    sails.log.error(`BeneficiaireController - getByID - ERREUR : Impossible de récupérer le bénéficiaire - ${error.message}`); 
+                    data.error = error.message;
+                    return res.view('pages/profile', { data });
+                });
+        
+        // Fonction de mise en forme de la date envoyée à la vue
+        data.setFormatDate = setFormatDate;
+
+        return res.view('pages/profile', { data });
+    }
 };
