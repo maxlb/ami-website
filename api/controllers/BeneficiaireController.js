@@ -266,7 +266,13 @@ async function getSituation(idBenef, isMineur, isFr) {
     var situationDetectee = "";
     var lastDecision = "";
 
-    var events = await Evenement.find({beneficiaireConcerne: idBenef}).sort('date ASC');
+    var events = await Evenement
+                        .find({beneficiaireConcerne: idBenef})
+                        .sort('date ASC')
+                        .catch(error => {  
+                            sails.log.error(`BeneficiaireController - getSituation - ERREUR : Bénéficiaire ID : ${idBenef} - ${error.message}`);
+                            throw Error(error);
+                        });
         
     if(events.length == 0) {
         situationDetectee = "Inconnu - Autre";
@@ -355,17 +361,23 @@ module.exports = {
 
     async getAll(req, res) {
 
-        // Fonctionq
-        
-
         var data = {};
         data.benefs = [];
-        var annee = '2018' //new Date().getFullYear();
+        var annee = new Date().getFullYear(); //'2018';
 
-        var beneficiaires = await Beneficiaire.find().sort('id ASC');
+        // Récupération des bénéficiaires
+        var beneficiaires = await Beneficiaire
+                                    .find()
+                                    .sort('id ASC')
+                                    .catch(error => {  
+                                        sails.log.error(`BeneficiaireController - getAll - ERREUR : Impossible de récupérer les bénéficiaires - ${error.message}`); 
+                                        return res.view('pages/allBeneficiaires', { data });
+                                    });
         sails.log.info(`BeneficiaireController - getAll - ${beneficiaires.length} bénéficiaires récupérés`);
 
-        beneficiaires.forEach(async function(benef, i) {
+        // Mise en forme des bénéficiaires pour la vue
+        for (let i = 0 ; i < beneficiaires.length ; i++) {
+            var benef = beneficiaires[i];
             sails.log.debug(`BeneficiaireController - getAll - Bénéficiaire ID : ${benef.id}`);
             var benefObj= {
                 numCarte: benef.id,
@@ -382,32 +394,41 @@ module.exports = {
             };
 
             // Cotisation
-            try {
-                var cot = await Cotisation.find({annee: annee, payeur: benef.id});
-                benefObj.cotisation = cot[0].montant;
-                sails.log.debug(`BeneficiaireController - getAll - Bénéficiaire ID : ${benefObj.numCarte} - Cotisation OK`);
-            } catch (err) {
-                sails.log.error(`BeneficiaireController - getAll - ERREUR : Bénéficiaire ID : ${benefObj.numCarte} - Cotisation KO - ${err}`);
-            }
-            
-            // Situation Administrative 
-            try {
-                benefObj.situationAdministrative = await getSituation(benefObj.numCarte, (benefObj.dateNaissance.getFullYear() >= annee - 18 ), (benefObj.nationalite == "Française"))
-                sails.log.debug(`BeneficiaireController - getAll - Bénéficiaire ID : ${benefObj.numCarte} - Situation OK`);
-            } catch (err) {
-                sails.log.error(`BeneficiaireController - getAll - ERREUR : Bénéficiaire ID : ${benefObj.numCarte} - Situation KO - ${err}`);
-            }
-        
-            data.benefs[i] = benefObj;
-    
-            if (i == beneficiaires.length-1) {
-                // Fonction de mise en forme de la date envoyée à la vue
-                data.setFormatDate = setFormatDate;
+            await Cotisation
+                    .find({annee: annee, payeur: benef.id})
+                    .then(cot => {
+                        if(!cot[0]) {
+                            throw Error(`Cotisation inexistante pour ${annee}.`)
+                        } else {
+                            benefObj.cotisation = cot[0].montant;
+                            sails.log.debug(`BeneficiaireController - getAll - Cotisation OK`);
+                        }
+                    })
+                    .catch(error => {  
+                        sails.log.error(`BeneficiaireController - getAll - ERREUR - Cotisation KO - ${error.message}`); 
+                        benefObj.cotisation = 'NP -';
+                    });
 
-                return res.view('pages/allBeneficiaires', { data });
-            }
+            // Situation Administrative 
+            await getSituation(benefObj.numCarte, (benefObj.dateNaissance.getFullYear() >= annee - 18 ), (benefObj.nationalite == "Française"))
+                    .then(sit => {
+                        benefObj.situationAdministrative = sit;
+                        sails.log.debug(`BeneficiaireController - getAll - Situation OK`);
+                    })
+                    .catch(error => {  
+                        sails.log.error(`BeneficiaireController - getAll - ERREUR - Situation KO - ${error.message}`); 
+                        benefObj.situationAdministrative = '?';
+                    });
+
+            // On les ajoute à la liste
+            data.benefs.push(benefObj);
             
-        });
+        }
+
+        // Fonction de mise en forme de la date envoyée à la vue
+        data.setFormatDate = setFormatDate;
+
+        return res.view('pages/allBeneficiaires', { data });
     }
 
 };
