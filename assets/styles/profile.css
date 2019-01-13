@@ -25,3 +25,42 @@
     font-size: 16px;
     font-weight: bolder;
 }
+
+.mt-1 {
+    margin-top: 1% !important;
+}
+.mt-2 {
+    margin-top: 2% !important;
+}
+
+.mb-2 {
+    margin-bottom: 2% !important;
+}
+
+.icon-bg-color {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 8px;
+    font-size: 20px;
+}
+
+.fixed-line-height {
+    line-height: 24px;
+}
+.font-weight-300 {
+    font-weight: 300 !important;
+}
+
+.first-c::before {
+    position: absolute;
+    top: 0;
+    margin-top: 264px;
+    bottom: 0;
+    margin-left: 1.1em;
+    width: 4px;
+    content: "";
+    background-color: #e0e0e0;
+    z-index: -1;
+}

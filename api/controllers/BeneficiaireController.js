@@ -441,7 +441,7 @@ module.exports = {
                 .populate('conjoint')
                 .populate('enfants')
                 .populate('cotisation')
-                .populate('evenement')
+                .populate('evenement', { sort: 'date DESC' })
                 .then(benef => {
                     if(benef == undefined || benef == null) {
                         throw Error(`Bénéficiaire de N° de carte ${params.id} inexistant.`)

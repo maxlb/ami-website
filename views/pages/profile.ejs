@@ -364,7 +364,32 @@
 
     <!-- ONGLET DÉMARCHES ADMINISTRATIVES -->
     <div id="demArdmin" class="col s12">
-        Test 2
+        <div class="row mt-2">
+            <div class="activity">
+                <% var c = 0 %>
+                <% data.benefObj.evenement.forEach(function(event) { %>
+                <div class="row">
+                    <div class="col s3 mt-2 center-align <%= c == 0 ? "first-c" : "" %>">
+                        <i class="material-icons white-text icon-bg-color blue">
+                            <% if ( (event.nom.match(/Réponse/g) || []).length > 0 ) { %>
+                            gavel
+                            <% } else if ( (event.nom.match(/Convocation/g) || []).length > 0 ) { %>
+                            account_balance
+                            <% } else if ( (event.nom.match(/Enregistrement/g) || []).length > 0 ) { %>
+                            email
+                            <% } %>
+                        </i>
+                    </div>
+                    <div class="col s9 mt-1">
+                        <a href="#" class="blue-text "><%= data.setFormatDate(event.date) %> - <%= event.nom %></a>
+                        <p class="mt-0 mb-2 fixed-line-height font-weight-300"> <%= event.description %> <%= event.decision !== "" ? " : " : "" %>  <b> <%= event.decision %> </b></p>
+                    </div>
+                </div>
+                <% c++; %>
+                <% }) %>
+
+            </div>
+        </div>
     </div>
 
     <!-- ONGLET VIE PROFESSIONNELLE -->
