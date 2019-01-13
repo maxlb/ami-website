@@ -190,7 +190,7 @@ var listeNationalites = {
 }
 
 var goToProfile = function(strID) {
-    window.location.href = "/profil/" + strID;
+    window.location.href = "/profile/" + strID;
 }
 
 var listeSituations = {
