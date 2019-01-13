@@ -56,11 +56,16 @@
 .first-c::before {
     position: absolute;
     top: 0;
-    margin-top: 264px;
     bottom: 0;
+    margin-top: 92px;
     margin-left: 1.1em;
     width: 4px;
+    height: 58vh;
+    z-index: -1;
     content: "";
     background-color: #e0e0e0;
-    z-index: -1;
+}
+
+.maPage * {
+    z-index: 0;
 }
