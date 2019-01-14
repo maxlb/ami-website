@@ -42,7 +42,7 @@ module.exports = {
     };
 
     await Evenement.create(event); 
-    sails.log.debug(`Evenement - buildEvenementDA - Evenement inséré : ${etape} - ${type}` );
+    sails.log.debug(`Evenement - buildEvenementDA - Evenement inséré : ${etape} - ${type}`);
   },
 
   setNomPredefini: function(etape, type) {

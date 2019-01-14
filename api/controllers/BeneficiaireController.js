@@ -86,8 +86,8 @@ function setVieEnFrance(benef, infos) {
     /* Moyens entrée */
     benef.aVisa = getBoolValue(infos.moyens.visa.check);
     benef.dateValiditeVisa = getDateValue(infos.moyens.visa.date);
-    benef.aPasseport = getBoolValue(infos.moyens.check);
-    benef.dateValiditePasseport = getDateValue(infos.moyens.date);
+    benef.aPasseport = getBoolValue(infos.moyens.passeport.check);
+    benef.dateValiditePasseport = getDateValue(infos.moyens.passeport.date);
 
     /* Carte séjour */
     benef.aCarteSejour = getBoolValue(infos.titreSejour.carteSejour.obtenu);
@@ -175,39 +175,68 @@ function buildEnfantsFromParams(params) {
 }
 
 async function buildEventsFromParams(params, idBenef) {
-    var etapes = ["OFPRA", "CNDA", "OQTF"];
+    
+    // Lettre d'enregistrement OFPRA
+    if ( isDefined(params.OFPRA.lettreEnregistrement) ) {
+        await Evenement.buildEvenementDA(idBenef, getDateValue(params.OFPRA.lettreEnregistrement), "OFPRA", "enregistrement");
+        sails.log.debug(`BeneficiaireController - buildEventFromParams - Evenement traité : OFPRA - enregistrement`);
+    }
 
-    etapes.forEach(async function (etape) {
-        // Lettre d'enregistrement
-        if ( isDefined(params.lettreEnregistrement) ) {
-            await Evenement.buildEvenementDA(idBenef, getDateValue(params.lettreEnregistrement), etape, "enregistrement");
-        }
+    // Convocation OFPRA
+    if ( isDefined(params.OFPRA.convocation) ) {
+        await Evenement.buildEvenementDA(idBenef, getDateValue(params.OFPRA.convocation), "OFPRA", "convocation");
+        sails.log.debug(`BeneficiaireController - buildEventFromParams - Evenement traité : OFPRA - convocation`);
+    }
 
-        // Convocation
-        if ( isDefined(params.convocation) ) {
-            await Evenement.buildEvenementDA(idBenef, getDateValue(params.convocation), etape, "convocation");
-        }
+    // Réponse OFPRA
+    if ( isDefined(params.OFPRA.reponse) && isDefined(params.OFPRA.dateReponse) ) {
+        await Evenement.buildEvenementDA(idBenef, getDateValue(params.OFPRA.dateReponse), "OFPRA", "reponse", getStringValue(params.OFPRA.reponse));
+        sails.log.debug(`BeneficiaireController - buildEventFromParams - Evenement traité : OFPRA - reponse`);
+    }
 
-        // Réponse
-        if ( isDefined(params.reponse) && isDefined(params.dateReponse) ) {
-            await Evenement.buildEvenementDA(idBenef, getDateValue(params.dateReponse), etape, "reponse", getStringValue(params.reponse));
-        }
+    // Lettre d'enregistrement CNDA
+    if ( isDefined(params.CNDA.lettreEnregistrement) ) {
+        await Evenement.buildEvenementDA(idBenef, getDateValue(params.CNDA.lettreEnregistrement), "CNDA", "enregistrement");
+        sails.log.debug(`BeneficiaireController - buildEventFromParams - Evenement traité : CNDA - enregistrement`);
+    }
 
-        // Convocation en Appel
-        if ( isDefined(params.convocationAppel) ) {
-            await Evenement.buildEvenementDA(idBenef, getDateValue(params.convocationAppel), etape , "convocationAppel");
-        }
+    // Convocation CNDA
+    if ( isDefined(params.CNDA.convocation) ) {
+        await Evenement.buildEvenementDA(idBenef, getDateValue(params.CNDA.convocation), "CNDA", "convocation");
+        sails.log.debug(`BeneficiaireController - buildEventFromParams - Evenement traité : CNDA - convocation`);
+    }
 
-        // Réponse de l'Appel
-        if ( isDefined(params.reponseAppel) && isDefined(params.dateReponseAppel) ) {
-            await Evenement.buildEvenementDA(idBenef, getDateValue(params.dateReponseAppel), etape + "Appel", "reponseAppel", getStringValue(params.reponseAppel));
-        }
+    // Réponse CNDA
+    if ( isDefined(params.CNDA.reponse) && isDefined(params.CNDA.dateReponse) ) {
+        await Evenement.buildEvenementDA(idBenef, getDateValue(params.CNDA.dateReponse), "CNDA", "reponse", getStringValue(params.CNDA.reponse));
+        sails.log.debug(`BeneficiaireController - buildEventFromParams - Evenement traité : CNDA - reponse`);
+    }
 
-        sails.log.debug(`BeneficiaireController - buildEventFromParams - Evenement traité : ${etape}`);
-    })
+    // Convocation OQTF
+    if ( isDefined(params.OQTF.convocation) ) {
+        await Evenement.buildEvenementDA(idBenef, getDateValue(params.OQTF.convocation), "OQTF", "convocation");
+        sails.log.debug(`BeneficiaireController - buildEventFromParams - Evenement traité : OQTF - convocation`);
+    }
+
+    // Réponse OQTF
+    if ( isDefined(params.OQTF.reponse) && isDefined(params.OQTF.dateReponse) ) {
+        await Evenement.buildEvenementDA(idBenef, getDateValue(params.OQTF.dateReponse), "OQTF", "reponse", getStringValue(params.OQTF.reponse));
+        sails.log.debug(`BeneficiaireController - buildEventFromParams - Evenement traité : OQTF - reponse`);
+    }
+
+    // Convocation en Appel
+    if ( isDefined(params.OQTF.convocationAppel) ) {
+        await Evenement.buildEvenementDA(idBenef, getDateValue(params.OQTF.convocationAppel), "OQTFAppel" , "convocation");
+        sails.log.debug(`BeneficiaireController - buildEventFromParams - Evenement traité : OQTFAppel - convocationAppel`);
+    }
+
+    // Réponse de l'Appel
+    if ( isDefined(params.OQTF.reponseAppel) && isDefined(params.OQTF.dateReponseAppel) ) {
+        await Evenement.buildEvenementDA(idBenef, getDateValue(params.OQTF.dateReponseAppel), "OQTFAppel", "reponse", getStringValue(params.OQTF.reponseAppel));
+        sails.log.debug(`BeneficiaireController - buildEventFromParams - Evenement traité : OQTFAppel - reponseAppel`);
+    }
     
     return 1
-
 }
 
 function isDefined(value) {
@@ -352,7 +381,7 @@ module.exports = {
         });
         
         /* Evènements du bénéficiaires */
-        await buildEventsFromParams(params.demAdmin.OFPRA, benefObj.id);
+        await buildEventsFromParams(params.demAdmin, benefObj.id);
 
         sails.log.info('BeneficiaireController - inscrire - Inscription terminée');
 
@@ -440,7 +469,7 @@ module.exports = {
                 .findOne(params.id)
                 .populate('conjoint')
                 .populate('enfants')
-                .populate('cotisation')
+                .populate('cotisation', { sort: 'annee DESC' })
                 .populate('evenement', { sort: 'date DESC' })
                 .then(benef => {
                     if(benef == undefined || benef == null) {

@@ -10,7 +10,7 @@ module.exports = {
   login(req, res) {
     let params = req.allParams();
 
-    sails.log.info('UserController - login - Connexion de %s', params.mail);
+    sails.log.info(`UserController - login - Connexion de ${params.mail}.`);
 
     User.findOne({
       mail: params.mail

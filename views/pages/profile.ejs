@@ -275,8 +275,8 @@
                             <!-- Comprend français -->
                             <li class="collection-item blue">
                                 <div class="row">
-                                    <div class="col s5"><i class="material-icons left">record_voice_over</i>Comprend le français</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.comprendFr ? "Oui" : "Non" %></div>
+                                    <div class="col s7"><i class="material-icons left">record_voice_over</i>Comprend le français</div>
+                                    <div class="col s5 right-align"><%= data.benefObj.comprendFr ? "Oui" : "Non" %></div>
                                 </div>
                             </li>
                             <!-- A le Bac -->
@@ -488,8 +488,8 @@
                             <!-- Passeport -->
                             <li class="collection-item blue">
                                 <div class="row">
-                                    <div class="col s6"><i class="material-icons left">today</i>Date de validité du passeport</div>
-                                    <div class="col s6 right-align"><%= data.benefObj.dateValiditePasseport ? data.setFormatDate(data.benefObj.dateValiditePasseport) : "Inconnue" %></div>
+                                    <div class="col s7"><i class="material-icons left">today</i>Date de validité du passeport</div>
+                                    <div class="col s5 right-align"><%= data.benefObj.dateValiditePasseport ? data.setFormatDate(data.benefObj.dateValiditePasseport) : "Inconnue" %></div>
                                 </div>
                             </li>
                             <% } %>
@@ -527,18 +527,18 @@
                         <ul class="collapsible">
                             <% if (data.benefObj.aCarteSejour) { %>
                             <li>
-                                <div class="collapsible-header"><i class="material-icons">perm_contact_calendar</i>Carte de séjour temporaire</div>
+                                <div class="collapsible-header blue"><i class="material-icons">perm_contact_calendar</i>Carte de séjour temporaire</div>
                                 <div class="collapsible-body">
                                     <ul class="collection">
                                         <!-- Mention -->
-                                        <li class="collection-item">
+                                        <li class="collection-item blue">
                                             <div class="row">
                                                 <div class="col s5"><i class="material-icons left">description</i>Mention</div>
                                                 <div class="col s7 right-align"><%= data.benefObj.mentionCarteSejour %></div>
                                             </div>
                                         </li>
                                         <!-- Date de validité -->
-                                        <li class="collection-item">
+                                        <li class="collection-item blue">
                                             <div class="row">
                                                 <div class="col s5"><i class="material-icons left">today</i>Date de validité</div>
                                                 <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateValiditeCarteSejour) %></div>
@@ -551,18 +551,18 @@
 
                             <% if (data.benefObj.aCarteResident) { %>
                             <li>
-                                <div class="collapsible-header"><i class="material-icons">perm_contact_calendar</i>Carte de résident</div>
+                                <div class="collapsible-header blue"><i class="material-icons">perm_contact_calendar</i>Carte de résident</div>
                                 <div class="collapsible-body">
                                     <ul class="collection">
                                         <!-- Mention -->
-                                        <li class="collection-item">
+                                        <li class="collection-item blue">
                                             <div class="row">
                                                 <div class="col s5"><i class="material-icons left">description</i>Mention</div>
                                                 <div class="col s7 right-align"><%= data.benefObj.mentionCarteResident %></div>
                                             </div>
                                         </li>
                                         <!-- Date de validité -->
-                                        <li class="collection-item">
+                                        <li class="collection-item blue">
                                             <div class="row">
                                                 <div class="col s5"><i class="material-icons left">today</i>Date de validité</div>
                                                 <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateValiditeCarteResident) %></div>
@@ -575,18 +575,18 @@
 
                             <% if (data.benefObj.aCarteEU) { %>
                             <li>
-                                <div class="collapsible-header"><i class="material-icons">perm_contact_calendar</i>Carte de ressortissant européen</div>
+                                <div class="collapsible-header blue"><i class="material-icons">perm_contact_calendar</i>Carte de ressortissant européen</div>
                                 <div class="collapsible-body">
                                     <ul class="collection">
                                         <!-- Mention -->
-                                        <li class="collection-item">
+                                        <li class="collection-item blue">
                                             <div class="row">
                                                 <div class="col s5"><i class="material-icons left">public</i>Pays ressortissant</div>
                                                 <div class="col s7 right-align"><%= data.benefObj.paysCarteEU %></div>
                                             </div>
                                         </li>
                                         <!-- Date de validité -->
-                                        <li class="collection-item">
+                                        <li class="collection-item blue">
                                             <div class="row">
                                                 <div class="col s5"><i class="material-icons left">today</i>Date de validité</div>
                                                 <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateValiditeCarteEU) %></div>
@@ -617,8 +617,8 @@
                             <!-- Protection subsidiaire -->
                             <li class="collection-item blue">
                                 <div class="row">
-                                    <div class="col s6"><i class="material-icons left">public</i>Protection subsidiaire</div>
-                                    <div class="col s6 right-align"><%= data.benefObj.dateValiditeStatutProtectionSubsidiaire ? data.setFormatDate(data.benefObj.dateValiditeStatutProtectionSubsidiaire) : "Non" %></div>
+                                    <div class="col s7"><i class="material-icons left">public</i>Protection subsidiaire</div>
+                                    <div class="col s5 right-align"><%= data.benefObj.dateValiditeStatutProtectionSubsidiaire ? data.setFormatDate(data.benefObj.dateValiditeStatutProtectionSubsidiaire) : "Non" %></div>
                                 </div>
                             </li>
                         </ul>
@@ -632,12 +632,133 @@
 
     <!-- ONGLET VIE PROFESSIONNELLE -->
     <div id="viePro" class="col s12">
-        Test 3
+        Bientôt disponible ...
     </div>
 
     <!-- ONGLET VIE A L'AMI -->
     <div id="vieAMI" class="col s12">
-        Test 4
+        <div class="col s12 m6">
+
+            <!-- Inscription -->
+            <div class="card blue">
+                <div class="card-content white-text">
+                    <span class="card-title">Inscription</span>
+                    <ul class="collection">
+                        <!-- Numéro de carte -->
+                        <li class="collection-item blue">
+                            <div class="row">
+                                <div class="col s5"><i class="material-icons left">card_membership</i>N° de carte AMI</div>
+                                <div class="col s7 right-align"><%= data.benefObj.id %></div>
+                            </div>
+                        </li>
+                        <!-- Inscrit par -->
+                        <li class="collection-item blue">
+                            <div class="row">
+                                <div class="col s5"><i class="material-icons left">person_outline</i>Inscrit par</div>
+                                <div class="col s7 right-align"><%= data.benefObj.inscritPar %></div>
+                            </div>
+                        </li>
+                        <!-- Date d'inscription -->
+                        <li class="collection-item blue">
+                            <div class="row">
+                                <div class="col s5"><i class="material-icons left">today</i>Date d'inscription</div>
+                                <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateInscription) %></div>
+                            </div>
+                        </li>
+                        <!-- Orienté par -->
+                        <li class="collection-item blue">
+                            <div class="row">
+                                <div class="col s5"><i class="material-icons left">star_border</i>Découverte de l'AMI</div>
+                                <div class="col s7 right-align"><%= data.benefObj.orientePar %></div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <!-- Administration -->
+            <div class="card white">
+                <div class="card-content blue-text">
+                    <span class="card-title">Administration</span>
+
+                    <ul class="collection">
+                        <!-- Création -->
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col s6"><i class="material-icons left">today</i>Date de création du profil</div>
+                                <div class="col s6 right-align"><%= data.setFormatDate(new Date(data.benefObj.createdAt)) %></div>
+                            </div>
+                        </li>
+                        <!-- Modification -->
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col s7"><i class="material-icons left">today</i>Dernière modification du profil</div>
+                                <div class="col s5 right-align"><%= data.setFormatDate(new Date(data.benefObj.updatedAt)) %></div>
+                            </div>
+                        </li>
+
+                    </ul>
+                    
+                </div>
+            </div>
+
+        </div>
+
+        
+        <div class="col s12 m6">
+
+            <!-- Cotisations -->
+            <div class="card white">
+                <div class="card-content blue-text">
+                    <span class="card-title">Cotisations</span>
+                    <ul class="collapsible">
+                    <% data.benefObj.cotisation.forEach(function(cot) { %>
+                        <li>
+                        <div class="collapsible-header"><i class="material-icons">euro_symbol</i>Cotisation <%= cot.annee %></div>
+                            <div class="collapsible-body">
+                                <ul class="collection">
+                                    <!-- Montant -->
+                                    <li class="collection-item">
+                                        <div class="row">
+                                            <div class="col s5"><i class="material-icons left">euro_symbol</i>Montant</div>
+                                            <div class="col s7 right-align"><%= cot.montant %> €</div>
+                                        </div>
+                                    </li>
+                                    <!-- Paienment -->
+                                    <li class="collection-item">
+                                        <div class="row">
+                                            <div class="col s5"><i class="material-icons left">error_outline</i>État</div>
+                                            <div class="col s7 right-align"><%= cot.estPayee ? "Payée" : "Impayée" %></div>
+                                        </div>
+                                    </li>
+                                    <% if(cot.estPayee) { %>
+                                    <!-- Date de paiement -->
+                                    <li class="collection-item">
+                                        <div class="row">
+                                            <div class="col s6"><i class="material-icons left">today</i>Date de paiement</div>
+                                            <div class="col s6 right-align"><%= data.setFormatDate(cot.datePaiement) %></div>
+                                        </div>
+                                    </li>
+                                    <% } else { %>
+                                    <!-- Motif -->
+                                    <li class="collection-item">
+                                        <div class="row">
+                                            <div class="col s6"><i class="material-icons left">room</i>Motif de non-paiement</div>
+                                            <div class="col s6 right-align"><%= cot.motif !== "" ? cot.motif : "Aucun" %></div>
+                                        </div>
+                                    </li>
+                                    <% } %>
+
+                                </ul>
+                            </div>
+                        </li>
+                    <% }) %>
+                    </ul>
+                </div>
+            </div>
+        
+        </div>
     </div>
 
 </div>
@@ -660,7 +781,3 @@
         </div>
     </div>
 <% } %>
-
-<script>
-    var benef = <%- JSON.stringify(data.benefObj) %>;
-</script>
