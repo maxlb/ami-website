@@ -229,7 +229,7 @@ $(document).ready(function() {
         },
         bAutoWidth: false,
         "scrollX": true,
-        "order": [[ 7, 'desc' ]],
+        "order": [[ 1, 'asc' ]],
         "columns": [
             { "width": "6%", "className": "text-center" },      // N° carte
             { "width": "15%" },                                 // Nom
