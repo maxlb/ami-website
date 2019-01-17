@@ -12,14 +12,17 @@
  * For more information on configuring datastores, check out:
  * https://sailsjs.com/config/datastores
  */
-
+var sails = require('sails');
 module.exports.datastores = {
 
   default: {
 
     adapter: 'sails-mysql',
-    // url: 'mysql://Maxime:AQWZSXedc0178@145.14.158.15:3306/ami' 
-    url: 'mysql://ami-appli:AQWZSXedc123@localhost:3306/ami' 
+    socketPath: sails.config.databases.dev.socketPath,
+    host: sails.config.databases.dev.host,
+    user: sails.config.databases.dev.user,
+    password: sails.config.databases.dev.password,
+    database: sails.config.databases.dev.database
 
   }
 

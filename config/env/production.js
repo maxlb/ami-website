@@ -18,7 +18,7 @@
  * For more best practices and tips, see:
  * https://sailsjs.com/docs/concepts/deployment
  */
-
+var sails = require('sails');
 module.exports = {
 
 
@@ -47,7 +47,12 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     default: {
-      url: 'mysql://Maxime:AQWZSXedc0178@145.14.158.15:3306/ami'
+      adapter: 'sails-mysql',
+      socketPath: sails.config.databases.prod.socketPath,
+      host: sails.config.databases.prod.host,
+      user: sails.config.databases.prod.user,
+      password: sails.config.databases.prod.password,
+      database: sails.config.databases.prod.database
     },
 
   },
