@@ -7,29 +7,30 @@
 
 module.exports = {
 
-  login(req, res) {
-    let params = req.allParams();
+    login(req, res) {
 
-    sails.log.info(`UserController - login - Connexion de ${params.mail}.`);
+      let params = req.allParams();
 
-    User.findOne({
-      mail: params.mail
-    }).decrypt().exec((err, user) => {
-      if (err) {
-        sails.log.error(err);
-      }
-      if (!user || user.password !== params.password) {
-        return res.redirect('/');
-      }
-      req.session.user = user;
-      return res.redirect('/logged');
+      User
+        .findOne({ mail: params.mail })
+        .decrypt()
+        .exec((err, user) => {
+          if (err) {
+            sails.log.error(err);
+          } else if (!user || user.password !== params.password) {
+            sails.log.warn(`UserController - login - Tentative de connexion de ${params.mail}.`);
+            return res.json({ error: 'Identifiant ou mot de passe invalide.' });
+          } else {
+            sails.log.info(`UserController - login - Connexion de ${params.mail}.`);
+            req.session.user = user;
+            return res.json({ user: params.mail });
+          }
+        });
+    },
 
-    });
-  },
-
-  logout(req,res){
-    req.session.user = null;
-    return res.redirect('/');
-  }
+    logout(req,res){
+      req.session.user = null;
+      return res.redirect('/');
+    }
 
 };

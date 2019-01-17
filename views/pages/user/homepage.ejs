@@ -345,22 +345,17 @@
 <script type="text/javascript" src="js/generiques/materialize.min.js"></script>
 <script src="js/homepage/plugin-min.js"></script>
 <script src="js/homepage/custom-min.js"></script>
-<script>
-  function openModal(){
-    let elem = document.querySelector('#modal1');
-    let instance = M.Modal.init(elem);
-    instance.open();
-  }
-</script>
+<script src="js/homepage/homepage.js"></script>
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
 
-  <form action="/login" method="POST" class="modal-content" id="connectForm">
+  <form  method="POST" class="modal-content" id="formConnexion">
 
-    <div>
-      <h4 class="h4-modal">Se connecter</h4>
-      <blockquote>Veuillez vous enregistrer pour accéder à votre espace d'administration.</blockquote>
+    <div class="row">
+      <h4 class="col s12 h4-modal">Se connecter</h4>
+      <blockquote class="col s12">Veuillez vous enregistrer pour accéder à votre espace d'administration.</blockquote>
+      <span class="badge red col s12 h4-modal white-text" id="error"></span>
     </div>
 
     <div class="row">
@@ -380,7 +375,7 @@
     </div>
 
     <div class="modal-footer">
-      <button class="btn waves-effect waves-light blue" type="submit" name="action">
+      <button class="btn waves-effect waves-light blue" type="submit" name="valider">
         Se connecter
         <i class="material-icons right">send</i>
       </button>
