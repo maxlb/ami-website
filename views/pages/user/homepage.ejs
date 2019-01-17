@@ -23,6 +23,12 @@
     <div class="container">
       <div class="nav-wrapper">
         <a href="#" id="logo-container" class="brand-logo">Association nantaise AMI</a>
+		<ul class="right hide-on-med-and-down">
+          <li><a href="#modal1" onClick="openModal()">Se connecter</a></li>
+        </ul>
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="#modal1" onClick="openModal()">Se connecter</a></li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -309,19 +315,25 @@
         </p>
       </div>
       <div class="col l3 m3 offset-l1 s12">
-        <h5 class="white-text">Contacter l'AMI</h5>
-        <ul>
-          <li><a class="grey-text text-lighten-3 li-footer" href="#!"><i class="material-icons">place</i><span class="li-footer">103, rue du corps de garde</span></a></li>
-          <li><a class="grey-text text-lighten-3 li-footer" href="#!"><i class="material-icons blue-text">place</i><span class="li-footer">44100 NANTES</span></a></li>
-          <li><a class="grey-text text-lighten-3 li-footer" href="#!"><i class="material-icons">phone</i><span class="li-footer">02 40 77 52 63</span></a></li>
-          <li><a class="grey-text text-lighten-3 li-footer" href="#!"><i class="material-icons">mail_outline</i><span class="li-footer">ami_asso@sfr.fr</span></a></li>
-        </ul>
-      </div>
+		<h5 class="white-text">Contacter l'AMI</h5>
+		  <ul>
+			<li><a class="grey-text text-lighten-3 li-footer"  target="_blank" href = "http://maps.google.fr/maps?f=q&amp;hl=fr&amp;q=ami%20nantes" ><i class="material-icons">place</i><span class="li-footer">103, rue du corps de garde</span></a></li>
+			<li style="margin-top: -15px;"><a class="grey-text text-lighten-3 li-footer" target="_blank" href = "http://maps.google.fr/maps?f=q&amp;hl=fr&amp;q=ami%20nantes" ><i class="material-icons blue-text">place</i><span class="li-footer">44100 NANTES</span></a></li>
+			<li style="margin-top: -10px;"><a class="grey-text text-lighten-3 li-footer" href="tel:+33240775263"><i class="material-icons">phone</i><span class="li-footer">02 40 77 52 63</span></a></li>
+			<li style="margin-top: -10px;"><a class="grey-text text-lighten-3 li-footer" href="mailto:ami_asso@sfr.fr"><i class="material-icons">mail_outline</i><span class="li-footer">ami_asso@sfr.fr</span></a></li>
+		  </ul>
+		  <h5 class="white-text"> Mentions légales</h5>
+		  <ul style="margin-top: 2px;">
+			<li class="grey-text text-lighten-3 li-footer" style="font-size: 11px;"><b>Accompagnement Migrant Intégration</b> : association loi 1901 basée à Nantes (adresse ci-dessus)</li>
+			<li class="grey-text text-lighten-3 li-footer" style="font-size: 11px;"><b>Directeur de la publication</b> : Maxime LE BAIL</li>
+			<li class="grey-text text-lighten-3 li-footer" style="font-size: 11px;"><b>Hébergeur du site</b> : Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irlande</li>
+		  </ul>
+	  </div>
     </div>
   </div>
   <div class="footer-copyright blue darken-1">
     <div class="container">
-      © 2018 Copyright Maxime LE BAIL
+      © 2018 - Maxime LE BAIL - Tous droits réservés.
       <a class="grey-text text-lighten-4 right" href="http://association-ami-nantes.blogspot.com/" target="_blank">Blog</a>
     </div>
   </div>
@@ -329,10 +341,10 @@
 
 
 <!--  Scripts-->
-<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="js/materialize.min.js"></script>
-<script src="js/plugin-min.js"></script>
-<script src="js/custom-min.js"></script>
+<script type="text/javascript" src="js/generiques/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/generiques/materialize.min.js"></script>
+<script src="js/homepage/plugin-min.js"></script>
+<script src="js/homepage/custom-min.js"></script>
 <script>
   function openModal(){
     let elem = document.querySelector('#modal1');

@@ -1,0 +1,71 @@
+.titre {
+    text-align: center;
+}
+
+
+.tabs .tab a:hover, .tabs .tab a.active {
+    background-color: transparent;
+    color: #2196F3;
+}
+
+.tabs .tab a {
+    color: #2196F3;
+}
+
+.tabs .indicator {
+    background-color: #2196F3;
+}
+
+
+.card .row {
+    margin-bottom: 0;
+}
+
+.right-align {
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.mt-1 {
+    margin-top: 1% !important;
+}
+.mt-2 {
+    margin-top: 2% !important;
+}
+
+.mb-2 {
+    margin-bottom: 2% !important;
+}
+
+.icon-bg-color {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 8px;
+    font-size: 20px;
+}
+
+.fixed-line-height {
+    line-height: 24px;
+}
+.font-weight-300 {
+    font-weight: 300 !important;
+}
+
+.first-c::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-top: 92px;
+    margin-left: 1.1em;
+    width: 4px;
+    height: 85%;
+    z-index: -1;
+    content: "";
+    background-color: #e0e0e0;
+}
+
+.maPage * {
+    z-index: 0;
+}

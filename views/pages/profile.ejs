@@ -1,0 +1,783 @@
+<% pageAffichee = "profile" %>
+
+<% if (data.error == undefined) { %>
+
+<h2 class="titre"><%= data.benefObj.prenom %> <%= data.benefObj.nom.toUpperCase() %></h2>
+
+<div class="row">
+
+    <!-- ONGLETS -->
+    <div class="col s12">
+        
+        <ul class="tabs">
+            <li class="tab col s3">
+                <a href="#infosPersos">Infos personnelles</a>
+            </li>
+            <li class="tab col s3">
+                <a href="#demArdmin">Démarches administratives</a>
+            </li>
+            <li class="tab col s3">
+                <a href="#viePro">Vie professionnelle</a>
+            </li>
+            <li class="tab col s3">
+                <a href="#vieAMI">Vie à l'ami</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- ONGLET INFOS PERSONNELLES -->
+    <div id="infosPersos" class="col s12">
+        <div class="row">
+
+            <div class="col s12 m6">
+
+                <!-- Identité -->
+                <div class="card blue">
+                    <div class="card-content white-text">
+                        <span class="card-title">Identité<a href="" style="color: white"><i class="material-icons right">edit</i></a></span>
+                        <ul class="collection">
+                            <!-- Numéro de carte -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">card_membership</i>N° de carte AMI</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.id %></div>
+                                </div>
+                            </li>
+                            <!-- Nom -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">person_outline</i>Nom</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.nom.toUpperCase() %></div>
+                                </div>
+                            </li>
+                            <% if (data.benefObj.genre == "F") { %>
+                                <!-- Nom de jeune fille -->
+                                <li class="collection-item blue">
+                                    <div class="row">
+                                        <div class="col s5"><i class="material-icons left">person_outline</i>Nom de jeune fille</div>
+                                        <div class="col s7 right-align"><%= data.benefObj.nomJeuneFille %></div>
+                                    </div>
+                                </li>
+                            <% } %>
+                            <!-- Prénom -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">person_outline</i>Prénoms</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.prenom %></div>
+                                </div>
+                            </li>
+                            <!-- Date de naissance -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">cake</i>Date de naissance</div>
+                                    <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateNaissance) %></div>
+                                </div>
+                            </li>
+                            <!-- Nationalité -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">public</i>Nationalité</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.nationalite %></div>
+                                </div>
+                            </li>
+                            <!-- Pays de naissance -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">public</i>Pays de naissance</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.paysNaissance %></div>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <!-- Permis -->
+                <div class="card white">
+                    <div class="card-content blue-text">
+                        <span class="card-title">Permis de conduire</span>
+
+                        <ul class="collection">
+                            <!-- Date d'obtention -->
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">today</i>Date d'obtention</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.datePermis ? data.setFormatDate(data.benefObj.datePermis) : "Jamais" %></div>
+                                </div>
+                            </li>
+                            <!-- A voiture -->
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">drive_eta</i>A une voiture</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.aUneVouture ? "Oui" : "Non" %></div>
+                                </div>
+                            </li>
+
+                        </ul>
+                        
+                    </div>
+                </div>
+
+                <!-- Situation -->
+                <div class="card blue">
+                    <div class="card-content white-text">
+                        <span class="card-title">Le/la conjoint.e</span>
+                        <ul class="collection">
+
+                            <!-- Situation -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">people</i>Situation</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.situation %></div>
+                                </div>
+                            </li>
+                            <% if (data.benefObj.situation !== "Célibataire" && data.benefObj.situation !== "Veuf.ve" && data.benefObj.conjoint[0] !== undefined && data.benefObj.conjoint[0] !== null) { %>
+                            <!-- Date situation -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">today</i>Date de l'évènement</div>
+                                    <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateSituation) %></div>
+                                </div>
+                            </li>
+                            <!-- Prénom conjoint -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">person_outline</i>Prénom</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.conjoint[0].prenom %></div>
+                                </div>
+                            </li>
+                            <!-- Nom conjoint -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">person_outline</i>Nom</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.conjoint[0].nom.toUpperCase() %></div>
+                                </div>
+                            </li>
+                            <!-- Date de naissance conjoint -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">cake</i>Date de naissance</div>
+                                    <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.conjoint[0].dateNaissance) %></div>
+                                </div>
+                            </li>
+                            <!-- Réside en France -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">room</i>Réside en France</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.conjoint[0].resideEnFrance ? "Oui" : "Non" %></div>
+                                </div>
+                            </li>
+                            <% if (data.benefObj.conjoint[0].resideEnFrance) { %>
+                            <!-- Date d'arrivée en France -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">today</i>Date d'entrée en France</div>
+                                    <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.conjoint[0].dateEntreeFrance) %></div>
+                                </div>
+                            </li>
+                            <% } %>
+                            <!-- Situation administrative -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">gavel</i>Situation administrative</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.conjoint[0].situationAdlinistrative %></div>
+                                </div>
+                            </li>
+                            <% }  %>
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+
+            
+            <div class="col s12 m6">
+
+                <!-- Coordonnées -->
+                <div class="card white">
+                    <div class="card-content blue-text">
+                        <span class="card-title">Coordonnées</span>
+
+                        <ul class="collection">
+                            <!-- Adresse -->
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">home</i>Adresse</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.adresse %></div>
+                                </div>
+                            </li>
+                            <!-- Code postal -->
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">location_city</i>Code postal</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.codePostal == 0 ? "" : data.benefObj.codePostal %></div>
+                                </div>
+                            </li>
+                            <!-- Ville -->
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">location_city</i>Ville</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.ville %></div>
+                                </div>
+                            </li>
+                            <!-- Mail -->
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">mail_outline</i>Adresse mail</div>
+                                    <div class="col s7 right-align"><a href="mailto:<%=data.benefObj.mail%>"> <%= data.benefObj.mail %> </a> </div>
+                                </div>
+                            </li>
+                            <!-- Tel -->
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">phone_iphone</i>Téléphone</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.telephone %></div>
+                                </div>
+                            </li>
+                            <!-- Tel avocat -->
+                            <% if (data.benefObj.numAvocat !== "") { %>
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">phone_iphone</i>Avocat</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.numAvocat %></div>
+                                </div>
+                            </li>
+                            <% } %>
+                            <!-- Tel asso -->
+                            <% if (data.benefObj.numAvocat !== "") { %>
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">phone_iphone</i>Association</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.numAsso %></div>
+                                </div>
+                            </li>
+                            <% } %>
+                            <!-- Tel asso -->
+                            <% if (data.benefObj.numAssistSociale !== "") { %>
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">phone_iphone</i>Assistante sociale</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.numAssistSociale %></div>
+                                </div>
+                            </li>
+                            <% } %>
+                        </ul>
+                        
+                    </div>
+                </div>
+
+                <!-- Niveau d'études -->
+                <div class="card blue">
+                    <div class="card-content white-text">
+                        <span class="card-title">Niveau d'études</span>
+                        <ul class="collection">
+                            <!-- Comprend français -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s7"><i class="material-icons left">record_voice_over</i>Comprend le français</div>
+                                    <div class="col s5 right-align"><%= data.benefObj.comprendFr ? "Oui" : "Non" %></div>
+                                </div>
+                            </li>
+                            <!-- A le Bac -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">school</i>A le Bac</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.aLeBac ? "Oui" : "Non" %></div>
+                                </div>
+                            </li>
+                            <!-- Etudes supérieures -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s5"><i class="material-icons left">school</i>Études supérieures</div>
+                                    <div class="col s7 right-align"><%= data.benefObj.etudesSup != "" ? data.benefObj.etudesSup : "Aucune" %></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Enfants -->
+                <div class="card white">
+                    <div class="card-content blue-text">
+                        <span class="card-title">Les enfants</span>
+
+                        <% if (data.benefObj.enfants[0] == undefined && data.benefObj.enfants[0] == null) { %>
+                            <ul class="collection">
+                                <!-- Prénom enfant -->
+                                <li class="collection-item">
+                                    <div class="row">
+                                        <div class="col s5"><i class="material-icons left">face</i>Enfants</div>
+                                        <div class="col s7 right-align">Pas d'enfants</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        <% } else { %>
+
+                            <ul class="collapsible">
+                            <% data.benefObj.enfants.forEach(function(enfant) { %>
+
+                                <li>
+                                <div class="collapsible-header"><i class="material-icons">face</i><%= enfant.prenom %> <%= enfant.nom.toUpperCase() %></div>
+                                    <div class="collapsible-body">
+                                        <ul class="collection">
+                                            <!-- Prénom enfant -->
+                                            <li class="collection-item">
+                                                <div class="row">
+                                                    <div class="col s5"><i class="material-icons left">face</i>Prénom</div>
+                                                    <div class="col s7 right-align"><%= enfant.prenom %></div>
+                                                </div>
+                                            </li>
+                                            <!-- Nom enfant -->
+                                            <li class="collection-item">
+                                                <div class="row">
+                                                    <div class="col s5"><i class="material-icons left">face</i>Nom</div>
+                                                    <div class="col s7 right-align"><%= enfant.nom.toUpperCase() %></div>
+                                                </div>
+                                            </li>
+                                            <!-- Date de naissance enfant -->
+                                            <li class="collection-item">
+                                                <div class="row">
+                                                    <div class="col s5"><i class="material-icons left">cake</i>Date de naissance</div>
+                                                    <div class="col s7 right-align"><%= data.setFormatDate(enfant.dateNaissance) %></div>
+                                                </div>
+                                            </li>
+                                            <!-- Réside en France enfant -->
+                                            <li class="collection-item">
+                                                <div class="row">
+                                                    <div class="col s5"><i class="material-icons left">room</i>Réside en France</div>
+                                                    <div class="col s7 right-align"><%= enfant.resideEnFrance ? "Oui" : "Non" %></div>
+                                                </div>
+                                            </li>
+                                            <% if (enfant.resideEnFrance) { %>
+                                            <!-- Date d'arrivée en France enfant -->
+                                            <li class="collection-item">
+                                                <div class="row">
+                                                    <div class="col s5"><i class="material-icons left">today</i>Date d'entrée en France</div>
+                                                    <div class="col s7 right-align"><%= data.setFormatDate(enfant.dateEntreeFrance) %></div>
+                                                </div>
+                                            </li>
+                                            <% } %>
+                                            <!-- Nationalité enfant -->
+                                            <li class="collection-item">
+                                                <div class="row">
+                                                    <div class="col s5"><i class="material-icons left">public</i>Nationalité</div>
+                                                    <div class="col s7 right-align"><%= enfant.nationalite %></div>
+                                                </div>
+                                            </li>
+                                            <!-- Pays de naissance enfant -->
+                                            <li class="collection-item">
+                                                <div class="row">
+                                                    <div class="col s5"><i class="material-icons left">public</i>Pays de naissance</div>
+                                                    <div class="col s7 right-align"><%= enfant.paysNaissance %></div>
+                                                </div>
+                                            </li>
+        
+                                        </ul>
+                                    </div>
+                                </li>
+                            
+                            
+                            <% }) %>
+                            </ul>
+                        <% } %>
+                    </div>
+                </div>
+            
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ONGLET DÉMARCHES ADMINISTRATIVES -->
+    <div id="demArdmin" class="col s12">
+        <div class="row">
+
+            <div class="col s12 m7">
+                
+                <!-- Evènements -->
+                <div class="card white">
+                    <div class="card-content">
+                        <span class="card-title">Historique des démarches</span>
+                        <% if (data.benefObj.evenement.length == 0) { %>
+                            <ul class="collection">
+                                <li class="collection-item">
+                                    <div class="row">
+                                        <div class="col s5"><i class="material-icons left">today</i>Evènements</div>
+                                        <div class="col s7 right-align">Aucun historique</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        <% } else { %>
+                            <div class="activity">
+                                <% var c = 0 %>
+                                <% data.benefObj.evenement.forEach(function(event) { %>
+                                <div class="row">
+                                    <div class="col s3 mt-2 center-align <%= c == 0 ? "first-c" : "" %>">
+                                        <i class="material-icons white-text icon-bg-color blue">
+                                            <% if ( (event.nom.match(/Réponse/g) || []).length > 0 ) { %>
+                                            gavel
+                                            <% } else if ( (event.nom.match(/Convocation/g) || []).length > 0 ) { %>
+                                            account_balance
+                                            <% } else if ( (event.nom.match(/Enregistrement/g) || []).length > 0 ) { %>
+                                            email
+                                            <% } %>
+                                        </i>
+                                    </div>
+                                    <div class="col s9 mt-1">
+                                        <a href="#" class="blue-text "><%= data.setFormatDate(event.date) %> - <%= event.nom %></a>
+                                        <p class="mt-0 mb-2 fixed-line-height font-weight-300"> <%= event.description %> <%= event.decision !== "" ? " : " : "" %>  <b> <%= event.decision %> </b>
+                                        <% if ( (event.nom.match(/CNDA/g) || []).length > 0 ) { %>
+                                            <br/>Avocat du bénéficiaire : <%= data.benefObj.avocatCNDA %>.
+                                        <% } else if ( (event.nom.match(/OQTF/g) || []).length > 0 ) { %>
+                                            <br/>Avocat du bénéficiaire : <%= data.benefObj.avocatOQTF %>. 
+                                        <% } %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <% c++; %>
+                                <% }) %>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col s12 m5">
+                
+                <!-- Demande d'asile -->
+                <div class="card blue">
+                    <div class="card-content white-text">
+                        <span class="card-title">Demande d'asile</span>
+                        <ul class="collection">
+                            <!-- Type procédure -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s6"><i class="material-icons left">account_balance</i>Type de procédure</div>
+                                    <div class="col s6 right-align"><%= data.benefObj.typeProcedure !== "" ? data.benefObj.typeProcedure : "Non renseigné" %></div>
+                                </div>
+                            </li>
+                            <% if (data.benefObj.typeProcedure !== "") { %>
+                            <!-- Dernière date -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s6"><i class="material-icons left">today</i>Dernière convocation</div>
+                                    <div class="col s6 right-align"><%= data.benefObj.dateProcedure ? data.setFormatDate(data.benefObj.dateProcedure) : "Inconnue" %></div>
+                                </div>
+                            </li>
+                            <% } %>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Entrée en France -->
+                <div class="card blue">
+                    <div class="card-content white-text">
+                        <span class="card-title">Entrée en France</span>
+                        <ul class="collection">
+                            <!-- Date d'entrée -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s6"><i class="material-icons left">today</i>Date d'entrée</div>
+                                    <div class="col s6 right-align"><%= data.benefObj.dateEntreeFrance ? data.setFormatDate(data.benefObj.dateEntreeFrance) : "Inconnue" %></div>
+                                </div>
+                            </li>
+                            <% if (data.benefObj.aPasseport) { %>
+                            <!-- Passeport -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s7"><i class="material-icons left">today</i>Date de validité du passeport</div>
+                                    <div class="col s5 right-align"><%= data.benefObj.dateValiditePasseport ? data.setFormatDate(data.benefObj.dateValiditePasseport) : "Inconnue" %></div>
+                                </div>
+                            </li>
+                            <% } %>
+                            <% if (data.benefObj.aVisa) { %>
+                            <!-- Passeport -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s6"><i class="material-icons left">today</i>Date de validité du visa</div>
+                                    <div class="col s6 right-align"><%= data.benefObj.dateValiditeVisa ? data.setFormatDate(data.benefObj.dateValiditeVisa) : "Inconnue" %></div>
+                                </div>
+                            </li>
+                            <% } %>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Vie en France -->
+                <div class="card blue">
+                    <div class="card-content white-text">
+                        <span class="card-title">Vie en France</span>
+
+                        <% if (!data.benefObj.aCarteSejour && !data.benefObj.aCarteResident && !data.benefObj.aCarteEU) { %>
+                            <ul class="collection">
+                                <!-- Prénom enfant -->
+                                <li class="collection-item blue">
+                                    <div class="row">
+                                        <div class="col s5"><i class="material-icons left">perm_contact_calendar</i>Titres</div>
+                                        <div class="col s7 right-align">Pas de titre</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        <% } else { %>
+
+                        <ul class="collapsible">
+                            <% if (data.benefObj.aCarteSejour) { %>
+                            <li>
+                                <div class="collapsible-header blue"><i class="material-icons">perm_contact_calendar</i>Carte de séjour temporaire</div>
+                                <div class="collapsible-body">
+                                    <ul class="collection">
+                                        <!-- Mention -->
+                                        <li class="collection-item blue">
+                                            <div class="row">
+                                                <div class="col s5"><i class="material-icons left">description</i>Mention</div>
+                                                <div class="col s7 right-align"><%= data.benefObj.mentionCarteSejour %></div>
+                                            </div>
+                                        </li>
+                                        <!-- Date de validité -->
+                                        <li class="collection-item blue">
+                                            <div class="row">
+                                                <div class="col s5"><i class="material-icons left">today</i>Date de validité</div>
+                                                <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateValiditeCarteSejour) %></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <% } %>
+
+                            <% if (data.benefObj.aCarteResident) { %>
+                            <li>
+                                <div class="collapsible-header blue"><i class="material-icons">perm_contact_calendar</i>Carte de résident</div>
+                                <div class="collapsible-body">
+                                    <ul class="collection">
+                                        <!-- Mention -->
+                                        <li class="collection-item blue">
+                                            <div class="row">
+                                                <div class="col s5"><i class="material-icons left">description</i>Mention</div>
+                                                <div class="col s7 right-align"><%= data.benefObj.mentionCarteResident %></div>
+                                            </div>
+                                        </li>
+                                        <!-- Date de validité -->
+                                        <li class="collection-item blue">
+                                            <div class="row">
+                                                <div class="col s5"><i class="material-icons left">today</i>Date de validité</div>
+                                                <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateValiditeCarteResident) %></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <% } %>
+
+                            <% if (data.benefObj.aCarteEU) { %>
+                            <li>
+                                <div class="collapsible-header blue"><i class="material-icons">perm_contact_calendar</i>Carte de ressortissant européen</div>
+                                <div class="collapsible-body">
+                                    <ul class="collection">
+                                        <!-- Mention -->
+                                        <li class="collection-item blue">
+                                            <div class="row">
+                                                <div class="col s5"><i class="material-icons left">public</i>Pays ressortissant</div>
+                                                <div class="col s7 right-align"><%= data.benefObj.paysCarteEU %></div>
+                                            </div>
+                                        </li>
+                                        <!-- Date de validité -->
+                                        <li class="collection-item blue">
+                                            <div class="row">
+                                                <div class="col s5"><i class="material-icons left">today</i>Date de validité</div>
+                                                <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateValiditeCarteEU) %></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <% } %>
+                        </ul>
+                        
+                        <% } %>
+                    </div>
+                </div>
+                
+                <!-- Protection -->
+                <div class="card blue">
+                    <div class="card-content white-text">
+                        <span class="card-title">Protection internationale</span>
+                        <ul class="collection">
+                            <!-- Réfugié -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s6"><i class="material-icons left">public</i>Réfugié</div>
+                                    <div class="col s6 right-align"><%= data.benefObj.dateValiditeStatutRefugie ? data.setFormatDate(data.benefObj.dateValiditeStatutRefugie) : "Non" %></div>
+                                </div>
+                            </li>
+                            <!-- Protection subsidiaire -->
+                            <li class="collection-item blue">
+                                <div class="row">
+                                    <div class="col s7"><i class="material-icons left">public</i>Protection subsidiaire</div>
+                                    <div class="col s5 right-align"><%= data.benefObj.dateValiditeStatutProtectionSubsidiaire ? data.setFormatDate(data.benefObj.dateValiditeStatutProtectionSubsidiaire) : "Non" %></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ONGLET VIE PROFESSIONNELLE -->
+    <div id="viePro" class="col s12">
+        Bientôt disponible ...
+    </div>
+
+    <!-- ONGLET VIE A L'AMI -->
+    <div id="vieAMI" class="col s12">
+        <div class="col s12 m6">
+
+            <!-- Inscription -->
+            <div class="card blue">
+                <div class="card-content white-text">
+                    <span class="card-title">Inscription</span>
+                    <ul class="collection">
+                        <!-- Numéro de carte -->
+                        <li class="collection-item blue">
+                            <div class="row">
+                                <div class="col s5"><i class="material-icons left">card_membership</i>N° de carte AMI</div>
+                                <div class="col s7 right-align"><%= data.benefObj.id %></div>
+                            </div>
+                        </li>
+                        <!-- Inscrit par -->
+                        <li class="collection-item blue">
+                            <div class="row">
+                                <div class="col s5"><i class="material-icons left">person_outline</i>Inscrit par</div>
+                                <div class="col s7 right-align"><%= data.benefObj.inscritPar %></div>
+                            </div>
+                        </li>
+                        <!-- Date d'inscription -->
+                        <li class="collection-item blue">
+                            <div class="row">
+                                <div class="col s5"><i class="material-icons left">today</i>Date d'inscription</div>
+                                <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateInscription) %></div>
+                            </div>
+                        </li>
+                        <!-- Orienté par -->
+                        <li class="collection-item blue">
+                            <div class="row">
+                                <div class="col s5"><i class="material-icons left">star_border</i>Découverte de l'AMI</div>
+                                <div class="col s7 right-align"><%= data.benefObj.orientePar %></div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <!-- Administration -->
+            <div class="card white">
+                <div class="card-content blue-text">
+                    <span class="card-title">Administration</span>
+
+                    <ul class="collection">
+                        <!-- Création -->
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col s6"><i class="material-icons left">today</i>Date de création du profil</div>
+                                <div class="col s6 right-align"><%= data.setFormatDate(new Date(data.benefObj.createdAt)) %></div>
+                            </div>
+                        </li>
+                        <!-- Modification -->
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col s7"><i class="material-icons left">today</i>Dernière modification du profil</div>
+                                <div class="col s5 right-align"><%= data.setFormatDate(new Date(data.benefObj.updatedAt)) %></div>
+                            </div>
+                        </li>
+
+                    </ul>
+                    
+                </div>
+            </div>
+
+        </div>
+
+        
+        <div class="col s12 m6">
+
+            <!-- Cotisations -->
+            <div class="card white">
+                <div class="card-content blue-text">
+                    <span class="card-title">Cotisations</span>
+                    <ul class="collapsible">
+                    <% data.benefObj.cotisation.forEach(function(cot) { %>
+                        <li>
+                        <div class="collapsible-header"><i class="material-icons">euro_symbol</i>Cotisation <%= cot.annee %></div>
+                            <div class="collapsible-body">
+                                <ul class="collection">
+                                    <!-- Montant -->
+                                    <li class="collection-item">
+                                        <div class="row">
+                                            <div class="col s5"><i class="material-icons left">euro_symbol</i>Montant</div>
+                                            <div class="col s7 right-align"><%= cot.montant %> €</div>
+                                        </div>
+                                    </li>
+                                    <!-- Paienment -->
+                                    <li class="collection-item">
+                                        <div class="row">
+                                            <div class="col s5"><i class="material-icons left">error_outline</i>État</div>
+                                            <div class="col s7 right-align"><%= cot.estPayee ? "Payée" : "Impayée" %></div>
+                                        </div>
+                                    </li>
+                                    <% if(cot.estPayee) { %>
+                                    <!-- Date de paiement -->
+                                    <li class="collection-item">
+                                        <div class="row">
+                                            <div class="col s6"><i class="material-icons left">today</i>Date de paiement</div>
+                                            <div class="col s6 right-align"><%= data.setFormatDate(cot.datePaiement) %></div>
+                                        </div>
+                                    </li>
+                                    <% } else { %>
+                                    <!-- Motif -->
+                                    <li class="collection-item">
+                                        <div class="row">
+                                            <div class="col s6"><i class="material-icons left">room</i>Motif de non-paiement</div>
+                                            <div class="col s6 right-align"><%= cot.motif !== "" ? cot.motif : "Aucun" %></div>
+                                        </div>
+                                    </li>
+                                    <% } %>
+
+                                </ul>
+                            </div>
+                        </li>
+                    <% }) %>
+                    </ul>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+
+</div>
+
+<% } else { %>
+    <div class="row">
+        <div class="col s12 m6  offset-m3">
+            <div class="card red lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title">Une erreur est survenue</span>
+                <p>Une erreur est survenue pendant la récupération du bénéficiaire. Veuillez rééssayer plus tard.</p>
+                <br />
+                <p>Information sur l'erreur :</p>
+                <p class="error"> <%= data.error %></p>
+            </div>
+            <div class="card-action white-text">
+                <a href="/listeBeneficiaires">Revenir à la liste des bénéficiaires</a>
+            </div>
+            </div>
+        </div>
+    </div>
+<% } %>

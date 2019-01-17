@@ -1,0 +1,65 @@
+.titre {
+    text-align: center;
+}
+
+/* Couleurs AMI */
+.material-icons.prefix.default_color_text.active {
+    color: #2196F3;
+}
+input:focus {
+    border-bottom: 1px solid #2196F3 !important;
+    box-shadow: 0 1px 0 0 #2196F3 !important;
+}
+input:focus+label{
+    color: #2196F3 !important;
+}
+.dropdown-content li > span {
+    color: #2196F3 !important;
+}
+
+tr:hover td {
+    border-top: 1px solid #2196F3;
+    border-bottom: 1px solid #2196F3;
+    cursor: pointer;
+}
+
+/* Personnalisation header du tableau */
+div.dataTables_wrapper div.dataTables_filter {
+    display: none;
+}
+label > select {
+    display: inline-block;
+    width: 25%;
+    height: 2rem;
+}
+
+/* Personnalisation corps du tableau */
+.text-center {
+    text-align: center;
+}
+table.dataTable tbody tr.strip1 {
+    background-color: #f5f5f5;
+}
+table.dataTable tbody tr.strip2 {
+    background-color: #c8e6ff;
+}
+td, th {
+    border-radius: 0px !important;
+}
+
+/* Personnalisation des boutons de pagination */
+
+.dataTables_wrapper .dataTables_paginate span .paginate_button.current {
+    background: none !important;
+    border: 1px solid transparent !important;
+    background-color: #2196F3 !important;
+    color: #fff !important;
+}
+.dataTables_wrapper .dataTables_paginate#datatable_paginate span .paginate_button.current:hover {
+    color: #fff !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:not(.disabled):hover {
+    background: none !important;
+    border: 1px solid transparent !important;
+    background-color: #2196F3 !important;
+}

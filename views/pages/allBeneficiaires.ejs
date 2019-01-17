@@ -1,0 +1,114 @@
+<% pageAffichee = "allBenef" %>
+
+<h2 class="titre">Liste des bénéficiaires actifs</h2>
+
+
+
+<div class="row">
+
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_list</i>Appliquer des filtres</div>
+        <div class="collapsible-body">
+            <div class="row">
+                <div class="input-field col s2">
+                  <i class="material-icons prefix default_color_text">card_membership</i>
+                  <input id="carte" type="text">
+                  <label for="carte">N° Carte</label>
+                </div>
+
+                <div class="input-field col s5">
+                  <i class="material-icons prefix default_color_text">person_outline</i>
+                  <input id="prenom" type="text">
+                  <label for="prenom">Prénoms</label>
+                </div>
+
+                <div class="input-field col s5">
+                  <i class="material-icons prefix default_color_text">person_outline</i>
+                  <input id="nom" type="text">
+                  <label for="nom">Nom</label>
+                </div>
+              </div>
+
+              <div class="row">
+                  <div class="input-field col s3">
+                      <i class="material-icons prefix default_color_text">wc</i>
+                      <select id="sexe">
+                        <option value="" selected>Choisir un filtre</option>
+                        <option value="H">Homme</option>
+                        <option value="F">Femme</option>
+                      </select>
+                      <label>Sexe</label>
+                  </div>
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix default_color_text">public</i>
+                    <input id="nationalite" type="text" class="autocomplete nationalite"> 
+                    <label for="nationalite">Nationalité</label>
+                  </div>
+                  <div class="input-field col s3">
+                      <i class="material-icons prefix default_color_text">today</i>
+                      <input  id="dateNaissance" type="text">
+                      <label for="dateNaissance">Date de naissance</label>
+                  </div>
+                  
+              </div>
+              <div class="row">
+                <div class="input-field col s3">
+                  <i class="material-icons prefix default_color_text">today</i>
+                  <input  id="dateEntree" type="text">
+                  <label for="dateEntree">Date d'entrée en France</label>
+                </div>
+                <div class="input-field col s6">
+                  <i class="material-icons prefix default_color_text">gavel</i>
+                  <input id="situation" type="text" class="autocomplete situationAdmin"> 
+                  <label for="situation">Situation administrative</label>
+                </div>
+                <div class="input-field col s3">
+                  <i class="material-icons prefix default_color_text">today</i>
+                  <input  id="dateInscription" type="text">
+                  <label for="dateInscription">Date d'inscrption</label>
+                </div>
+              </div>
+
+        </div>
+      </li>
+  </ul>
+
+        <table id="datatable" class="mdl-data-table" style="width:100%">
+          <thead>
+            <tr>
+                <th>N° carte</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>Nationalité</th>
+                <th>Sexe</th>
+                <th>Entrée en France</th>
+                <th>Inscritpion</th>
+                <th>Situation Administrative</th>
+                <th>Cotisation</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <% data.benefs.forEach(function(benef) { %>
+                <tr id="<%= benef.numCarte %>" onclick="goToProfile('<%= benef.numCarte %>')">
+                    <td><%= benef.numCarte %></td>
+                    <td><%= benef.nom %></td>
+                    <td><%= benef.prenom %></td>
+                    <td><%= data.setFormatDate(benef.dateNaissance) %></td>
+                    <td><%= benef.nationalite %></td>
+                    <td><%= benef.sexe %></td>
+                    <td><%= data.setFormatDate(benef.entreeFrance) %></td>
+                    <td><%= data.setFormatDate(benef.inscription) %></td>
+                    <td><%= benef.situationAdministrative %></td>
+                    <td><%= benef.cotisation %> €</td>
+                </tr>
+
+            <% }); %>
+
+          </tbody>
+        </table>
+  </div>
+
+  
