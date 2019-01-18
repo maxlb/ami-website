@@ -17,6 +17,7 @@ module.exports = {
         .exec((err, user) => {
           if (err) {
             sails.log.error(`UserController - login - Erreur lors de la récupération de l'utilisateur ${userAsked.mail}. ---> ${err}`);
+            return res.json({ error: `Un problème est intervenu, veuillez réessayer : ${err}` });
           } else if (!user || user.password !== userAsked.password) {
             sails.log.warn(`UserController - login - Tentative de connexion de ${userAsked.mail}.`);
             return res.json({ error: 'Identifiant ou mot de passe invalide.' });
