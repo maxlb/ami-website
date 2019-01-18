@@ -227,6 +227,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
      onlyAllowOrigins: [
+       'https://www.asso-ami.fr',
        'https://asso-ami.fr',
        'https://asso-ami.appspot.com',
        'https://console.cloud.google.com',

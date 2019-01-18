@@ -1,7 +1,7 @@
 runtime: nodejs
 env: flex
 api_version: 1
-threadsafe: true
+
 handlers:
   - url: /
     static_files: index.html

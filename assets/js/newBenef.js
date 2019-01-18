@@ -985,7 +985,7 @@ $('#validerFormulaire').click(function() {
         if (jwres != 'success') { 
             alert('Une erreur est survenue, veuillez réessayer.');
         } else {
-            msg = {
+            var msg = {
                 benef: newBeneficiaire,
                 _csrf: data._csrf
             };

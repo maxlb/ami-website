@@ -24,7 +24,7 @@ var openModal = function() {
             if (jwres != 'success') { 
                 $('#error').text('Une erreur est survenue, veuillez réessayer.');
             } else {
-                msg = {
+                var msg = {
                     user: userToConnect,
                     _csrf: data._csrf
                 };
