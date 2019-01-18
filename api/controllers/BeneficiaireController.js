@@ -351,7 +351,7 @@ module.exports = {
     async inscrire(req, res) {
         
         sails.log.info('BeneficiaireController - inscrire - Inscrption commencée');
-        let params = req.allParams();
+        let params = req.allParams().benef;
 
         /* Infomrations générales du bénéficiaire */
         var benefJSON = buildBenefFromParams(params);
@@ -385,7 +385,11 @@ module.exports = {
 
         sails.log.info('BeneficiaireController - inscrire - Inscription terminée');
 
-        return res.ok();
+        return res.json({ benefid: benefObj.id});
+    },
+
+    addBenef(req, res) {
+        return res.view('pages/addBeneficiaire');
     },
 
     async getAll(req, res) {

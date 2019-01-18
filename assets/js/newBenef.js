@@ -978,11 +978,32 @@ function setRecapitulatif(){
 
 }
 
-$('#validerFormulaire').click(function(){
-  $.post( '/inscireBeneficiaire', newBeneficiaire,  function(){ 
-    sessionStorage.setItem("InscriptionStatus", true);
-    window.location.href = '/logged';
-  } );
+$('#validerFormulaire').click(function() {
+
+    // Récupération du token CSRF
+    $.get("/csrfToken", function (data, jwres) {
+        if (jwres != 'success') { 
+            alert('Une erreur est survenue, veuillez réessayer.');
+        } else {
+            msg = {
+                benef: newBeneficiaire,
+                _csrf: data._csrf
+            };
+            
+            // On envoie les données au serveur
+            $.post( '/inscireBeneficiaire', msg, function( data ) {
+                if(!data.error) {
+                    // Inscription ok
+                    sessionStorage.setItem("InscriptionStatus", true);
+                    window.location.href = '/profile/' + data.benefid;
+                } else {
+                    // Message d'erreur sinon
+                    alert('Une erreur est survenue, veuillez réessayer.')
+                }
+            });
+        }
+    });
+    
 });
 
 /**************** GESTION DES CLICKS POUR ACTIVER LES CHAMPS ****************/
