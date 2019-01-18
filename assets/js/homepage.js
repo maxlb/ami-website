@@ -1,4 +1,4 @@
-var openModal = function(){
+var openModal = function() {
     
     // Initialisation de la modale
     let elem = document.querySelector('#modal1');
@@ -19,18 +19,30 @@ var openModal = function(){
             password: $('#password')[0].value
         }
        
-        // On envoie les données au serveur
-        $.post( '/login', userToConnect, function( data ) {
-            if(!data.error) {
-                // Connection si ok
-                window.location.href = '/logged';
+        // Récupération du token CSRF
+        $.get("/csrfToken", function (data, jwres) {
+            if (jwres != 'success') { 
+                $('#error').text('Une erreur est survenue, veuillez réessayer.');
             } else {
-                // Message d'erreur sinon
-                $('#error').text(data.error);
+                msg = {
+                    user: userToConnect,
+                    _csrf: data._csrf
+                };
+                  
+                // On envoie les données au serveur
+                $.post( '/login', msg, function( data ) {
+                    if(!data.error) {
+                        // Connection si ok
+                        window.location.href = '/logged';
+                    } else {
+                        // Message d'erreur sinon
+                        $('#error').text(data.error);
+                    }
+                });
             }
-        })
+        });
        
-      });
-  }
+    });
+}
 
   

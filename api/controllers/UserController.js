@@ -9,21 +9,21 @@ module.exports = {
 
     login(req, res) {
 
-      let params = req.allParams();
+      let userAsked = req.allParams().user;
 
       User
-        .findOne({ mail: params.mail })
+        .findOne({ mail: userAsked.mail })
         .decrypt()
         .exec((err, user) => {
           if (err) {
-            sails.log.error(err);
-          } else if (!user || user.password !== params.password) {
-            sails.log.warn(`UserController - login - Tentative de connexion de ${params.mail}.`);
+            sails.log.error(`UserController - login - Erreur lors de la récupération de l'utilisateur ${userAsked.mail}. ---> ${err}`);
+          } else if (!user || user.password !== userAsked.password) {
+            sails.log.warn(`UserController - login - Tentative de connexion de ${userAsked.mail}.`);
             return res.json({ error: 'Identifiant ou mot de passe invalide.' });
           } else {
-            sails.log.info(`UserController - login - Connexion de ${params.mail}.`);
+            sails.log.info(`UserController - login - Connexion de ${userAsked.mail}.`);
             req.session.user = user;
-            return res.json({ user: params.mail });
+            return res.json({ user: userAsked.mail });
           }
         });
     },

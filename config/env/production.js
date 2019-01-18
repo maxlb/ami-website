@@ -47,11 +47,6 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     default: {
-      adapter: 'sails-mysql',
-      socketPath: sails.config.databases.prod.socketPath,
-      host: sails.config.databases.prod.host,
-      user: sails.config.databases.prod.user,
-      password: sails.config.databases.prod.password,
       database: sails.config.databases.prod.database
     },
 
@@ -232,6 +227,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
      onlyAllowOrigins: [
+       'https://asso-ami.fr',
        'https://asso-ami.appspot.com',
        'https://console.cloud.google.com',
      ],

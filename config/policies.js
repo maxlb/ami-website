@@ -19,6 +19,12 @@ module.exports.policies = {
 
   LoggedController: {
     '*': 'isLoggedIn'
+  },
+  BeneficiaireController: {
+    '*': 'isLoggedIn'
+  },
+  StatistiquesController: {
+    '*': 'isLoggedIn'
   }
 
 };
