@@ -7,9 +7,20 @@
 
 module.exports = {
 
-  welcome(req,res){
-    let data = req.session.user;
-    return res.view('pages/dashboard', { data });
+  welcome(req, res){
+
+    var cookie = req.signedCookies['sails.sid'];
+
+    Audit
+      .findOne({ idSession: cookie })
+      .populate('user')
+      .exec(function(err, audit) {
+        if(!err) {
+          var connectedUser = audit.user;
+          return res.view('pages/dashboard', { connectedUser });
+        }
+    });
+
   }
 
 };

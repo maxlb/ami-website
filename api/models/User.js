@@ -21,7 +21,14 @@ module.exports = {
     password: {
       type: 'string',
       encrypt: true
-    }
+    },
+
+
+    /* Audit */
+    audits: {
+      collection: 'Audit',
+      via: 'user'
+    },
 
   }
 
