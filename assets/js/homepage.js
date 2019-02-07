@@ -4,12 +4,20 @@ var openModal = function() {
     let elem = document.querySelector('#modal1');
     let instance = M.Modal.init(elem);
 
+    // On désactive le loader
+    $('#btn-content-ko').hide();
+    $('#btn-content-ok').show();
+
     // Ouverture de la modale
     instance.open();
 
     // Formulaire de la modale
     $("#formConnexion").submit(function( event ) {
-    
+        
+        // On active le loader
+        $('#btn-content-ok').hide();
+        $('#btn-content-ko').show();
+
         // On stop la soumission habituelle
         event.preventDefault();
        
@@ -22,6 +30,11 @@ var openModal = function() {
         // Récupération du token CSRF
         $.get("/csrfToken", function (data, jwres) {
             if (jwres != 'success') { 
+                // On désactive le loader
+                $('#btn-content-ko').hide();
+                $('#btn-content-ok').show();
+
+                // On affiche un message d'erreur
                 $('#error').text('Une erreur est survenue, veuillez réessayer.');
             } else {
                 var msg = {
@@ -32,10 +45,14 @@ var openModal = function() {
                 // On envoie les données au serveur
                 $.post( '/login', msg, function( data ) {
                     if(!data.error) {
-                        // Connection si ok
+                        // On redirige vers le dashboard
                         window.location.href = '/logged';
                     } else {
-                        // Message d'erreur sinon
+                        // On désactive le loader
+                        $('#btn-content-ko').hide();
+                        $('#btn-content-ok').show();
+
+                        // On affiche un message d'erreur
                         $('#error').text(data.error);
                     }
                 });

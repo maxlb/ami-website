@@ -134,3 +134,7 @@ i{
 .btn-annuler{
   margin-right: 10px !important;
 }
+
+.spinner-layer {
+  border-color: white !important;
+}

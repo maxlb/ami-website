@@ -5,62 +5,105 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-function getIdSession() {
-  return Math.random().toString(36).substr(2);
-}
-
 module.exports = {
 
     login(req, res) {
 
-      let userAsked = req.allParams().user;
+      var userAsked = req.allParams().user;
 
       User
         .findOne({ mail: userAsked.mail })
         .decrypt()
-        .exec(async function(err, user){
+        .then(async function(user) {
 
-          if (err) {
-
-            sails.log.error(`UserController - login - Erreur lors de la récupération de l'utilisateur ${userAsked.mail}. ---> ${err}`);
-            return res.json({ error: `Un problème est survenu, veuillez réessayer : ${err}` });
-
-          } else if (!user || user.password !== userAsked.password) {
-
+          /* Utilisteur inconnu */
+          if (!user || user.password !== userAsked.password) {
             sails.log.warn(`UserController - login - Tentative de connexion de ${userAsked.mail}.`);
             return res.json({ error: 'Identifiant ou mot de passe invalide.' });
 
-          } else {
+          /* Utilisteur reconnu */
+          }  else {
 
             /* Date du jour */
             var ajd = new Date();
             ajd.setHours(0, 0, 0, 0);
 
-            /* Création d'une ligne dans la table d'Audit */
-            var connectedUser = {};
-            connectedUser.date = ajd;
-            connectedUser.peutSeConnecter = true;
-            connectedUser.idSession = req.signedCookies['sails.sid'];
-            connectedUser.user = user.id
+            /* État du cookie */ 
+            var cookie = sails.helpers.getCookie(req);
+            var isConnected = await sails.helpers
+                                    .isAlreadyConnected(req)
+                                    .intercept( () => { 
+                                      sails.log.error(`UserController - login - ERREUR : Impossible de récupérer le cookie.`); 
+                                      throw 'Erreur à la lecture du cookie.'
+                                    });
 
-            await Audit
-                    .create(connectedUser)
-                    .then(user => {
-                      sails.log.info(`UserController - login - Connexion de ${userAsked.mail} (Session ${connectedUser.idSession}).`);
-                      return res.json({ user: userAsked.mail });
-                    })
-                    .catch(error => {  
-                      sails.log.error(`UserController - login - ERREUR : Impossible d'ajouter une ligne d'Audit - ${error}`); 
-                      return res.json({ error: `Un problème est survenu, veuillez réessayer : ${error}` });
-                    });
+            /* Aucune session : création d'une ligne dans la table d'Audit */
+            if (isConnected == -1) {
+              
+              var connectedUser = { date: ajd, 
+                                    peutSeConnecter: true, 
+                                    idSession: cookie, 
+                                    user: user.id };
+              await Audit
+                      .create(connectedUser)
+                      .fetch()
+                      .then(audit => {
+                        sails.log.info(`UserController - login - Connexion de ${userAsked.mail} (Session ${audit.idSession}).`);
+                        return res.json({ user: userAsked.mail });
+                      })
+                      .catch(error => {  
+                        sails.log.error(`UserController - login - ERREUR : Impossible d'ajouter une ligne d'Audit - ${error}`); 
+                        return res.json({ error: `Un problème est survenu, veuillez réessayer : ${error}` });
+                      });
+
+            /* Une session mais déconnectée : mise à jour d'une ligne dans la table d'Audit */          
+            } else if (isConnected == 0) {
+              await Audit
+                      .updateOne({ date: { '>=': ajd }, idSession: cookie })
+                      .set({ peutSeConnecter: true })
+                      .then(audit => {
+                        sails.log.info(`UserController - login - Reconnexion de ${userAsked.mail} (Session ${audit.idSession}).`);
+                        return res.json({ user: userAsked.mail });
+                      })
+                      .catch(error => {  
+                        sails.log.error(`UserController - login - ERREUR : Impossible de mettre à jour une ligne d'Audit - ${error}`); 
+                        return res.json({ error: `Un problème est survenu, veuillez réessayer : ${error}` });
+                      });
+
+            /* Une session connectée : rien à faire */
+            } else if (isConnected == 1) {
+              return res.json({ user: userAsked.mail });
+            }
 
           }
 
+        })
+        .catch(err => {  
+          sails.log.error(`UserController - login - Erreur lors de la récupération de l'utilisateur ${userAsked.mail}. ---> ${err}`);
+          return res.json({ error: `Un problème est survenu, veuillez réessayer.` });
         });
+
     },
 
-    logout(req,res){
-      return res.redirect('/');
+    logout(req, res) {
+      /* Cookie */ 
+      var cookie = sails.helpers.getCookie(req);
+
+      /* Date du jour */
+      var ajd = new Date();
+      ajd.setHours(0, 0, 0, 0);
+
+      Audit
+        .updateOne({ date: { '>=': ajd }, idSession: cookie })
+        .set({ peutSeConnecter: false })
+        .then(audit => {
+          sails.log.info(`UserController - login - Déconnexion de ${audit.user} (Session ${audit.idSession}).`);
+          return res.redirect('/');
+        })
+        .catch(error => {  
+          sails.log.error(`UserController - login - ERREUR : Impossible de mettre à jour une ligne d'Audit - ${error}`); 
+          return res.redirect('/');
+        });
     }
 
 };

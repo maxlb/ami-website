@@ -1,29 +1,13 @@
 module.exports = async function (req, res, proceed) {
 
-    /* Cookie de session */
-    var cookie = req.signedCookies['sails.sid'];
-
-    /* Date du jour */
-    var ajd = new Date();
-    ajd.setHours(0, 0, 0, 0);
-
-    await Audit
-      .findOne({  date: { '>=': ajd }, 
-                  peutSeConnecter: true, 
-                  idSession: cookie })
-      .then(audit => {
-        if(!audit) {
-          /* Pas de connexion active ajd, on redirige */
-          return res.redirect('/');
-        } else {
-          /* Une connexion active ajd, on poursuit */
-          return proceed();
-        }
-      })
-      .catch(error => {  
-        return res.redirect('/');
-      });
-
-    
+  var isConnected = await sails.helpers
+                                    .isAlreadyConnected(req)
+                                    .intercept( () => { return res.redirect('/') });
+  
+  if(isConnected == 1) {
+    return proceed();                             // Une session ouverte ajd, on poursuit
+  } else {
+    return res.redirect('/');                     // Pas de session ouverte ajd, on redirige
+  }
 
 };

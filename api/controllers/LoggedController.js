@@ -9,17 +9,18 @@ module.exports = {
 
   welcome(req, res){
 
-    var cookie = req.signedCookies['sails.sid'];
+    var cookie = sails.helpers.getCookie(req);
 
     Audit
       .findOne({ idSession: cookie })
       .populate('user')
-      .exec(function(err, audit) {
-        if(!err) {
-          var connectedUser = audit.user;
-          return res.view('pages/dashboard', { connectedUser });
-        }
-    });
+      .then(audit => {
+        var connectedUser = audit.user;
+        return res.view('pages/dashboard', { connectedUser });
+      })
+      .catch(error => {  
+        return res.view('/');
+      });
 
   }
 
