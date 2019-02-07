@@ -1,83 +1,102 @@
 
-var repartitionParContinent = new Chart($('#repartitionParContinent'), {
-    type: 'bar',
-    data: {
-        labels: ["Europe", "Afrique", "Asie", "Amérique", "Océanie", "Antartique"],
-        datasets: [{
-            label: 'Nombre de Bénéficiaires',
-            data: [12, 19, 3, 5, 2, 3],
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
+var getStatsValues = async function(statWanted) {
+    return new Promise((resolve, reject) => {
+        $.get("/statistiques/" + statWanted, function (data, jwres) {
+            if (jwres != 'success') { 
+                reject({ labels: [], values:[] });
+            } else {
+                resolve(data);             
+            }
+        });
+    });
+}
+
+/* Répartition par continents */
+getStatsValues("repCont").then((stats) => {
+    new Chart($('#repartitionParContinent'), {
+        type: 'bar',
+        data: {
+            labels: stats.labels,
+            datasets: [{
+                label: 'Nombre de Bénéficiaires',
+                data: stats.values,
             }]
-        }
-    }
-});
-
-
-var repartitionHommeFemme = new Chart($('#repartitionHommeFemme'), {
-    type: 'pie',
-    data: {
-        labels: ["Hommes", "Femme"],
-        datasets: [{
-            label: 'Nombre de Bénéficiaires',
-            data: [90, 10],
-            backgroundColor: [
-                '#42a5f5',
-                '#3f51b5'
-            ]
-        }]
-    },
-    options: {
-        legend: {
-            labels: {
-                fontColor: "#FFF"
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
         }
-    }
+    });
 });
 
-
-var graphInscriptions = new Chart($('#graphInscriptions'), {
-    type: 'line',
-		bezierCurve: false,
-    data: {
-        labels: ["Janvier", "Février", "Mars", "Avril", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"],
-        datasets: [{
-            label: "Nombre d'inscriptions",
-            data: [60, 10, 65, 20, 71, 28, 56, 37, 42, 25, 48]
-        }]
-    },
-    options: {
-        elements: {
-            line: {
-                borderColor: "#FFF",
-                backgroundColor: "rgba(0,0,0,0)"
-            },
-            point: {
-                backgroundColor: "#FFF"
-            }
+/* Répartition par genre */
+getStatsValues("repHF").then((stats) => {
+    new Chart($('#repartitionHommeFemme'), {
+        type: 'pie',
+        data: {
+            labels: stats.labels,
+            datasets: [{
+                label: 'Nombre de Bénéficiaires',
+                data: stats.values,
+                backgroundColor: [
+                    '#42a5f5',
+                    '#3f51b5'
+                ]
+            }]
         },
-        legend: {
-            display: false
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    fontColor: "#FFF",
-                    beginAtZero:true
-                }
-            }],
-            xAxes: [{
-                ticks: {
+        options: {
+            legend: {
+                labels: {
                     fontColor: "#FFF"
                 }
-            }]
+            }
         }
-    }
+    });
+})
+
+/* Répartition par date d'inscription */
+getStatsValues("nbInscr").then((stats) => {
+    new Chart($('#graphInscriptions'), {
+        type: 'line',
+            bezierCurve: false,
+        data: {
+            labels: stats.labels,
+            datasets: [{
+                label: "Nombre d'inscriptions",
+                data: stats.values
+            }]
+        },
+        options: {
+            elements: {
+                line: {
+                    borderColor: "#FFF",
+                    backgroundColor: "rgba(0,0,0,0)"
+                },
+                point: {
+                    backgroundColor: "#FFF"
+                }
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        fontColor: "#FFF",
+                        beginAtZero:true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontColor: "#FFF"
+                    }
+                }]
+            }
+        }
+    });
 });

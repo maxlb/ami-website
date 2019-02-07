@@ -21,7 +21,10 @@ module.exports.routes = {
   'GET /listeBeneficiaires':    { controller: 'Beneficiaire', action: 'getAll' },
   'GET /profile/:id':           { controller: 'Beneficiaire', action: 'getByID' },
 
-  'GET /statistiques': { controller: 'Statistiques', action: 'getStats' },
+  'GET /statistiques':          { controller: 'Statistiques', action: 'getStats' },
+  'GET /statistiques/repCont':  { controller: 'Statistiques', action: 'getRepartitionContinent' },
+  'GET /statistiques/repHF':    { controller: 'Statistiques', action: 'getRepartitionHF' },
+  'GET /statistiques/nbInscr':  { controller: 'Statistiques', action: 'getInscritsParMois' },
   
   'GET /csrfToken': { action: "security/grant-csrf-token" }
 
