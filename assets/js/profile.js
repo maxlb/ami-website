@@ -408,8 +408,11 @@ var datepickerConfigWithMaxDate = {
 
 var setModale = function (values) {
     values.forEach(value => {
-        $('#MAJ' + value).val( $('#' + value).text() );
-        $('#MAJ' + value + ' ~ label').addClass( 'active' );
+        var text =  $('#' + value).text();
+        if( text != "" ) {
+            $('#MAJ' + value).val( $('#' + value).text() );
+            $('#MAJ' + value + ' ~ label').addClass( 'active' );
+        }
     });
 }
 
@@ -496,5 +499,42 @@ $('#updateIdentite').click(function() {
                     $('#dateNaissance').text(data.dateNaissance);
                     $('#nationalite').text(data.nationalite);
                     $('#paysNaissance').text(data.paysNaissance);
+                })
+});
+
+
+/* ---- MAJ CARTE "Coordonnées" ---- */
+
+// Préparation Modale
+$('#goingUpdateCoordonnees').click(function() {
+    valuesToUpdate = ['adresse', 'codePostal', 'ville', 'mail', 'numTel', 'telAvocat', 'telAssistanteSociale', 'telAssociation'];
+    setModale(valuesToUpdate);
+});
+// Envoi de la MAJ
+$('#updateCoordonnees').click(function() {
+
+    var newCoordonnees = {
+        id: getID(),
+        adresse: getValueFromField('MAJadresse'),
+        codePostal: getValueFromField('MAJcodePostal'),
+        ville: getValueFromField('MAJville'),
+        mail: getValueFromField('MAJmail'),
+        telephone: getValueFromField('MAJnumTel'),
+        numAvocat: getValueFromField('MAJtelAvocat'),
+        numAssistSociale: getValueFromField('MAJtelAssistanteSociale'),
+        numAsso: getValueFromField('MAJtelAssociation')
+    }
+
+    updateCard( newCoordonnees, 
+                'updateCoordonnees', 
+                function(data) {
+                    $('#adresse').text(data.adresse);
+                    $('#codePostal').text(data.codePostal);
+                    $('#ville').text(data.ville);
+                    $('#mail').text(data.mail);
+                    $('#numTel').text(data.telephone);
+                    $('#telAvocat').text(data.numAvocat);
+                    $('#telAssistanteSociale').text(data.numAssistSociale);
+                    $('#telAssociation').text(data.numAsso);
                 })
 });

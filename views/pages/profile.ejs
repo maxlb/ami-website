@@ -202,42 +202,46 @@
                 <!-- Coordonnées -->
                 <div class="card white">
                     <div class="card-content blue-text">
-                        <span class="card-title">Coordonnées</span>
-
+                        <span class="card-title">
+                            Coordonnées
+                            <a href="#modalCoordonnees" id="goingUpdateCoordonnees" class="btn modal-trigger right">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </span>
                         <ul class="collection">
                             <!-- Adresse -->
                             <li class="collection-item">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">home</i>Adresse</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.adresse %></div>
+                                    <div id="adresse" class="col s7 right-align"><%= data.benefObj.adresse %></div>
                                 </div>
                             </li>
                             <!-- Code postal -->
                             <li class="collection-item">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">location_city</i>Code postal</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.codePostal == 0 ? "" : data.benefObj.codePostal %></div>
+                                    <div id="codePostal" class="col s7 right-align"><%= data.benefObj.codePostal == 0 ? "" : data.benefObj.codePostal %></div>
                                 </div>
                             </li>
                             <!-- Ville -->
                             <li class="collection-item">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">location_city</i>Ville</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.ville %></div>
+                                    <div id="ville" class="col s7 right-align"><%= data.benefObj.ville %></div>
                                 </div>
                             </li>
                             <!-- Mail -->
                             <li class="collection-item">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">mail_outline</i>Adresse mail</div>
-                                    <div class="col s7 right-align"><a href="mailto:<%=data.benefObj.mail%>"> <%= data.benefObj.mail %> </a> </div>
+                                    <div id="mail" class="col s7 right-align"><a href="mailto:<%=data.benefObj.mail%>"> <%= data.benefObj.mail %> </a> </div>
                                 </div>
                             </li>
                             <!-- Tel -->
                             <li class="collection-item">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">phone_iphone</i>Téléphone</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.telephone %></div>
+                                    <div id="numTel" class="col s7 right-align"><%= data.benefObj.telephone %></div>
                                 </div>
                             </li>
                             <!-- Tel avocat -->
@@ -245,16 +249,16 @@
                             <li class="collection-item">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">phone_iphone</i>Avocat</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.numAvocat %></div>
+                                    <div id="telAvocat" class="col s7 right-align"><%= data.benefObj.numAvocat %></div>
                                 </div>
                             </li>
                             <% } %>
                             <!-- Tel asso -->
-                            <% if (data.benefObj.numAvocat !== "") { %>
+                            <% if (data.benefObj.numAsso !== "") { %>
                             <li class="collection-item">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">phone_iphone</i>Association</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.numAsso %></div>
+                                    <div id="telAssociation" class="col s7 right-align"><%= data.benefObj.numAsso %></div>
                                 </div>
                             </li>
                             <% } %>
@@ -263,7 +267,7 @@
                             <li class="collection-item">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">phone_iphone</i>Assistante sociale</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.numAssistSociale %></div>
+                                    <div id="telAssistanteSociale" class="col s7 right-align"><%= data.benefObj.numAssistSociale %></div>
                                 </div>
                             </li>
                             <% } %>
@@ -769,8 +773,7 @@
 </div>
 
 
- <!-- Modal Structure -->
-
+ <!-- Modale MAJ Identité -->
  <div id="modalIdentite" class="modal">
     <div class="modal-content">
       <h4>Mise à jour de l'identité</h4>
@@ -829,6 +832,71 @@
         <a id="updateIdentite" href="#!" class="modal-close waves-effect waves-green btn-flat">Valider</a>
     </div>
   </div>
+
+   <!-- Modale MAJ Coordonnees -->
+<div id="modalCoordonnees" class="modal">
+    <div class="modal-content">
+        <h4>Mise à jour des coordonnées</h4>
+        <div class="row">
+        <div class="input-field col s6">
+            <i class="material-icons prefix default_color_text">home</i>
+            <input id="MAJadresse" type="text">
+            <label for="MAJadresse">Adresse</label>
+        </div>
+        <div class="input-field col s2">
+            <i class="material-icons prefix default_color_text">location_city</i>
+            <input id="MAJcodePostal" type="text">
+            <label for="MAJcodePostal">Code postal</label>
+        </div>
+        <div class="input-field col s4">
+            <input id="MAJville" type="text">
+            <label for="MAJville">Ville</label>
+        </div>
+        </div>
+
+        <!-- Mail, téléphone -->
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix default_color_text">mail_outline</i>
+                <input id="MAJmail" type="email" class="validate">
+                <label for="MAJmail">Adresse mail</label>
+                <span class="helper-text" data-error="Adresse mail invalide"></span>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix default_color_text">phone_iphone</i>
+                <input id="MAJnumTel" type="text" maxlength="10">
+                <label for="MAJnumTel">Numéro de téléphone</label>
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <!-- Avocat -->
+            <div class="input-field col s4">
+                <i class="material-icons prefix default_color_text">contact_phone</i>
+                <input id="MAJtelAvocat" type="text" maxlength="10">
+                <label for="MAJtelAvocat">N° d'un <b>avocat</b></label>
+            </div>
+            <!-- Assistante sociale -->
+            <div class="input-field col s4">
+                <i class="material-icons prefix default_color_text">contact_phone</i>
+                <input id="MAJtelAssistanteSociale" type="text" maxlength="10">
+                <label for="MAJtelAssistanteSociale">N° d'une <b>assistante sociale</b></label>
+            </div>
+            <!-- Association -->
+            <div class="input-field col s4">
+                <i class="material-icons prefix default_color_text">contact_phone</i>
+                <input id="MAJtelAssociation" type="text" maxlength="10">
+                <label for="MAJtelAssociation">N° d'une <b>association</b></label>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-red btn-flat">Annuler</a>
+        <a id="updateCoordonnees" href="#!" class="modal-close waves-effect waves-green btn-flat">Valider</a>
+    </div>
+</div>
 
 <% } else { %>
     <div class="row">
