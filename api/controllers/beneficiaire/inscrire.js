@@ -276,222 +276,42 @@ function getNumberValue(value){
     return (value != "") ? parseInt(value) : 0;
 }
 
-var setFormatDate = function(date) {
-    if (!date) {
-        return "";
-    } else {
-        var j = date.getDate();
-        var m = date.getMonth() + 1;
-        var a = date.getFullYear();
-
-        j = (j < 10 ) ? "0" + j : j;
-        m = (m < 10 ) ? "0" + m : m;
-
-        return `${j}/${m}/${a}`;
-    }
-};
-
-async function getSituation(idBenef, isMineur, isFr) {
-    var situationDetectee = "";
-    var lastDecision = "";
-
-    var events = await Evenement
-                        .find({beneficiaireConcerne: idBenef})
-                        .sort('date ASC')
-                        .catch(error => {  
-                            sails.log.error(`BeneficiaireController - getSituation - ERREUR : Bénéficiaire ID : ${idBenef} - ${error.message}`);
-                            throw Error(error);
-                        });
+module.exports = async function inscrire(req, res) {
         
-    if(events.length == 0) {
-        situationDetectee = "Inconnu - Autre";
-    } else {
-        events.forEach(event => {
-            if (event.decision !== null && event.decision !== "") {
-                lastDecision = event.decision;
-            }
-        });
+    sails.log.info('BeneficiaireController - inscrire - Inscrption commencée');
+    let params = req.allParams().benef;
 
-        switch (lastDecision) {
-            case "Rejet":
-                situationDetectee = "Débouté du droit d'asile";
-                break;
-            case "Statut de réfugié":
-                situationDetectee = "Réfugié";
-                break;
-            case "Protection subsidiaire":
-                situationDetectee = "Protection subsidiaire";
-                break;
-            case "Confirmation de l’OQTF":
-                situationDetectee = "Débouté - OQTF confirmée";
-                break;
-            case "Annulation de l’OQTF":
-                situationDetectee = "Débouté - OQTF annulée";
-                break;
-            case "Annulation de l’OQTF et condamnation de la préfecture":
-                situationDetectee = "Demandeur d'asile - En attente de réexamen";
-                break;
-            default:
-                situationDetectee = "Demandeur d'asile";
-                break;
-        }
-    }
+    /* Infomrations générales du bénéficiaire */
+    var benefJSON = buildBenefFromParams(params);
+    var benefObj = await Beneficiaire.create(benefJSON).fetch();
+    sails.log.debug('BeneficiaireController - inscrire - Bénéficiaire inséré');
 
-    if(isMineur) {
-        situationDetectee = "Mineur";
-    } else if (isFr) {
-        situationDetectee = "Nationalité Française";
+    /* Cotisation du bénéficiaire */
+    var cotisationJSON = buildCotisationFromParams(params.cotisation);
+    cotisationJSON.payeur = benefObj.id;
+    await Cotisation.create(cotisationJSON);
+    sails.log.debug('BeneficiaireController - inscrire - Cotisation insérée');
+
+    /* Conjoint du bénéficiaire */
+    var conjointJSON = buildConjointFromParams(params.situationFamiliale.conjoint);
+    if(conjointJSON != -1){
+        conjointJSON.beneficiaireLie = benefObj.id;
+        await Conjoint.create(conjointJSON);
+        sails.log.debug('BeneficiaireController - inscrire - Conjoint inséré');
     }
     
-    return situationDetectee;
-}
-
-module.exports = {
+    /* Enfants du bénéficiaire */
+    var enfantsJSON = buildEnfantsFromParams(params.situationFamiliale.enfants);
+    enfantsJSON.forEach(async function(enfantJSON) {
+        enfantJSON.parent = benefObj.id;
+        await Enfant.create(enfantJSON);
+        sails.log.debug('BeneficiaireController - inscrire - Enfant inséré');
+    });
     
-    async inscrire(req, res) {
-        
-        sails.log.info('BeneficiaireController - inscrire - Inscrption commencée');
-        let params = req.allParams().benef;
+    /* Evènements du bénéficiaires */
+    await buildEventsFromParams(params.demAdmin, benefObj.id);
 
-        /* Infomrations générales du bénéficiaire */
-        var benefJSON = buildBenefFromParams(params);
-        var benefObj = await Beneficiaire.create(benefJSON).fetch();
-        sails.log.debug('BeneficiaireController - inscrire - Bénéficiaire inséré');
+    sails.log.info('BeneficiaireController - inscrire - Inscription terminée');
 
-        /* Cotisation du bénéficiaire */
-        var cotisationJSON = buildCotisationFromParams(params.cotisation);
-        cotisationJSON.payeur = benefObj.id;
-        await Cotisation.create(cotisationJSON);
-        sails.log.debug('BeneficiaireController - inscrire - Cotisation insérée');
-
-        /* Conjoint du bénéficiaire */
-        var conjointJSON = buildConjointFromParams(params.situationFamiliale.conjoint);
-        if(conjointJSON != -1){
-            conjointJSON.beneficiaireLie = benefObj.id;
-            await Conjoint.create(conjointJSON);
-            sails.log.debug('BeneficiaireController - inscrire - Conjoint inséré');
-        }
-        
-        /* Enfants du bénéficiaire */
-        var enfantsJSON = buildEnfantsFromParams(params.situationFamiliale.enfants);
-        enfantsJSON.forEach(async function(enfantJSON) {
-            enfantJSON.parent = benefObj.id;
-            await Enfant.create(enfantJSON);
-            sails.log.debug('BeneficiaireController - inscrire - Enfant inséré');
-        });
-        
-        /* Evènements du bénéficiaires */
-        await buildEventsFromParams(params.demAdmin, benefObj.id);
-
-        sails.log.info('BeneficiaireController - inscrire - Inscription terminée');
-
-        return res.json({ benefid: benefObj.id});
-    },
-
-    addBenef(req, res) {
-        return res.view('pages/addBeneficiaire');
-    },
-
-    async getAll(req, res) {
-
-        var data = {};
-        data.benefs = [];
-        var annee = new Date().getFullYear(); //'2018';
-
-        // Récupération des bénéficiaires
-        var beneficiaires = await Beneficiaire
-                                    .find()
-                                    .sort('id ASC')
-                                    .catch(error => {  
-                                        sails.log.error(`BeneficiaireController - getAll - ERREUR : Impossible de récupérer les bénéficiaires - ${error.message}`); 
-                                        return res.view('pages/allBeneficiaires', { data });
-                                    });
-        sails.log.info(`BeneficiaireController - getAll - ${beneficiaires.length} bénéficiaires récupérés`);
-
-        // Mise en forme des bénéficiaires pour la vue
-        for (let i = 0 ; i < beneficiaires.length ; i++) {
-            var benef = beneficiaires[i];
-            sails.log.debug(`BeneficiaireController - getAll - Bénéficiaire ID : ${benef.id}`);
-            var benefObj= {
-                numCarte: benef.id,
-                nom: benef.nom,
-                prenom: benef.prenom,
-                dateNaissance: benef.dateNaissance,
-                nationalite: benef.nationalite,
-                sexe: benef.genre,
-                telephone: benef.telephone,
-                entreeFrance: benef.dateEntreeFrance,
-                inscription: benef.dateInscription,
-                cotisation: 0,
-                situationAdministrative: "Demandeur d'asile"
-            };
-
-            // Cotisation
-            await Cotisation
-                    .find({annee: annee, payeur: benef.id})
-                    .then(cot => {
-                        if(!cot[0]) {
-                            throw Error(`Cotisation inexistante pour ${annee}.`)
-                        } else {
-                            benefObj.cotisation = cot[0].montant;
-                            sails.log.debug(`BeneficiaireController - getAll - Cotisation OK`);
-                        }
-                    })
-                    .catch(error => {  
-                        sails.log.error(`BeneficiaireController - getAll - ERREUR - Cotisation KO - ${error.message}`); 
-                        benefObj.cotisation = 'NP -';
-                    });
-
-            // Situation Administrative 
-            await getSituation(benefObj.numCarte, (benefObj.dateNaissance.getFullYear() >= annee - 18 ), (benefObj.nationalite == "Française"))
-                    .then(sit => {
-                        benefObj.situationAdministrative = sit;
-                        sails.log.debug(`BeneficiaireController - getAll - Situation OK`);
-                    })
-                    .catch(error => {  
-                        sails.log.error(`BeneficiaireController - getAll - ERREUR - Situation KO - ${error.message}`); 
-                        benefObj.situationAdministrative = '?';
-                    });
-
-            // On les ajoute à la liste
-            data.benefs.push(benefObj);
-            
-        }
-
-        // Fonction de mise en forme de la date envoyée à la vue
-        data.setFormatDate = setFormatDate;
-
-        return res.view('pages/allBeneficiaires', { data });
-    },
-
-    async getByID(req, res) {
-        let params = req.allParams();
-        var data = {}
-
-        // Récupération du bénéficiaire et ses liaisons
-        await Beneficiaire
-                .findOne(params.id)
-                .populate('conjoint')
-                .populate('enfants')
-                .populate('cotisation', { sort: 'annee DESC' })
-                .populate('evenement', { sort: 'date DESC' })
-                .then(benef => {
-                    if(benef == undefined || benef == null) {
-                        throw Error(`Bénéficiaire de N° de carte ${params.id} inexistant.`)
-                    } else {
-                        data.benefObj = benef;
-                        sails.log.debug(`BeneficiaireController - getByID - Bénéficiaire ${benef.id} OK`);
-                    }  
-                })
-                .catch(error => {  
-                    sails.log.error(`BeneficiaireController - getByID - ERREUR : Impossible de récupérer le bénéficiaire - ${error.message}`); 
-                    data.error = error.message;
-                    return res.view('pages/profile', { data });
-                });
-        
-        // Fonction de mise en forme de la date envoyée à la vue
-        data.setFormatDate = setFormatDate;
-
-        return res.view('pages/profile', { data });
-    }
+    return res.json({ benefid: benefObj.id});
 };

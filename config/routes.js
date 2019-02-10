@@ -10,22 +10,27 @@
 
 module.exports.routes = {
 
+  /* ---- Acceuil ---- */
   '/': { view: 'pages/user/homepage', locals: { layout: false } },
 
-  'POST /login': { controller: 'User', action:'login' },
-  'GET /logout': { controller: 'User', action:'logout' },
-  'GET /logged': { controller: 'Logged', action:'welcome' },
+  /* ---- Utilisateur ---- */
+  'POST /login': 'user.login',
+  'GET /logout': 'user.logout',
+  'GET /logged': 'logged.welcome',
 
-  'POST /inscireBeneficiaire':  { controller: 'Beneficiaire', action: 'inscrire' },
-  'GET /newBeneficiaire':       { controller: 'Beneficiaire', action: 'addBenef' },
-  'GET /listeBeneficiaires':    { controller: 'Beneficiaire', action: 'getAll' },
-  'GET /profile/:id':           { controller: 'Beneficiaire', action: 'getByID' },
+  /* ---- Bénéficiaires ---- */
+  'POST /inscireBeneficiaire':  'beneficiaire/inscrire',
+  'GET /newBeneficiaire':       { view: 'pages/addBeneficiaire' },
+  'GET /listeBeneficiaires':    'beneficiaire/get-all',
+  'GET /profile/:id':           'beneficiaire/get-by-id',
 
-  'GET /statistiques':          { controller: 'Statistiques', action: 'getStats' },
-  'GET /statistiques/repCont':  { controller: 'Statistiques', action: 'getRepartitionContinent' },
-  'GET /statistiques/repHF':    { controller: 'Statistiques', action: 'getRepartitionHF' },
-  'GET /statistiques/nbInscr':  { controller: 'Statistiques', action: 'getInscritsParMois' },
+  /* ---- Statistiques ---- */
+  'GET /statistiques':          { view: 'pages/stats' },
+  'GET /statistiques/repCont':  'statistiques/get-repartition-continent',
+  'GET /statistiques/repHF':    'statistiques/get-repartition-hf',
+  'GET /statistiques/nbInscr':  'statistiques/get-inscrits-par-mois',
   
-  'GET /csrfToken': { action: "security/grant-csrf-token" }
+  /* ---- Sécurité ---- */
+  'GET /csrfToken': 'security/grant-csrf-token'
 
 };
