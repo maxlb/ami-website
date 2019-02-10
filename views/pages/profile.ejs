@@ -34,20 +34,25 @@
                 <!-- Identité -->
                 <div class="card blue">
                     <div class="card-content white-text">
-                        <span class="card-title">Identité<a href="" style="color: white"><i class="material-icons right">edit</i></a></span>
+                        <span class="card-title">
+                            Identité
+                            <a href="#modalIdentite" id="goingUpdateIdentite" class="btn modal-trigger right">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </span>
                         <ul class="collection">
                             <!-- Numéro de carte -->
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">card_membership</i>N° de carte AMI</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.id %></div>
+                                    <div id="numCarte" class="col s7 right-align"><%= data.benefObj.id %></div>
                                 </div>
                             </li>
                             <!-- Nom -->
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">person_outline</i>Nom</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.nom.toUpperCase() %></div>
+                                    <div id="nom" class="col s7 right-align"><%= data.benefObj.nom.toUpperCase() %></div>
                                 </div>
                             </li>
                             <% if (data.benefObj.genre == "F") { %>
@@ -55,7 +60,7 @@
                                 <li class="collection-item blue">
                                     <div class="row">
                                         <div class="col s5"><i class="material-icons left">person_outline</i>Nom de jeune fille</div>
-                                        <div class="col s7 right-align"><%= data.benefObj.nomJeuneFille %></div>
+                                        <div id="nomJF" class="col s7 right-align"><%= data.benefObj.nomJeuneFille %></div>
                                     </div>
                                 </li>
                             <% } %>
@@ -63,28 +68,28 @@
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">person_outline</i>Prénoms</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.prenom %></div>
+                                    <div id="prenom" class="col s7 right-align"><%= data.benefObj.prenom %></div>
                                 </div>
                             </li>
                             <!-- Date de naissance -->
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">cake</i>Date de naissance</div>
-                                    <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateNaissance) %></div>
+                                    <div id="dateNaissance" class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateNaissance) %></div>
                                 </div>
                             </li>
                             <!-- Nationalité -->
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">public</i>Nationalité</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.nationalite %></div>
+                                    <div id="nationalite" class="col s7 right-align"><%= data.benefObj.nationalite %></div>
                                 </div>
                             </li>
                             <!-- Pays de naissance -->
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">public</i>Pays de naissance</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.paysNaissance %></div>
+                                    <div id="paysNaissance" class="col s7 right-align"><%= data.benefObj.paysNaissance %></div>
                                 </div>
                             </li>
                         </ul>
@@ -763,6 +768,68 @@
 
 </div>
 
+
+ <!-- Modal Structure -->
+
+ <div id="modalIdentite" class="modal">
+    <div class="modal-content">
+      <h4>Mise à jour de l'identité</h4>
+       <!-- Nom, prénoms -->
+       <div class="row">
+            <div class="input-field col s6">
+              <i class="material-icons prefix default_color_text">person_outline</i>
+              <input id="MAJprenom" type="text" required class="validate">
+              <label for="MAJprenom">Prénoms</label>
+              <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
+            </div>
+            <div class="input-field col s6">
+              <input id="MAJnom" type="text" required class="validate">
+              <label for="MAJnom">Nom</label>
+              <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
+            </div>
+          </div>
+
+          <!-- Date de naissance et nom de jeune fille -->
+          <div class="row">
+            <% if (data.benefObj.genre == "F") { %>
+            <div class="input-field col s6">
+              <i class="material-icons prefix disabled_color_text">person_outline</i>
+              <input id="MAJnomJF" type="text" disabled>
+              <label for="MAJnomJF">Nom de jeune fille</label>
+            </div>
+            <% } %>
+            <div class="col s3">
+              <div class="input-field inline">
+                <i class="material-icons prefix default_color_text">today</i>
+                <input  id="MAJdateNaissance" type="text" required class="maxToday datepicker validate">
+                <label for="MAJdateNaissance">Date de naissance</label>
+                <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Nationalité, pays de naissance -->
+          <div class="row">
+            <div class="input-field col s6">
+              <i class="material-icons prefix default_color_text">public</i>
+              <input id="MAJnationalite" type="text" class="autocomplete nationalite validate" required> 
+              <label for="MAJnationalite">Nationalité</label>
+              <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
+            </div>
+            <div class="input-field col s6">
+              <i class="material-icons prefix default_color_text">public</i>
+              <input id="MAJpaysNaissance" type="text" class="autocomplete pays-naissance validate" required">
+              <label for="MAJpaysNaissance">Pays de naissance</label>
+              <span class="helper-text" data-error="Veuillez renseigner ce champs" data-success="">Champs obligatoire</span>
+            </div>
+          </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-red btn-flat">Annuler</a>
+        <a id="updateIdentite" href="#!" class="modal-close waves-effect waves-green btn-flat">Valider</a>
+    </div>
+  </div>
+
 <% } else { %>
     <div class="row">
         <div class="col s12 m6  offset-m3">
@@ -781,3 +848,5 @@
         </div>
     </div>
 <% } %>
+
+

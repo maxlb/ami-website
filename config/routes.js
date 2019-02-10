@@ -10,7 +10,7 @@
 
 module.exports.routes = {
 
-  /* ---- Acceuil ---- */
+  /* ---- Site externe ---- */
   '/': { view: 'pages/user/homepage', locals: { layout: false } },
 
   /* ---- Utilisateur ---- */
@@ -19,10 +19,11 @@ module.exports.routes = {
   'GET /logged': 'logged.welcome',
 
   /* ---- Bénéficiaires ---- */
-  'POST /inscireBeneficiaire':  'beneficiaire/inscrire',
-  'GET /newBeneficiaire':       { view: 'pages/addBeneficiaire' },
-  'GET /listeBeneficiaires':    'beneficiaire/get-all',
-  'GET /profile/:id':           'beneficiaire/get-by-id',
+  'POST /inscireBeneficiaire':                'beneficiaire/inscrire',
+  'POST /beneficiaires/updateIdentite':       'beneficiaire/update-identite',
+  'GET /newBeneficiaire':                     { view: 'pages/addBeneficiaire' },
+  'GET /listeBeneficiaires':                  'beneficiaire/get-all',
+  'GET /profile/:id':                         'beneficiaire/get-by-id',
 
   /* ---- Statistiques ---- */
   'GET /statistiques':          { view: 'pages/stats' },
