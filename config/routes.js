@@ -22,6 +22,7 @@ module.exports.routes = {
   'POST /inscireBeneficiaire':                'beneficiaire/inscrire',
   'POST /beneficiaires/updateIdentite':       'beneficiaire/update-identite',
   'POST /beneficiaires/updateCoordonnees':    'beneficiaire/update-coordonnees',
+  'POST /beneficiaires/updatePermisConduire': 'beneficiaire/update-permis-conduire',
   'GET /newBeneficiaire':                     { view: 'pages/addBeneficiaire' },
   'GET /listeBeneficiaires':                  'beneficiaire/get-all',
   'GET /profile/:id':                         'beneficiaire/get-by-id',

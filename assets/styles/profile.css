@@ -83,7 +83,7 @@
     padding: 0 9px;
 }
 
-#goingUpdateCoordonnees {
+#goingUpdateCoordonnees, #goingUpdatePermisConduire {
     background-color: white;
     color: #2196F3;
     height: 34px;
@@ -91,4 +91,8 @@
     line-height: 34px;
     border-radius: 50px;
     padding: 0 9px;
+}
+
+.aVoiture{
+    margin-top: 26px;
 }

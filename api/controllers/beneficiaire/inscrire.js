@@ -74,7 +74,7 @@ function setInfosPersos(benef, infos){
 
     /* Permis */
     benef.datePermis = getDateValue(infos.permis.date);
-    benef.aUneVouture = getBoolValue(infos.permis.aUneVoiture);
+    benef.aUneVoiture = getBoolValue(infos.permis.aUneVoiture);
 
     return benef;
 }

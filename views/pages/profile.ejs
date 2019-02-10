@@ -100,21 +100,26 @@
                 <!-- Permis -->
                 <div class="card white">
                     <div class="card-content blue-text">
-                        <span class="card-title">Permis de conduire</span>
+                        <span class="card-title">
+                            Permis de conduire
+                            <a href="#modalPermisConduire" id="goingUpdatePermisConduire" class="btn modal-trigger right">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </span>
 
                         <ul class="collection">
                             <!-- Date d'obtention -->
                             <li class="collection-item">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">today</i>Date d'obtention</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.datePermis ? data.setFormatDate(data.benefObj.datePermis) : "Jamais" %></div>
+                                    <div id="datePermis" class="col s7 right-align"><%= data.benefObj.datePermis ? data.setFormatDate(data.benefObj.datePermis) : "Jamais" %></div>
                                 </div>
                             </li>
                             <!-- A voiture -->
                             <li class="collection-item">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">drive_eta</i>A une voiture</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.aUneVouture ? "Oui" : "Non" %></div>
+                                    <div id="aUneVoiture" class="col s7 right-align"><%= data.benefObj.aUneVoiture ? "Oui" : "Non" %></div>
                                 </div>
                             </li>
 
@@ -897,6 +902,31 @@
         <a id="updateCoordonnees" href="#!" class="modal-close waves-effect waves-green btn-flat">Valider</a>
     </div>
 </div>
+
+   <!-- Modale MAJ Permis de conduire -->
+   <div id="modalPermisConduire" class="modal">
+        <div class="modal-content">
+            <h4>Mise à jour du permis de conduire</h4>
+            <div class="row">
+                <div class="input-field inline col s4">
+                    <i class="material-icons prefix default_color_text">today</i>
+                    <input  id="MAJdatePermis" type="text" required class="maxToday datepicker validate">
+                    <label for="MAJdatePermis">Date d'obtention</label>
+                </div>
+                <div class="switch col s8 aVoiture">
+                    Possède une voiture
+                    <label>
+                    <input type="checkbox" id="MAJaUneVoiture">
+                    <span class="lever"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-red btn-flat">Annuler</a>
+            <a id="updatePermisConduire" href="#!" class="modal-close waves-effect waves-green btn-flat">Valider</a>
+        </div>
+    </div>
 
 <% } else { %>
     <div class="row">

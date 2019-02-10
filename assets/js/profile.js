@@ -409,9 +409,13 @@ var datepickerConfigWithMaxDate = {
 var setModale = function (values) {
     values.forEach(value => {
         var text =  $('#' + value).text();
-        if( text != "" ) {
+        if ( text != "" && text != "Jamais" && text != "Oui" && text != "Non") {
             $('#MAJ' + value).val( $('#' + value).text() );
             $('#MAJ' + value + ' ~ label').addClass( 'active' );
+        } else if (text == "Oui" ) {
+            $('#MAJ' + value )[0].checked = true;
+        } else if (text == "Non") {
+            $('#MAJ' + value )[0].checked = false;
         }
     });
 }
@@ -447,6 +451,10 @@ var getValueFromField = function(field) {
     var field = $('#' + field)[0];
     return (!field) ? "" : field.value;
 }
+
+var getValueFromCheckBox = function(checkbox) {
+    return $('#'+checkbox).prop('checked');
+  }
 
 var getID = function() {
     return parseInt($('#numCarte')[0].innerText)
@@ -536,5 +544,32 @@ $('#updateCoordonnees').click(function() {
                     $('#telAvocat').text(data.numAvocat);
                     $('#telAssistanteSociale').text(data.numAssistSociale);
                     $('#telAssociation').text(data.numAsso);
+                })
+});
+
+
+/* ---- MAJ CARTE "Permis de conduire" ---- */
+
+// Préparation Modale
+$('#goingUpdatePermisConduire').click(function() {
+    valuesToUpdate = ['datePermis', 'aUneVoiture'];
+    setModale(valuesToUpdate);
+});
+// Envoi de la MAJ
+$('#updatePermisConduire').click(function() {
+
+    var newPermisConduire = {
+        id: getID(),
+        datePermis: getValueFromField('MAJdatePermis'),
+        aUneVoiture: getValueFromCheckBox('MAJaUneVoiture')
+    }
+
+    updateCard( newPermisConduire, 
+                'updatePermisConduire', 
+                function(data) {
+                    var date = data.datePermis == "" ? "Jamais" : data.datePermis;
+                    var aVoiture = data.aUneVoiture ? "Oui" : "Non"
+                    $('#datePermis').text(date);
+                    $('#aUneVoiture').text(aVoiture);
                 })
 });

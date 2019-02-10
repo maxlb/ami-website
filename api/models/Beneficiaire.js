@@ -34,7 +34,7 @@ module.exports = {
 
     /* Permis */
     datePermis: { type: 'ref', columnType: 'date'},
-    aUneVouture: { type: 'boolean' },
+    aUneVoiture: { type: 'boolean' },
 
     /* Contacts */
     numAvocat: { type: 'string', maxLength: 10 },
