@@ -19,7 +19,7 @@ module.exports = {
     /* Vie en France */
     resideEnFrance:  { type: 'boolean' },
     dateEntreeFrance: { type: 'ref', columnType: 'date' },
-    situationAdlinistrative : { type: 'string', required: true, maxLength: 255 },
+    situationAdministrative : { type: 'string', required: false, maxLength: 255 },
 
     /* Bénéficiaire lié  */
     beneficiaireLie:{

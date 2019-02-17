@@ -407,15 +407,22 @@ var datepickerConfigWithMaxDate = {
 }
 
 var setModale = function (values) {
+    var specialValues = ['', 'Jamais', 'Oui', 'Non'];
+    var situationValues = ['Célibataire', 'Marié.e', 'Pacsé.e', 'Concubin.e', 'Veuf.ve' ];
+
     values.forEach(value => {
         var text =  $('#' + value).text();
-        if ( text != "" && text != "Jamais" && text != "Oui" && text != "Non") {
+        if ( !specialValues.includes(text) && !situationValues.includes(text) ) {
             $('#MAJ' + value).val( $('#' + value).text() );
             $('#MAJ' + value + ' ~ label').addClass( 'active' );
-        } else if (text == "Oui" ) {
+        } else if (text == 'Oui' ) {
             $('#MAJ' + value )[0].checked = true;
-        } else if (text == "Non") {
+        } else if (text == 'Non') {
             $('#MAJ' + value )[0].checked = false;
+        } else if ( situationValues.includes(text) ) {
+            $('#MAJsituation').val( situationValues.indexOf(text).toString() ).formSelect();
+            setAvaibilityFieldsConjoint();
+            setAvaibilityFieldsEntreeFranceConjoint();
         }
     });
 }
@@ -460,12 +467,97 @@ var getID = function() {
     return parseInt($('#numCarte')[0].innerText)
 }
 
+var setIcon = function(field, active) {
+    if (active) {
+      $(field.parent()[0].children[0]).css('color', '#2196F3')
+    } else {
+      $(field.parent()[0].children[0]).css('color','rgba(0,0,0,0.42)')
+    }
+}
+
+var setAvaibilityFieldsConjoint = function() {
+    if($('#MAJsituation')[0].value == "0" || $('#MAJsituation')[0].value == "4") {
+  
+        $("#MAJdateSituation").attr('disabled',"disabled");
+        setIcon($("#MAJdateSituation"), false);
+    
+        $("#MAJprenomConjoint").attr('disabled',"disabled");
+        setIcon($("#MAJprenomConjoint"), false);
+        $("#MAJnomConjoint").attr('disabled',"disabled");
+    
+        $("#MAJdateNaissanceConjoint").attr('disabled',"disabled");
+        setIcon($("#MAJdateNaissanceConjoint"), false);
+        $("#MAJresideEnFranceConjoint").attr('disabled',"disabled");
+        $("#MAJdateEntreeFranceConjoint").attr('disabled',"disabled");
+        setIcon($("#MAJdateEntreeFranceConjoint"), false);
+    
+        $("#MAJsituationAdministrativeConjoint").attr('disabled',"disabled");
+        setIcon($("#MAJsituationAdministrativeConjoint"), false);
+        
+      } else {
+        $("#MAJdateSituation").removeAttr('disabled');
+        setIcon($("#MAJdateSituation"), true);
+    
+        $("#MAJprenomConjoint").removeAttr('disabled');
+        setIcon($("#MAJprenomConjoint"), true);
+        $("#MAJnomConjoint").removeAttr('disabled');
+    
+        $("#MAJdateNaissanceConjoint").removeAttr('disabled');
+        setIcon($("#MAJdateNaissanceConjoint"), true);
+        $("#MAJresideEnFranceConjoint").removeAttr('disabled');
+        $("#MAJdateEntreeFranceConjoint").removeAttr('disabled');
+        setIcon($("#MAJdateEntreeFranceConjoint"), true);
+    
+        $("#MAJsituationAdministrativeConjoint").removeAttr('disabled');
+        setIcon($("#MAJsituationAdministrativeConjoint"), true);
+      }
+}
+
+var setAvaibilityFieldsEntreeFranceConjoint = function() {
+
+    if($(this)[0].checked) {
+        $("#MAJdateEntreeFranceConjoint").removeAttr('disabled');
+      } else {
+        $("#MAJdateEntreeFranceConjoint").attr('disabled',"disabled");
+      }
+}
+
+function getSituation() {
+    var sit = parseInt(getValueFromField('MAJsituation'));
+    var text = "";
+  
+    switch (sit) {
+      case 0:
+        text = "Célibataire";
+        break;
+      case 1:
+        text = "Marié.e";
+        break;
+      case 2:
+        text = "Pacsé.e";
+        break;
+      case 3:
+        text = "Concubin.e";
+        break;
+      case 4:
+        text = "Veuf.ve";
+        break;
+    }
+  
+    return text;
+  }
+
+$('#MAJsituation').change( setAvaibilityFieldsConjoint() );
+
+$('#MAJresideEnFranceConjoint input').change( setAvaibilityFieldsEntreeFranceConjoint() );
+
 $(document).ready(function() {
 
     // Initialisations
     $('.tabs').tabs();
     $('.collapsible').collapsible();
     $('.modal').modal();
+    $('select').formSelect();
     $('.maxToday.datepicker').datepicker(datepickerConfigWithMaxDate);
     $('input.autocomplete.pays-naissance').autocomplete({ minLength: 2, data: listePays });
     $('input.autocomplete.nationalite').autocomplete({ minLength: 2, data: listeNationalites });
@@ -574,7 +666,7 @@ $('#updatePermisConduire').click(function() {
                 })
 });
 
-/* ---- MAJ CARTE "Niveau d'étude" ---- */
+/* ---- MAJ CARTE "Niveau d'études" ---- */
 
 // Préparation Modale
 $('#goingUpdateNiveauEtude').click(function() {
@@ -599,5 +691,42 @@ $('#updateNiveauEtudes').click(function() {
                     $('#etudesSup').text(data.etudesSup);
                     $('#comprendFr').text(compFR);
                     $('#aLeBac').text(aBac);
+                })
+});
+
+/* ---- MAJ CARTE "Le/la conjoint.e" ---- */
+
+// Préparation Modale
+$('#goingUpdateConjoint').click(function() {
+    valuesToUpdate = ['situation', 'dateSituation', 'prenomConjoint', 'nomConjoint', 'dateNaissanceConjoint', 'resideEnFranceConjoint', 'dateEntreeFranceConjoint', 'situationAdministrativeConjoint'];
+    setModale(valuesToUpdate);
+});
+// Envoi de la MAJ
+$('#updateConjoint').click(function() {
+
+    var newConjoint = {
+        id: getID(),
+        situation: getSituation(),
+        dateSituation: getValueFromField('MAJdateSituation'),
+        prenomConjoint: getValueFromField('MAJprenomConjoint'),
+        nomConjoint: getValueFromField('MAJnomConjoint'),
+        dateNaissanceConjoint: getValueFromField('MAJdateNaissanceConjoint'),
+        resideEnFranceConjoint: getValueFromCheckBox('MAJresideEnFranceConjoint'),
+        dateEntreeFranceConjoint: getValueFromField('MAJdateEntreeFranceConjoint'),
+        situationAdministrativeConjoint: getValueFromField('MAJsituationAdministrativeConjoint')
+    }
+
+    updateCard( newConjoint, 
+                'updateConjoint', 
+                function(data) {
+                    var resideEnFrance = data.resideEnFranceConjoint ? "Oui" : "Non"
+                    $('#situation').text(data.situation);
+                    $('#dateSituation').text(data.dateSituation);
+                    $('#prenomConjoint').text(data.prenomConjoint);
+                    $('#nomConjoint').text(data.nomConjoint);
+                    $('#dateNaissanceConjoint').text(data.dateNaissanceConjoint);
+                    $('#resideEnFrance').text(resideEnFrance);
+                    $('#dateEntreeFranceConjoint').text(data.dateEntreeFranceConjoint);
+                    $('#situationAdministrativeConjoint').text(data.situationAdministrativeConjoint);
                 })
 });

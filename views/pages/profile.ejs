@@ -131,14 +131,19 @@
                 <!-- Situation -->
                 <div class="card blue">
                     <div class="card-content white-text">
-                        <span class="card-title">Le/la conjoint.e</span>
+                        <span class="card-title">
+                            Le/la conjoint.e
+                            <a href="#modalConjoint" id="goingUpdateConjoint" class="btn modal-trigger right">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </span>
                         <ul class="collection">
 
                             <!-- Situation -->
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">people</i>Situation</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.situation %></div>
+                                    <div id="situation" class="col s7 right-align"><%= data.benefObj.situation %></div>
                                 </div>
                             </li>
                             <% if (data.benefObj.situation !== "Célibataire" && data.benefObj.situation !== "Veuf.ve" && data.benefObj.conjoint[0] !== undefined && data.benefObj.conjoint[0] !== null) { %>
@@ -146,35 +151,35 @@
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">today</i>Date de l'évènement</div>
-                                    <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateSituation) %></div>
+                                    <div id="dateSituation" class="col s7 right-align"><%= data.setFormatDate(data.benefObj.dateSituation) %></div>
                                 </div>
                             </li>
                             <!-- Prénom conjoint -->
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">person_outline</i>Prénom</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.conjoint[0].prenom %></div>
+                                    <div id="prenomConjoint" class="col s7 right-align"><%= data.benefObj.conjoint[0].prenom %></div>
                                 </div>
                             </li>
                             <!-- Nom conjoint -->
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">person_outline</i>Nom</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.conjoint[0].nom.toUpperCase() %></div>
+                                    <div id="nomConjoint" class="col s7 right-align"><%= data.benefObj.conjoint[0].nom.toUpperCase() %></div>
                                 </div>
                             </li>
                             <!-- Date de naissance conjoint -->
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">cake</i>Date de naissance</div>
-                                    <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.conjoint[0].dateNaissance) %></div>
+                                    <div id="dateNaissanceConjoint" class="col s7 right-align"><%= data.setFormatDate(data.benefObj.conjoint[0].dateNaissance) %></div>
                                 </div>
                             </li>
                             <!-- Réside en France -->
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">room</i>Réside en France</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.conjoint[0].resideEnFrance ? "Oui" : "Non" %></div>
+                                    <div id="resideEnFranceConjoint" class="col s7 right-align"><%= data.benefObj.conjoint[0].resideEnFrance ? "Oui" : "Non" %></div>
                                 </div>
                             </li>
                             <% if (data.benefObj.conjoint[0].resideEnFrance) { %>
@@ -182,7 +187,7 @@
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">today</i>Date d'entrée en France</div>
-                                    <div class="col s7 right-align"><%= data.setFormatDate(data.benefObj.conjoint[0].dateEntreeFrance) %></div>
+                                    <div id="dateEntreeFranceConjoint" class="col s7 right-align"><%= data.setFormatDate(data.benefObj.conjoint[0].dateEntreeFrance) %></div>
                                 </div>
                             </li>
                             <% } %>
@@ -190,7 +195,7 @@
                             <li class="collection-item blue">
                                 <div class="row">
                                     <div class="col s5"><i class="material-icons left">gavel</i>Situation administrative</div>
-                                    <div class="col s7 right-align"><%= data.benefObj.conjoint[0].situationAdlinistrative %></div>
+                                    <div id="situationAdministrativeConjoint" class="col s7 right-align"><%= data.benefObj.conjoint[0].situationAdministrative %></div>
                                 </div>
                             </li>
                             <% }  %>
@@ -964,6 +969,77 @@
         <a id="updateNiveauEtudes" href="#!" class="modal-close waves-effect waves-green btn-flat">Valider</a>
     </div>
 </div>
+
+<!-- Modale MAJ Conjoint -->
+<div id="modalConjoint" class="modal">
+        <div class="modal-content">
+            <h4>Mise à jour du/de la conjoint.e</h4>
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix default_color_text">people</i>
+                    <select id="MAJsituation">
+                        <option value="0">Célibataire</option>
+                        <option value="1">Marié.e</option>
+                        <option value="2">Pacsé.e</option>
+                        <option value="3">Concubin.e</option>
+                        <option value="4">Veuf.ve</option>
+                    </select>
+                    <label>Situation</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix disabled_color_text">today</i>
+                    <input id="MAJdateSituation" type="text" class="maxToday datepicker" disabled>
+                    <label for="MAJdateSituation">Depuis le</label>
+                </div>
+            </div>
+            <!-- Nom, prénopm -->
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix disabled_color_text">person_outline</i>
+                    <input id="MAJprenomConjoint" type="text" disabled>
+                    <label for="MAJprenomConjoint">Prénoms du/de la conjoint.e</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="MAJnomConjoint" type="text" disabled>
+                    <label for="MAJnomConjoint">Nom du/de la conjoint.e</label>
+                </div>
+            </div>
+    
+            <!-- Date de naissance, vit en France, date d'entrée -->
+            <div class="row">
+                <div class="input-field inline col s4">
+                    <i class="material-icons prefix disabled_color_text">today</i>
+                    <input  id="MAJdateNaissanceConjoint" type="text" class="maxToday datepicker" disabled>
+                    <label for="MAJdateNaissanceConjoint">Date de naissance du/de la conjoint.e</label>
+                </div>
+                <div class="switch col s4 resideFranceConjoint">
+                    Réside en France
+                    <label>
+                    <input id="MAJresideEnFranceConjoint" type="checkbox" disabled>
+                    <span class="lever"></span>
+                    </label>
+                </div>
+                <div class="input-field col s4">
+                    <i class="material-icons prefix disabled_color_text">today</i>
+                    <input id="MAJdateEntreeFranceConjoint" type="text" class="maxToday datepicker" disabled>
+                    <label for="MAJdateEntreeFranceConjoint">Depuis le</label>
+                </div>
+            </div>
+    
+            <!-- Situation administrative -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix disabled_color_text">gavel</i>
+                    <input id="MAJsituationAdministrativeConjoint" type="text" disabled>
+                    <label for="MAJsituationAdministrativeConjoint">Situation administrative du/de la conjoint.e</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-red btn-flat">Annuler</a>
+            <a id="updateConjoint" href="#!" class="modal-close waves-effect waves-green btn-flat">Valider</a>
+        </div>
+    </div>
 
 <% } else { %>
     <div class="row">

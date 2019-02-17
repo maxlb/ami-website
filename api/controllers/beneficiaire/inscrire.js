@@ -143,7 +143,7 @@ function buildConjointFromParams(params) {
             /* Vie en France */
             resideEnFrance:  getBoolValue(params.resideFrance),
             dateEntreeFrance: getDateValue(params.dateEntreeFrance),
-            situationAdlinistrative : getStringValue(params.situation),
+            situationAdministrative : getStringValue(params.situation),
         };
 
         return conjoint;
@@ -267,7 +267,7 @@ function getBoolValue(value){
 function getDateValue(value){
     if (value != "" && value != null) {
         var splitDate = value.split('/');
-        return new Date(splitDate[2], splitDate[1], splitDate[0]);
+        return new Date(splitDate[2], parseInt(splitDate[1]) - 1, splitDate[0]);
     }
     return null;
 }

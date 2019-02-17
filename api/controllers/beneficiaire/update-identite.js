@@ -23,7 +23,7 @@ var setFormatDate = function(date) {
 var getDateValue = function(date){
     if (date != "" && date != null) {
         var splitDate = date.split('/');
-        return new Date(splitDate[2], splitDate[1], splitDate[0]);
+        return new Date(splitDate[2], parseInt(splitDate[1]) - 1, splitDate[0]);
     }
     return null;
 }
