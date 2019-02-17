@@ -573,3 +573,31 @@ $('#updatePermisConduire').click(function() {
                     $('#aUneVoiture').text(aVoiture);
                 })
 });
+
+/* ---- MAJ CARTE "Niveau d'étude" ---- */
+
+// Préparation Modale
+$('#goingUpdateNiveauEtude').click(function() {
+    valuesToUpdate = ['comprendFr', 'aLeBac', 'etudesSup'];
+    setModale(valuesToUpdate);
+});
+// Envoi de la MAJ
+$('#updateNiveauEtudes').click(function() {
+
+    var newNiveauEtudes = {
+        id: getID(),
+        comprendFr: getValueFromCheckBox('MAJcomprendFr'),
+        aLeBac: getValueFromCheckBox('MAJaLeBac'),
+        etudesSup: getValueFromField('MAJetudesSup')
+    }
+
+    updateCard( newNiveauEtudes, 
+                'updateNiveauEtudes', 
+                function(data) {
+                    var compFR = data.comprendFr ? "Oui" : "Non"
+                    var aBac = data.aLeBac ? "Oui" : "Non"
+                    $('#etudesSup').text(data.etudesSup);
+                    $('#comprendFr').text(compFR);
+                    $('#aLeBac').text(aBac);
+                })
+});

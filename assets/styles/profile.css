@@ -74,7 +74,7 @@
     z-index: auto;
 }
 
-#goingUpdateIdentite {
+#goingUpdateIdentite, #goingUpdateNiveauEtude {
     background-color: #2196F3;
     height: 34px;
     width: 34px;
@@ -93,6 +93,6 @@
     padding: 0 9px;
 }
 
-.aVoiture{
+.btn-switch{
     margin-top: 26px;
 }

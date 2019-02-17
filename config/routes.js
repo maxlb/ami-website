@@ -23,6 +23,7 @@ module.exports.routes = {
   'POST /beneficiaires/updateIdentite':       'beneficiaire/update-identite',
   'POST /beneficiaires/updateCoordonnees':    'beneficiaire/update-coordonnees',
   'POST /beneficiaires/updatePermisConduire': 'beneficiaire/update-permis-conduire',
+  'POST /beneficiaires/updateNiveauEtudes':   'beneficiaire/update-niveau-etudes',
   'GET /newBeneficiaire':                     { view: 'pages/addBeneficiaire' },
   'GET /listeBeneficiaires':                  'beneficiaire/get-all',
   'GET /profile/:id':                         'beneficiaire/get-by-id',
